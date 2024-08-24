@@ -17,42 +17,31 @@ export WORKSPACE=~/workspace
 
 export SPACESHIP_PROMPT_ORDER=(
   time          # Time stamps section
-  # user          # Username section
   dir           # Current directory section
-  # host          # Hostname section
   git           # Git section (git_branch + git_status)
-  # package       # Package version
+
+  ansible
+  aws
+  azure
+  docker        # Docker section
+  docker_compose
+  golang
+  lua
   node          # Node.js section
-  # ruby          # Ruby section
-  # golang        # Go section
-  # php           # PHP section
-  # rust          # Rust section
-  # haskell       # Haskell Stack section
-  # julia         # Julia section
-  # docker        # Docker section
-  # aws           # Amazon Web Services section
+  python
   venv          # virtualenv section
-  # pyenv         # Pyenv section
-  # dotnet        # .NET section
-  # kubecontext   # Kubectl context section
-  # terraform     # Terraform workspace section
+
+  async
   exec_time     # Execution time
-  # line_sep      # Line break
   battery       # Battery level and status
-  # vi_mode       # Vi-mode indicator
-  # jobs          # Background jobs indicator
+  sudo
   exit_code     # Exit code section
   char          # Prompt character
 )
 
+export SPACESHIP_DIR_TRUNC_REPO=true
 export SPACESHIP_RPROMPT_ADD_NEWLINE=true
-# export SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
-# export SPACESHIP_TIME_SHOW=true
-# export SPACESHIP_DIR_TRUNC_PREFIX="…"
-# export SPACESHIP_EXIT_CODE_SHOW=true
-export SPACESHIP_VI_MODE_INSERT=I
-export SPACESHIP_VI_MODE_NORMAL=N
-export SPACESHIP_VI_MODE_COLOR=#303030
+export SPACESHIP_TIME_SHOW=true
 
 export SPACESHIP_BATTERY_THRESHOLD=50
 export SPACESHIP_CHAR_SUFFIX=" "
