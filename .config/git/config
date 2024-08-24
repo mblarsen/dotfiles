@@ -1,0 +1,45 @@
+[user]
+	email = mbl@code.boutique
+	signingkey = BD7E6FB71A4781BE
+	name = Michael Bøcker-Larsen
+[core]
+	editor = nvim
+[commit]
+	gpgsign = true
+[alias]
+	gbd = git delete-branch
+	root = rev-parse --show-toplevel
+	continue = "!f() { git commit --edit --file=$(git rev-parse --git-dir)/COMMIT_EDITMSG; }; f"
+	difft = difftool
+	recent = for-each-ref \
+		--sort=-committerdate \
+		--format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) (%(color:green)%(committerdate:relative)%(color:reset))' \
+		refs/heads
+[pull]
+	rebase = merges
+[init]
+	defaultBranch = main
+[rerere]
+	enabled = true
+[branch]
+	sort = -committerdate
+[rebase]
+	autosquash = true
+	updateRefs = false
+[push]
+	default = current
+[help]
+	autocorrect = prompt
+[diff]
+	; algorithm = histogram
+  external = difft
+  tool = difftastic
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+  difftool = true
+[fetch]
+	prune = true
+	prunetags = true
