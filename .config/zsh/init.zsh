@@ -18,26 +18,26 @@ zplug "zimfw/git", use:"init.zsh"  aliases-prefix 'g'
 # https://github.com/zimfw/utility
 zplug "zimfw/utility", use:"init.zsh"
 
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/direnv
-zplug "plugins/direnv", from:"oh-my-zsh"
+from_oh_my_zsh=(
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/direnv
+  direnv
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/fzf
+  fzf
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vi-mode
+  vi-mode
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gh
+  gh
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/brew
+  brew
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git-commit
+  git-commit
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/nvm
+  nvm
+)
 
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/fzf
-zplug "plugins/fzf", from:"oh-my-zsh"
-
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vi-mode
-zplug "plugins/vi-mode", from:"oh-my-zsh"
-
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gh
-zplug "plugins/gh", from:"oh-my-zsh"
-
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/brew
-zplug "plugins/brew", from:"oh-my-zsh"
-
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git-commit
-zplug "plugins/git-commit", from:"oh-my-zsh"
-
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/nvm
-zplug "plugins/nvm", from:"oh-my-zsh"
+for plugin in "${from_oh_my_zsh[@]}"; do
+  zplug "plugins/${plugin}", from:"oh-my-zsh"
+done
 
 # https://github.com/zsh-users/zsh-autosuggestions
 zplug "zsh-users/zsh-autosuggestions", use:"zsh-autosuggestions.zsh"
