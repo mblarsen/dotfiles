@@ -20,9 +20,6 @@ export SPACESHIP_PROMPT_ORDER=(
   dir           # Current directory section
   git           # Git section (git_branch + git_status)
 
-  ansible
-  aws
-  azure
   docker        # Docker section
   docker_compose
   golang
@@ -31,7 +28,6 @@ export SPACESHIP_PROMPT_ORDER=(
   python
   venv          # virtualenv section
 
-  async
   exec_time     # Execution time
   battery       # Battery level and status
   sudo
