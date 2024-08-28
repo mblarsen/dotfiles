@@ -8,6 +8,11 @@ vim.opt.shortmess:append "c"
 local lspkind = require "lspkind"
 
 cmp.setup {
+  performance = {
+    debounce = 0, -- default is 60ms
+    throttle = 0, -- default is 30ms
+    max_view_entries = 75,
+  },
   formatting = {
     expandable_indicator = true,
     fields = { "abbr", "kind", "menu" },
@@ -16,7 +21,7 @@ cmp.setup {
       maxwidth = function()
         return math.floor(0.45 * vim.o.columns)
       end,
-      ellipsis_char = "...",
+      ellipsis_char = "…",
       show_labelDetails = true,
     },
   },
@@ -31,10 +36,13 @@ cmp.setup {
   }, {
     { name = "buffer" },
   }),
-  mapping = cmp.mapping.preset.insert {
+  -- mapping = cmp.mapping.preset.insert {
+  mapping = {
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
     ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-h>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-l>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping.abort(),
     ["<C-y>"] = cmp.mapping(
       cmp.mapping.confirm {
@@ -43,9 +51,6 @@ cmp.setup {
       },
       { "i", "c" }
     ),
-  },
-  performance = {
-    max_view_entries = 75,
   },
   snippet = {
     expand = function(args)

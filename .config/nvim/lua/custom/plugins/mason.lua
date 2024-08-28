@@ -6,7 +6,8 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "hrsh7th/nvim-cmp",
+    -- "hrsh7th/nvim-cmp",
+    { "yioneko/nvim-cmp", branch = "perf" },
     "b0o/schemastore.nvim",
   },
   config = function(_, opts)
