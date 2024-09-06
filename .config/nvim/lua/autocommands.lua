@@ -53,7 +53,13 @@ autocmd({ "LspAttach" }, {
 
     -- for each callback, call it with the event
     for _, cb in ipairs(on_attach_callbacks) do
-      cb(buf, client, event)
+      if type(cb) == "function" then
+        cb(buf, client, event)
+      elseif type(cb) == "table" then
+        print "cb is a table, cannot call it as a function"
+      else
+        print "cb is neither a table nor a function"
+      end
     end
 
     -- vim.diagnostic.config { virtual_text = false }
