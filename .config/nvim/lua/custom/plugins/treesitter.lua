@@ -33,7 +33,7 @@ return {
         "yaml",
       },
       highlight = {
-        enable = false,
+        enable = true,
       },
       indent = {
         enable = true,
