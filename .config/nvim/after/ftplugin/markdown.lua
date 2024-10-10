@@ -6,10 +6,6 @@ opt.linebreak = true
 opt.relativenumber = false
 opt.conceallevel = 2
 
-vim.keymap.set({ "i", "n" }, "g<CR>", "<Plug>(TodoneToggle)")
-vim.keymap.set({ "i", "n" }, "g<BS>", "<Plug>(TodoneRemove)")
-vim.keymap.set("n", "<leader>ft", "<Plug>(TodoneTelescope)")
-
 local M = {}
 
 M.HighlightAt = function()
