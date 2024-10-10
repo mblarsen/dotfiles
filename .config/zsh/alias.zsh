@@ -24,6 +24,7 @@ alias yia="yadm add"
 alias yir="yadm reset"
 alias yp="yadm push"
 alias yco="yadm checkout"
+alias ys="yadm status"
 alias ywS="yadm status"
 alias ylg="yadm log --graph --branches --remotes --pretty=format:\"%C(bold yellow)%h%C(reset) %s%C(auto)%d%C(reset)\""
 
