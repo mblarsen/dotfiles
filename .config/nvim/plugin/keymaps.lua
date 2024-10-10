@@ -4,8 +4,6 @@ set("t", "<Esc>", "<C-\\><C-n><C-w>p", { desc = "Easy exit terminal" })
 set("n", "<leader>x", "<cmd>bd<CR>", { desc = "Close the current buffer" })
 set("n", "<leader>X", "<cmd>bd!<CR>", { desc = "Force close the current buffer" })
 set("n", "<leader>W", "<cmd>w | bd<CR>", { desc = "Write buffer and close it" })
-set("n", "n", "nzzzv", { desc = "Next occurrence" })
-set("n", "N", "Nzzzv", { desc = "Next occurrence" })
 set("n", "[c", "<cmd>cnext<CR>", { desc = "Go to next quixfix entry" })
 set("n", "]c", "<cmd>cprev<CR>", { desc = "Go to previous quixfix entry" })
 set("n", "<esc>", "<cmd>nohls<cr>")
@@ -18,7 +16,6 @@ set("n", "<C-n>", '"wyiw:let @/=@w<cr>n``cgn', { desc = "Search and replace word
 -- set("n", "<C-n>", "*``cgn", { desc = "Search and replace word on cursor" })
 set("v", "<C-n>", '"hy:let @/=@h<cr>cgn', { desc = "Change selection inline one by one" })
 set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change selection with regexp" })
-set("i", "<c-p>", require("telescope.builtin").registers, { desc = "Paste from telescope registers" })
 set("n", "<leader>yf", ":%y<cr>", { desc = "Yank file" })
 
 set("n", "gti", function()
@@ -26,3 +23,11 @@ set("n", "gti", function()
   local filter = { bufnr = 0 }
   inlay_hint.enable(not inlay_hint.is_enabled(filter), filter)
 end, { desc = "Toggle inlay hint" })
+
+set("n", "<leader>np", function()
+  vim.notify(vim.fn.expand "%")
+end, { desc = "Notify current (file) path", noremap = true, silent = true })
+
+set("n", "<leader>nf", function()
+  vim.notify(vim.fn.expand "%:t")
+end, { desc = "Notify current file name", noremap = true, silent = true })
