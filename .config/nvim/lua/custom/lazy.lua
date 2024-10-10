@@ -5,6 +5,9 @@ require("lazy").setup({
   change_detection = {
     notify = false,
   },
+  install = {
+    colorscheme = { "rose-pine" },
+  },
   ui = {
     border = "rounded",
     size = {
@@ -13,8 +16,3 @@ require("lazy").setup({
     },
   },
 })
-
--- set colorscheme
--- vim.cmd [[colorscheme tokyonight]]
--- make the background transparent
--- vim.api.nvim_set_hl(0, "Normal", { bg = "None" })

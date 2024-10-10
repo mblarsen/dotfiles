@@ -34,10 +34,20 @@ return {
         require("mini.files").open(vim.api.nvim_buf_get_name(0))
       end, { desc = "Open parent directory" })
 
+      require("mini.git").setup()
       require("mini.surround").setup()
       require("mini.operators").setup()
     end,
   },
+  -- require("mini.indentscope").setup {
+  --   draw = {
+  --     animation = function(s, n)
+  --       return s / n * 20
+  --     end,
+  --     -- animation = require("mini.indentscope").gen_animation.cubic(),
+  --   },
+  --   symbol = "│",
+  -- }
   -- {
   --   "echasnovski/mini.basics",
   --   version = false,

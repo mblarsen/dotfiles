@@ -1,3 +1,4 @@
+-- Hides config values, useful when sharing screen
 return {
   "laytan/cloak.nvim",
   event = { "BufRead" },
