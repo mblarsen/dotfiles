@@ -14,8 +14,6 @@ local function tokyo_night(config)
 end
 
 function M.configure(config)
-  config.default_cursor_style = 'BlinkingBar'
-
   rose_pine(config)
   -- tokyo_night(config)
 end
