@@ -1,5 +1,7 @@
 return {
   "NStefan002/screenkey.nvim",
+  keys = { "gts" },
+  cmd = { "Screenkey" },
   opts = {
     clear_after = 3,
     group_mappings = true,

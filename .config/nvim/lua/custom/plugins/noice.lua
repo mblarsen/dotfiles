@@ -14,7 +14,7 @@ return {
           silent = true,
         },
         progress = {
-          enabled = false,
+          enabled = true,
         },
       },
       messages = {

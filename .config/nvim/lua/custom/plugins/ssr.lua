@@ -1,5 +1,6 @@
 return {
   "cshuaimin/ssr.nvim",
+  keys = { "<leader>sr" },
   config = function()
     require("ssr").setup {
       border = "rounded",

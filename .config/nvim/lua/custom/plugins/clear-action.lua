@@ -1,5 +1,6 @@
 return {
   "luckasRanarison/clear-action.nvim",
+  event = { "BufReadPre" },
   config = function()
     require("clear-action").setup {
       signs = {

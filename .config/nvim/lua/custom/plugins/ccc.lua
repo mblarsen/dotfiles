@@ -2,6 +2,7 @@
 -- https://github.com/uga-rosa/ccc.nvim
 return {
   "uga-rosa/ccc.nvim",
+  cmd = { "CccPick" },
   config = function()
     require("ccc").setup {
       highlighter = {

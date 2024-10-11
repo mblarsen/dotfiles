@@ -16,7 +16,7 @@ return {
           left_bottom = "╰",
           right_arrow = ">",
         },
-        style = "#FFD700",
+        style = "#c280e6",
       },
       indent = {
         enable = true,
@@ -28,8 +28,8 @@ return {
           end,
         },
         style = {
-          "#3f3c52",
-          "#57536F",
+          "#373647",
+          "#414658",
         },
       },
       line_num = {
