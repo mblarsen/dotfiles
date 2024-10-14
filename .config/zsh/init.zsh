@@ -3,10 +3,15 @@ source "$HOME/.config/zsh/paths.zsh"
 
 zstyle ':zim' input_mode='vi' # hmm, probably not used sinze
 
+# disable automatic init
+zstyle ':zim:*' use-compinit false
+
 source "$ZPLUG_HOME/init.zsh"
 
 # https://github.com/zimfw/completion
-zplug "zimfw/completion", use:"init.zsh"
+# conflict with compinit so disabled for now
+# may not need it
+# zplug "zimfw/completion", use:"init.zsh"
 
 # https://github.com/zimfw/environment
 zplug "zimfw/environment", use:"init.zsh"
@@ -54,7 +59,10 @@ zplug "agkozak/zsh-z"
 if ! zplug check --verbose; then
   zplug install
 fi
+
 zplug load
+
+autoload -Uz compinit && compinit
 
 source "$HOME/.config/zsh/alias.zsh"
 source "$HOME/.config/zsh/envs.zsh"
