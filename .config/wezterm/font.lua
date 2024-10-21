@@ -4,8 +4,8 @@ local M = {}
 
 ---@diagnostic disable-next-line: unused-function, unused-local
 local function mono_lisa(config)
-  config.line_height = 1.2
-  config.font_size = 16.0
+  config.line_height = 1.1
+  config.font_size = 15.0
   config.font = wezterm.font 'MonoLisa MonoLisaCustom'
 end
 

@@ -14,4 +14,6 @@ nvim.configure(config)
 theme.configure(config)
 ui.configure(config)
 
+config.scrollback_lines = 10000
+
 return config
