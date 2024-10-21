@@ -2,6 +2,7 @@ local no_remap = { noremap = true }
 
 return {
   "letieu/wezterm-move.nvim",
+  keys = { "gtl", "gth", "gtk", "gtj" },
   config = function()
     vim.keymap.set("n", "gth", function()
       require("wezterm-move").move "h"

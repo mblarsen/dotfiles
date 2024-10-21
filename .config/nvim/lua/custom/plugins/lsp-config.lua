@@ -20,6 +20,7 @@ return {
         "lua_ls",
         "taplo",
         "typos_lsp",
+        "pyright",
         "yamlls",
       },
       handlers = {

@@ -1,5 +1,6 @@
 return {
   "chrisgrieser/nvim-spider",
+  event = { "BufReadPre" },
   config = function()
     require("spider").setup {
       skipInsignificantPunctuation = true,
