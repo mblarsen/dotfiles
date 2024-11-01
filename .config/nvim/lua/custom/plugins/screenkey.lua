@@ -1,5 +1,6 @@
 return {
   "NStefan002/screenkey.nvim",
+  enabled = false,
   keys = { "gts" },
   cmd = { "Screenkey" },
   opts = {
