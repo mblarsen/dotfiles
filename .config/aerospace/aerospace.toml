@@ -99,12 +99,12 @@ slash = 'slash'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 24
-inner.vertical =   24
-outer.left =       24
-outer.bottom =     24
-outer.top =        24
-outer.right =      24
+inner.horizontal = 8
+inner.vertical =   8
+outer.left =       6
+outer.bottom =     6
+outer.top =        6
+outer.right =      6
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -270,6 +270,13 @@ run = ['move-node-to-workspace W']
 
 [[on-window-detected]]
 if.app-id = "com.apple.Safari"
+run = ['move-node-to-workspace W']
+
+[[on-window-detected]]
+if.app-id = "com.cron.electron"
+run = ['move-node-to-workspace W']
+[[on-window-detected]]
+if.app-id = "notion.io"
 run = ['move-node-to-workspace W']
 
 [[on-window-detected]]
