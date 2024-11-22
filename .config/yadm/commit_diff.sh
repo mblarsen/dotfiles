@@ -21,7 +21,7 @@ A few rules:
 - Only output the message, not meta chatter
 - Exclude permission changes
 - For the commit messages I'd like the subject line to start with the subject
-  word I provide and if not provided use the parent folder as the subject. E.g.
+  word I provide and if not provided use the parent folder with .config/ (excludindg .config/) as the subject. E.g.
   "nvim: change colorscheme" or "wezterm: reduce font size"
 - Try to get the change into the subject line of the commit message but not required, 
   you can use the body as well if there are more changes than fits in the subject
@@ -45,13 +45,15 @@ $git_diff"
 
 escaped_prompt=$(printf '%s' "$prompt" | jq -Rsa .)
 
-response=$(curl -s -X POST https://api.openai.com/v1/chat/completions \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
+api_key=$(op read $OPENAI_API_KEY)
+
+response=$(op run -- curl -s -X POST https://api.openai.com/v1/chat/completions \
+  -H "Authorization: Bearer $api_key" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "'"$model"'",
     "messages": [{"role": "user", "content": '"$escaped_prompt"'}],
-    "max_tokens": 2000
+    "max_tokens": 2500
   }')
 
 echo $response | jq -r '.choices[0].message.content'

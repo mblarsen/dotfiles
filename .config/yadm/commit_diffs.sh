@@ -2,7 +2,14 @@
 
 cd "$(dirname "$0")"
 
-subjects=(aerospace nvim wezterm yadm zsh)
+subjects=(
+  aerospace
+  git
+  nvim
+  wezterm
+  yadm
+  zsh
+)
 
 for subject in "${subjects[@]}"; do
   commit_message=$(./commit_diff.sh "$subject")
