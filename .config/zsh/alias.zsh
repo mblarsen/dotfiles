@@ -36,14 +36,6 @@ alias pkd="cat package.json | jq '.dependencies'"
 alias pkdd="cat package.json | jq '.devDependencies'"
 alias pks="cat package.json | jq '.scripts'"
 
-# Steampipe
-alias spq="steampipe query"
-alias spd="steampipe dashboard"
-alias spi="steampipe plugin install"
-alias spI="steampipe plugin list"
-alias smi="steampipe mod install"
-alias smI="steampipe mod list"
-
 # Docker
 alias dodo="docker compose down"
 alias dodr="docker compose down --remove-orphans"

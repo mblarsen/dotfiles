@@ -1,5 +1,4 @@
 source "$HOME/.config/zsh/vars.zsh"
-source "$HOME/.config/zsh/paths.zsh"
 
 zstyle ':zim' input_mode='vi' # hmm, probably not used sinze
 
@@ -62,11 +61,11 @@ fi
 
 zplug load
 
+# Wezterm completion
+if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
+  eval "$(wezterm shell-completion --shell zsh)"; compdef _wezterm wezterm
+fi
+
 autoload -Uz compinit && compinit
 
 source "$HOME/.config/zsh/alias.zsh"
-source "$HOME/.config/zsh/envs.zsh"
-source "$HOME/.config/zsh/tools.zsh"
-
-
-# export JAVA_HOME=$(/usr/libexec/java_home -v 17)
