@@ -1,9 +1,9 @@
 return {
   "nvchad/showkeys",
-  -- keys = { "gts" },
-  -- cmd = { "ShowkeysToggle" },
+  keys = { "gts" },
+  cmd = { "ShowkeysToggle" },
   opts = {
-    timeout = 1,
+    timeout = 2,
     maxkeys = 7,
     showcount = true,
     position = "bottom-center",
@@ -13,6 +13,6 @@ return {
   config = function(_, opts)
     require("showkeys").setup(opts)
     vim.keymap.set("n", "gts", "<Cmd>ShowkeysToggle<cr>", { desc = "Toggle Showkeys", silent = true })
-    vim.cmd [[ShowkeysToggle]]
+    -- vim.cmd [[ShowkeysToggle]]
   end,
 }

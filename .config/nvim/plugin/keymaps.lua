@@ -24,10 +24,12 @@ set("n", "gti", function()
   inlay_hint.enable(not inlay_hint.is_enabled(filter), filter)
 end, { desc = "Toggle inlay hint" })
 
-set("n", "<leader>np", function()
-  vim.notify(vim.fn.expand "%")
-end, { desc = "Notify current (file) path", noremap = true, silent = true })
-
-set("n", "<leader>nf", function()
-  vim.notify(vim.fn.expand "%:t")
+set("n", "<leader>fn", function()
+  local file = vim.fn.expand "%:t"
+  local path = vim.fn.expand "%:h"
+  vim.notify(
+    "path: " .. path .. "\nfile: " .. file,
+    vim.log.levels.INFO,
+    { title = "Current file", timeout = 10000, id = "currentfile" }
+  )
 end, { desc = "Notify current file name", noremap = true, silent = true })

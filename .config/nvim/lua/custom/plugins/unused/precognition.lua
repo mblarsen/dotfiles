@@ -1,5 +1,6 @@
 return {
   "tris203/precognition.nvim",
+  enabled = false,
   keys = { "gtp", "gtP" },
   config = function()
     require("precognition").setup {

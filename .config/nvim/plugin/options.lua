@@ -4,6 +4,11 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.g.have_nerd_font = true
+
+-- folding
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldlevelstart = 99
 -- vim.g.markdown_folding = true
 
 opt.clipboard = ""
@@ -26,7 +31,7 @@ opt.guicursor =
 opt.timeoutlen = 500 -- default: 1000
 
 -- show statusline
-opt.laststatus = 1 -- 1 = off, 2 = local, 3 = global
+opt.laststatus = 2 -- 1 = off, 2 = local, 3 = global
 
 -- This makes is so that o doesn't add comment and a regular newline. Hitting enter will still insert a comment
 opt.formatoptions:remove "o"

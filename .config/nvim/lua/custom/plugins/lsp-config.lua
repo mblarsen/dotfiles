@@ -5,8 +5,7 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    -- make sure that the cmp implementation matches the one in ./cmp.lua
-    "iguanacucumber/magazine.nvim",
+    "hrsh7th/nvim-cmp",
     "b0o/schemastore.nvim",
   },
   config = function()
