@@ -15,7 +15,7 @@ A few rules:
 - If I do not provide a subject use the parent folder as the subject
 - Try to get the change into the subject of the commit message but not required, you can use the body as well if there are more changes than fits in the subject
 - First I'll provide the 'Git Status:' and after 'Git Diff:' section for you to base the message upon
-- Finally add yourself as coauthor (valid git style) with email $model@openai.com
+- Finally add the message: Commit message by OpenAI ($model)
 EOF
 
 git_status=$(yadm status ~/.config/$subject)
