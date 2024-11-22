@@ -2,6 +2,8 @@
 
 # set -x
 
+cd "$(dirname "$0")"
+
 model="gpt-4-turbo"
 subject=${1:-""}
 
@@ -16,10 +18,9 @@ A few rules:
   "nvim: change colorscheme" or "wezterm: reduce font size"
 - Try to get the change into the subject line of the commit message but not required, 
   you can use the body as well if there are more changes than fits in the subject
+- Make sure that there is an empty line between the subject line and the body text
 - use lower case for the most part (even first word), but brands and common uppercase or title case words are allowed
 - First I'll provide the 'Git Status:' and after 'Git Diff:' section for you to base the message upon
-- Finally add the message: Commit message by OpenAI ($model)
-  after three hyphens and a linebreak
 EOF
 
 git_status=$(yadm status ~/.config/$subject)
