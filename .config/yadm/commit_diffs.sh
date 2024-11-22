@@ -1,25 +1,45 @@
 #!/usr/bin/env bash
 
-# set -x
 
 cd "$(dirname "$0")"
 
-commit_message=$(./commit_diff.sh aerospace)
-yadm add ~/.config/aerospace
-yadm commit -m "$commit_message"
+subjects=(aerospace nvim wezterm yadm zsh)
 
-commit_message=$(./commit_diff.sh nvim)
-yadm add ~/.config/nvim
-yadm commit -m "$commit_message"
+for subject in "${subjects[@]}"; do
+  commit_message=$(./commit_diff.sh "$subject")
+  if [ -z "$commit_message" ]; then
+    echo "No changes for $subject"
+  else
+    set -x
+    echo "Committing changes for $subject"
+    yadm add ~/.config/$subject
+    yadm commit -m "$commit_message"
+    set +x
+  fi
+done
 
-commit_message=$(./commit_diff.sh wezterm)
-yadm add ~/.config/wezterm
-yadm commit -m "$commit_message"
+echo "Pushing commits"
 
-commit_message=$(./commit_diff.sh yadm)
-yadm add ~/.config/yadm
-yadm commit -m "$commit_message"
+yadm push
 
-commit_message=$(./commit_diff.sh zsh)
-yadm add ~/.config/zsh
-yadm commit -m "$commit_message"
+# cd "$(dirname "$0")"
+# 
+# commit_message=$(./commit_diff.sh aerospace)
+# yadm add ~/.config/aerospace
+# yadm commit -m "$commit_message"
+# 
+# commit_message=$(./commit_diff.sh nvim)
+# yadm add ~/.config/nvim
+# yadm commit -m "$commit_message"
+# 
+# commit_message=$(./commit_diff.sh wezterm)
+# yadm add ~/.config/wezterm
+# yadm commit -m "$commit_message"
+# 
+# commit_message=$(./commit_diff.sh yadm)
+# yadm add ~/.config/yadm
+# yadm commit -m "$commit_message"
+# 
+# commit_message=$(./commit_diff.sh zsh)
+# yadm add ~/.config/zsh
+# yadm commit -m "$commit_message"

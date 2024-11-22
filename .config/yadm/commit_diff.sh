@@ -7,6 +7,13 @@ cd "$(dirname "$0")"
 model="gpt-4-turbo"
 subject=${1:-""}
 
+git_status=$(yadm status ~/.config/$subject)
+git_diff=$(yadm diff --no-ext-diff ~/.config/$subject)
+
+if [ -z "$git_diff" ]; then
+    exit 1
+fi
+
 read -r -d '' system_prompt <<EOF
 Help me generate a succinct git commit message for this change.
 
@@ -22,9 +29,6 @@ A few rules:
 - use lower case for the most part (even first word), but brands and common uppercase or title case words are allowed
 - First I'll provide the 'Git Status:' and after 'Git Diff:' section for you to base the message upon
 EOF
-
-git_status=$(yadm status ~/.config/$subject)
-git_diff=$(yadm diff --no-ext-diff ~/.config/$subject)
 
 prompt="
 Instructions:
