@@ -8,6 +8,7 @@ alias love="/Applications/love.app/Contents/MacOS/love"
 alias icat="wezterm imgcat"
 alias opr="op run --env-file=.env --no-masking"
 alias q="op run --account https://my.1password.eu/ -- /opt/homebrew/bin/q"
+alias bat="bat --theme=1337 --style=full"
 
 # Git overrides and additions to zim
 alias glg="git log --graph --branches --remotes --pretty=format:\"${_git_log_oneline_format}\""
