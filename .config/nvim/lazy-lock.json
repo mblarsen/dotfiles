@@ -37,6 +37,7 @@
   "schemastore.nvim": { "branch": "main", "commit": "291b15c6a03d8f859da8d83f46ed41ae6bb0ea8d" },
   "showkeys": { "branch": "main", "commit": "38a5d15ef687da37ef0de3d6944b9eb6830982f3" },
   "snacks.nvim": { "branch": "main", "commit": "aa38175c002555aded511b6787380ad887665680" },
+  "spaceduck": { "branch": "main", "commit": "350491f19343b24fa85809242089caa02d4dadce" },
   "ssr.nvim": { "branch": "main", "commit": "7c95cfa5836508f08ae833a4b31d2ed265560f64" },
   "text-case.nvim": { "branch": "main", "commit": "e898cfd46fa6cde0e83abb624a16e67d2ffc6457" },
   "timerly": { "branch": "main", "commit": "6a25eec63ca42491de4706587b84182e85e6e7f4" },
