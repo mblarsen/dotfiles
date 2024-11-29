@@ -14,36 +14,13 @@ local function tokyo_night(config)
 end
 
 local function spaceduck(config)
-  config.color_schemes["Spaceduck"] = {
-    -- Default colors
-    background = "#0f111b",
-    foreground = "#ecf0c1",
-
-    -- Normal colors
-    black = "#000000",
-    red = "#e33400",
-    green = "#5ccc96",
-    yellow = "#b3a1e6",
-    blue = "#00a3cc",
-    magenta = "#f2ce00",
-    cyan = "#7a5ccc",
-    white = "#686f9a",
-
-    -- Bright colors
-    brblack = "#686f9a",
-    brred = "#e33400",
-    brgreen = "#5ccc96",
-    bryellow = "#b3a1e6",
-    brblue = "#00a3cc",
-    brmagenta = "#f2ce00",
-    brcyan = "#7a5ccc",
-    brwhite = "#f0f1ce",
-  }
+  config.color_schemes = {}
+  config.color_schemes["Spaceduck"] = require("spaceduck")
   config.color_scheme = "Spaceduck"
 end
 
 function M.configure(config)
-  rose_pine(config)
+  -- rose_pine(config)
   spaceduck(config)
   -- tokyo_night(config)
 end
