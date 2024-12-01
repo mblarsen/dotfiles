@@ -30,14 +30,22 @@ local function gohu(config)
   config.line_height = 1.125
   config.font_size = 18.0
 end
+---
+---@diagnostic disable-next-line: unused-function, unused-local
+local function commit(config)
+  config.font = wezterm.font("CommitMono")
+  config.line_height = 1.25
+  config.font_size = 18.0
+end
 
 function M.configure(config)
   config.adjust_window_size_when_changing_font_size = false
 
-  -- mono_lisa(config)
-  gohu(config)
-  -- monocraft(config)
+  commit(config)
+  -- gohu(config)
   -- mira_code(config)
+  -- mono_lisa(config)
+  -- monocraft(config)
 end
 
 return M
