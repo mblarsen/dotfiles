@@ -1,5 +1,6 @@
 return {
   "cshuaimin/ssr.nvim",
+  enabled = false,
   keys = { "<leader>sr" },
   config = function()
     require("ssr").setup {

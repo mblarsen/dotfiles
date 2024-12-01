@@ -1,5 +1,6 @@
 return {
   "hrsh7th/nvim-cmp",
+  enabled = true,
   -- "iguanacucumber/magazine.nvim",
   -- { "yioneko/nvim-cmp", branch = "perf" },
   -- name = "nvim-cmp", -- Otherwise highlighting gets messed up

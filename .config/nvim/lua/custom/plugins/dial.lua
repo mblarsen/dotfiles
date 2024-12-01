@@ -1,7 +1,6 @@
 -- Cycle through values
 return {
   "monaqa/dial.nvim",
-  keys = { "g<cr>" },
   config = function()
     local create = require("dial.augend").constant.new
     require("dial.config").augends:register_group {
@@ -16,7 +15,7 @@ return {
         create { elements = { "- [ ]", "- [x]" }, word = false },
       },
     }
-    vim.keymap.set("n", "g<cr>", function()
+    vim.keymap.set("n", "g<CR>", function()
       require("dial.map").manipulate("increment", "normal")
     end, { desc = "Cycle symbol" })
   end,

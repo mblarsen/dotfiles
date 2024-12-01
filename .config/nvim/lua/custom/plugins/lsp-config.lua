@@ -6,10 +6,13 @@ return {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "hrsh7th/nvim-cmp",
+    -- "saghen/blink.cmp",
     "b0o/schemastore.nvim",
   },
   config = function()
+    -- local capabilities = require("blink.cmp").get_lsp_capabilities()
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
     local lspconfig = require "lspconfig"
 
     require("mason-lspconfig").setup {

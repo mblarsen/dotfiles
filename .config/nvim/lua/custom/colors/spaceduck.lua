@@ -1,6 +1,6 @@
 return {
   "pineapplegiant/spaceduck",
-  enabled = true,
+  enabled = false,
   config = function()
     vim.cmd [[
       if exists('+termguicolors')
