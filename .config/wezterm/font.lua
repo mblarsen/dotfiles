@@ -41,10 +41,10 @@ end
 function M.configure(config)
   config.adjust_window_size_when_changing_font_size = false
 
-  commit(config)
+  -- commit(config)
   -- gohu(config)
   -- mira_code(config)
-  -- mono_lisa(config)
+  mono_lisa(config)
   -- monocraft(config)
 end
 
