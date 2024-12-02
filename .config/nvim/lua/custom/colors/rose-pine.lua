@@ -1,6 +1,6 @@
 return {
   "rose-pine/neovim",
-  enabled = false,
+  enabled = true,
   name = "rose-pine",
   priority = 1000,
   opts = {

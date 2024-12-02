@@ -1,5 +1,5 @@
-local prettier = { "prettierd", "prettier" }
-local js_langs = { "eslint_d", "eslint", "prettierd", "prettier" }
+local prettier = "prettier"
+local js_langs = "eslint_d"
 
 require("conform").setup {
   formatters = {
@@ -12,7 +12,7 @@ require("conform").setup {
   formatters_by_ft = {
     ["*"] = { "trim_newlines", "typos" },
     gleam = { "trim_whitespace", "gleam" },
-    graphql = { { "prettierd", "prettier" } },
+    graphql = { "prettier" },
     javascript = { "trim_whitespace", js_langs },
     javascriptreact = { "trim_whitespace", js_langs },
     json = { "trim_whitespace", "jq" },
@@ -22,7 +22,7 @@ require("conform").setup {
     -- python = { "trim_whitespace", "isort", "black" },
     typescript = { "trim_whitespace", js_langs },
     typescriptreact = { "trim_whitespace", js_langs },
-    yaml = { "trim_whitespace", { "taplo", "prettierd", "prettier" } },
+    yaml = { "trim_whitespace", "prettier" },
   },
   format_on_save = {
     -- These options will be passed to conform.format()
