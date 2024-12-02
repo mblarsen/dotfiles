@@ -18,3 +18,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require "custom.lazy"
+require "globals"
+require "ui"

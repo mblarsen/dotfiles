@@ -2,10 +2,13 @@ local fzf = require "fzf-lua"
 
 fzf.setup {
   "borderless",
+  fzf_colors = true,
 }
 
 vim.keymap.set("n", "<leader>fr", fzf.resume, { desc = "Fzf resume" })
 
+vim.keymap.set("n", "<leader>fs", fzf.lsp_document_symbols, { desc = "Find document symbol" })
+vim.keymap.set("n", "<leader>fS", fzf.lsp_workspace_symbols, { desc = "Find document symbol" })
 vim.keymap.set("n", "<leader>ff", fzf.files, { desc = "Find files" })
 vim.keymap.set("n", "<leader>fg", fzf.live_grep_glob, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>fG", fzf.git_status, { desc = "Git status" })

@@ -1,4 +1,4 @@
-local opt = vim.opt
+local o, opt = vim.o, vim.opt
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -24,6 +24,18 @@ opt.breakindentopt = "shift:2"
 -- required by hardtime.nvim
 opt.showmode = false
 
+-- disable modeline
+opt.modeline = false
+opt.modelines = 0
+
+-- list chars
+opt.list = true
+opt.listchars = {
+  nbsp = "▬",
+  tab = "  ",
+  trail = "·",
+}
+
 -- blinking cursor
 opt.guicursor =
   "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-cursor/lcursor,sm:block-blinkwait175-blinkoff150-blinkon175"
@@ -31,7 +43,7 @@ opt.guicursor =
 opt.timeoutlen = 500 -- default: 1000
 
 -- show statusline
-opt.laststatus = 2 -- 1 = off, 2 = local, 3 = global
+opt.laststatus = 3 -- 1 = off, 2 = local, 3 = global
 
 -- This makes is so that o doesn't add comment and a regular newline. Hitting enter will still insert a comment
 opt.formatoptions:remove "o"
