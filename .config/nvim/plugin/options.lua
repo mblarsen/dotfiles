@@ -1,4 +1,4 @@
-local o, opt = vim.o, vim.opt
+local opt = vim.opt
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -9,7 +9,6 @@ vim.g.have_nerd_font = true
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.foldlevelstart = 99
--- vim.g.markdown_folding = true
 
 opt.clipboard = ""
 
@@ -21,12 +20,11 @@ opt.termguicolors = true
 opt.breakindent = true
 opt.breakindentopt = "shift:2"
 
--- required by hardtime.nvim
-opt.showmode = false
+--  S	do not show search count message when searching [1/3]
+opt.shortmess:append "S"
 
--- disable modeline
-opt.modeline = false
-opt.modelines = 0
+-- don't show mode under status line
+opt.showmode = false
 
 -- list chars
 opt.list = true
@@ -43,7 +41,4 @@ opt.guicursor =
 opt.timeoutlen = 500 -- default: 1000
 
 -- show statusline
-opt.laststatus = 3 -- 1 = off, 2 = local, 3 = global
-
--- This makes is so that o doesn't add comment and a regular newline. Hitting enter will still insert a comment
-opt.formatoptions:remove "o"
+opt.laststatus = 2 -- 1 = off, 2 = local, 3 = global
