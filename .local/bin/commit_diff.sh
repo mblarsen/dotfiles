@@ -5,10 +5,15 @@
 cd "$(dirname "$0")"
 
 model="gpt-4-turbo"
-subject=${1:-""}
+subject=${@}
 
-git_status=$(yadm status ~/.config/$subject)
-git_diff=$(yadm diff --no-ext-diff ~/.config/$subject)
+if [ -e "~/.config/$subject" ]; then
+  git_status=$(yadm status -- ~/.config/$subject)
+  git_diff=$(yadm diff --no-ext-diff -- ~/.config/$subject)
+else
+  git_status=$(yadm status -- $subject)
+  git_diff=$(yadm diff --no-ext-diff -- $subject)
+fi
 
 if [ -z "$git_diff" ]; then
     exit 1
@@ -23,6 +28,7 @@ A few rules:
 - For the commit messages I'd like the subject line to start with the subject
   word I provide and if not provided use the parent folder with .config/ (excludindg .config/) as the subject. E.g.
   "nvim: change colorscheme" or "wezterm: reduce font size"
+- If I provide a subject you'll find it at the beginning of the  'Command line arguments' section below.
 - Try to get the change into the subject line of the commit message but not required, 
   you can use the body as well if there are more changes than fits in the subject
 - Make sure that there is an empty line between the subject line and the body text
@@ -34,6 +40,10 @@ prompt="
 Instructions:
 ---------------------
 $system_prompt
+
+Command line arguments:
+-----------------------
+${@}
 
 Git Status:
 ---------------------

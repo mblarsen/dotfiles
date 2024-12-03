@@ -5,7 +5,9 @@ cd "$(dirname "$0")"
 subjects=(
   aerospace
   git
+  karabiner
   nvim
+  taskwarrior
   wezterm
   yadm
   zsh
