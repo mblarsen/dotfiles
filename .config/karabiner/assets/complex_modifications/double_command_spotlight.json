@@ -1,0 +1,69 @@
+{
+  "title": "Double Command to Spotlight",
+  "rules": [
+    {
+      "description": "Double Command opens Spotlight",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "left_command"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "key_code": "left_command"
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "command_double_pressed",
+                "value": 1
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "command_double_pressed",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e 'tell application \"System Events\" to keystroke space using command down'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "command_double_pressed",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

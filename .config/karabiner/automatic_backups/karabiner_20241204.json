@@ -76,7 +76,7 @@
                                 "to": [{ "key_code": "right_shift" }],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "backslash",
+                                        "key_code": "0",
                                         "modifiers": ["right_shift"]
                                     }
                                 ],
@@ -100,25 +100,8 @@
                     }
                 ]
             },
-            "devices": [
-                {
-                    "disable_built_in_keyboard_if_exists": true,
-                    "identifiers": {
-                        "device_address": "fe-dc-f9-84-bf-10",
-                        "is_keyboard": true,
-                        "is_pointing_device": true
-                    },
-                    "ignore": false
-                }
-            ],
             "name": "Default profile",
             "selected": true,
-            "simple_modifications": [
-                {
-                    "from": { "key_code": "escape" },
-                    "to": [{ "key_code": "grave_accent_and_tilde" }]
-                }
-            ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
