@@ -1,19 +1,41 @@
 #!/usr/bin/env bash
 
+# set -v
 # set -x
 
 cd "$(dirname "$0")"
 
 model="gpt-4-turbo"
-subject=${@}
 
-if [ -e "~/.config/$subject" ]; then
-  git_status=$(yadm status -- ~/.config/$subject)
-  git_diff=$(yadm diff --no-ext-diff -- ~/.config/$subject)
-else
-  git_status=$(yadm status -- $subject)
-  git_diff=$(yadm diff --no-ext-diff -- $subject)
-fi
+subject=""
+root=""
+changes=""
+
+IFS=';' read -r -a pairs <<< "$1"
+for pair in "${pairs[@]}"; do
+  IFS='=' read -r key value <<< "$pair"
+  # echo "Key: $key, Value: $value"
+  case "$key" in
+    "subject")
+      subject="$value"
+      ;;
+    "root")
+      root=$value
+      ;;
+    "changes")
+      IFS=' ' read -r -a changes <<< "$value"
+      ;;
+  esac
+done
+
+fq_changes=()
+for change in "${changes[@]}"; do
+  fq_changes+=("$(eval echo $root/$change)")
+done
+# echo "Fully qualified changes: ${fq_changes[@]}"
+
+git_status=$(yadm status -- "${fq_changes[@]}")
+git_diff=$(yadm diff --no-ext-diff -- "${fq_changes[@]}")
 
 if [ -z "$git_diff" ]; then
     exit 1
@@ -30,10 +52,11 @@ A few rules:
   "nvim: change colorscheme" or "wezterm: reduce font size"
 - If I provide a subject you'll find it at the beginning of the  'Command line arguments' section below.
 - Try to get the change into the subject line of the commit message but not required, 
-  you can use the body as well if there are more changes than fits in the subject
+  you can use the body as well if there are more changes than fits in the subject, I like bullet points '-'
 - Make sure that there is an empty line between the subject line and the body text
 - use lower case for the most part (even first word), but brands and common uppercase or title case words are allowed
 - First I'll provide the 'Git Status:' and after 'Git Diff:' section for you to base the message upon
+- Try to keep line length in body no longer than 60 characters per line
 EOF
 
 prompt="
@@ -43,7 +66,7 @@ $system_prompt
 
 Command line arguments:
 -----------------------
-${@}
+${subject:-${@}}
 
 Git Status:
 ---------------------

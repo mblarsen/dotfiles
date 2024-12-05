@@ -2,15 +2,16 @@
 
 cd "$(dirname "$0")"
 
-subjects=(
-  aerospace
-  git
-  karabiner
-  nvim
-  taskwarrior
-  wezterm
-  yadm
-  zsh
+configs=(
+  "root=~/.config;changes=aerospace"
+  "root=~/.config;changes=git"
+  "root=~/.config;changes=karabiner"
+  "root=~/.config;changes=nvim"
+  "root=~/.config;changes=taskwarrior"
+  "root=~/.config;changes=wezterm"
+  "root=~/.config;changes=yadm"
+  "root=~/.config;changes=zsh"
+  "root=~/.local/bin;subject=bin;changes=commit_diff.sh commit_diffs.sh"
 )
 
 dry_run=false
@@ -22,18 +23,47 @@ for arg in "$@"; do
   fi
 done
 
-for subject in "${subjects[@]}"; do
-  commit_message=$(./commit_diff.sh "$subject")
+for config in "${configs[@]}"; do
+  commit_message=$(./commit_diff.sh "$config")
   if [ -z "$commit_message" ]; then
-    echo "No changes for $subject"
+    echo "No changes for $config"
   else
+    subject=""
+    root=""
+    changes=""
+
+    IFS=';' read -r -a pairs <<< "$config"
+    for pair in "${pairs[@]}"; do
+      IFS='=' read -r key value <<< "$pair"
+      # echo "Key: $key, Value: $value"
+      case "$key" in
+        "subject")
+          subject="$value"
+          ;;
+        "root")
+          root=$value
+          ;;
+        "changes")
+          IFS=' ' read -r -a changes <<< "$value"
+          ;;
+      esac
+    done
+    
+    fq_changes=()
+    for change in "${changes[@]}"; do
+      fq_changes+=("$(eval echo $root/$change)")
+    done
+
     if [ "$dry_run" == true ]; then
-      echo "Committing changes for $subject (dry-run)"
-      echo "$commit_message"
+      echo "Committing changes for '$subject' (dry-run)"
+      echo "${fq_changes[@]}" | xargs -n 1
+      echo "$commit_message" | boxes --design ansi-rounded
     else
-      echo "Committing changes for $subject"
-      echo "$commit_message"
-      yadm add ~/.config/$subject
+      echo "Committing changes for '${subject}'"
+      echo "${fq_changes[@]}" | xargs -n 1
+      echo "$commit_message" | boxes --design ansi-rounded
+
+      yadm add "${fq_changes[@]}" 
       yadm commit -m "$commit_message"
     fi
   fi
