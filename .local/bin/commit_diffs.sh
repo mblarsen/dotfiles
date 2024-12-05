@@ -24,30 +24,35 @@ for arg in "$@"; do
 done
 
 for config in "${configs[@]}"; do
+  subject=""
+  root=""
+  changes=""
+
+  IFS=';' read -r -a pairs <<< "$config"
+  for pair in "${pairs[@]}"; do
+    IFS='=' read -r key value <<< "$pair"
+    # echo "Key: $key, Value: $value"
+    case "$key" in
+      "subject")
+        subject="$value"
+        ;;
+      "root")
+        root=$value
+        ;;
+      "changes")
+        IFS=' ' read -r -a changes <<< "$value"
+        ;;
+    esac
+  done
+  
+  subject=${subject:-$changes}
+  
+  echo -n "Checking for changes in '$subject'"
   commit_message=$(./commit_diff.sh "$config")
   if [ -z "$commit_message" ]; then
-    echo "No changes for $config"
+    echo -e "\r\033[KNo changes for '$subject'"
   else
-    subject=""
-    root=""
-    changes=""
-
-    IFS=';' read -r -a pairs <<< "$config"
-    for pair in "${pairs[@]}"; do
-      IFS='=' read -r key value <<< "$pair"
-      # echo "Key: $key, Value: $value"
-      case "$key" in
-        "subject")
-          subject="$value"
-          ;;
-        "root")
-          root=$value
-          ;;
-        "changes")
-          IFS=' ' read -r -a changes <<< "$value"
-          ;;
-      esac
-    done
+    echo -e "\r\033[KPreparing commit for '$subject'"
     
     fq_changes=()
     for change in "${changes[@]}"; do

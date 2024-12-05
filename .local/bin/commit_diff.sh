@@ -28,6 +28,8 @@ for pair in "${pairs[@]}"; do
   esac
 done
 
+subject=${subject:-$changes}
+
 fq_changes=()
 for change in "${changes[@]}"; do
   fq_changes+=("$(eval echo $root/$change)")
