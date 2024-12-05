@@ -17,6 +17,7 @@ set("n", "<C-n>", '"wyiw:let @/=@w<cr>n``cgn', { desc = "Search and replace word
 set("v", "<C-n>", '"hy:let @/=@h<cr>cgn', { desc = "Change selection inline one by one" })
 set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change selection with regexp" })
 set("n", "<leader>yf", ":%y<cr>", { desc = "Yank file" })
+set("i", "jj", "<esc>", { desc = "Easy ESCape from intert mode" })
 
 set("n", "gti", function()
   local inlay_hint = vim.lsp.inlay_hint
