@@ -43,7 +43,6 @@
   "signup.nvim": { "branch": "main", "commit": "2b21a2aa51efbdeb9454a3f5d62659368d87d420" },
   "snacks.nvim": { "branch": "main", "commit": "67894ee778d567c8fb6f3e1e1774d1606d19ed27" },
   "spaceduck": { "branch": "main", "commit": "350491f19343b24fa85809242089caa02d4dadce" },
-  "spotify.nvim": { "branch": "main", "commit": "db65839a13e6c7d18b3bec2a6d0ca8d0f0e59bd2" },
   "ssr.nvim": { "branch": "main", "commit": "7c95cfa5836508f08ae833a4b31d2ed265560f64" },
   "text-case.nvim": { "branch": "main", "commit": "e898cfd46fa6cde0e83abb624a16e67d2ffc6457" },
   "timerly": { "branch": "main", "commit": "6a25eec63ca42491de4706587b84182e85e6e7f4" },
