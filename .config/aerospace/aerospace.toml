@@ -264,10 +264,6 @@ if.app-id = "com.tinyspeck.slackmacgap"
 run = ['move-node-to-workspace C']
 
 [[on-window-detected]]
-if.app-id = "com.1password.1password"
-run = ['move-node-to-workspace P']
-
-[[on-window-detected]]
 if.app-id = "com.tdesktop.Telegram"
 run = ['move-node-to-workspace P']
 
