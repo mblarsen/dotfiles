@@ -102,7 +102,7 @@ slash = 'slash'
 inner.horizontal = 8
 inner.vertical = 8
 outer.left = 6
-outer.bottom = 6
+outer.bottom = 80
 outer.top = 6
 outer.right = 6
 
