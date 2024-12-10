@@ -2,6 +2,7 @@
 --- :FzfLua builtins
 return {
   "ibhagwan/fzf-lua",
+  enabled = false,
   config = function()
     require "custom.fzf"
   end,
