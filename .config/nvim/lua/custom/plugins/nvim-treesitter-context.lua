@@ -1,7 +1,7 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter-context
 return {
   "nvim-treesitter/nvim-treesitter-context",
-  enabled = true,
+  enabled = false,
   opts = {
     max_lines = 3,
     trim_scope = "inner",

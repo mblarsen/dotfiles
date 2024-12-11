@@ -1,6 +1,9 @@
 return {
   "nvim-telescope/telescope.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  },
   config = function()
     require("telescope").setup {
       pickers = {
@@ -15,7 +18,9 @@ return {
           cwd_only = true,
         },
       },
+      extensions = { fzf = {} },
     }
+    require("telescope").load_extension "fzf"
     local builtin = require "telescope.builtin"
     vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Telescope buffers" })
     vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
@@ -26,5 +31,16 @@ return {
       builtin.oldfiles { cwd_only = false }
     end, { desc = "Telescope find old files globally" })
     vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Telescope resume" })
+
+    vim.keymap.set("n", "<leader>en", function()
+      require("telescope.builtin").find_files {
+        cwd = vim.fn.stdpath "config",
+      }
+    end)
+    vim.keymap.set("n", "<leader>ep", function()
+      require("telescope.builtin").find_files {
+        cwd = vim.fs.joinpath(vim.fn.stdpath "data", "lazy"),
+      }
+    end)
   end,
 }
