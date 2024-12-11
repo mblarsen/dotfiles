@@ -26,7 +26,6 @@ return {
   opts = {
     input = { enabled = true },
     notifier = { enabled = true, style = style },
-    scroll = { enabled = true },
     statuscolumn = { enabled = true },
     words = { enabled = true },
     zen = { enabled = true },
@@ -34,6 +33,7 @@ return {
     bigfile = { enabled = false },
     quickfile = { enabled = false },
     rename = { enabled = false },
+    scroll = { enabled = false },
   },
   config = function(_, opts)
     require("snacks").setup(opts)

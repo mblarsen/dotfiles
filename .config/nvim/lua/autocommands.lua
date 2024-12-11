@@ -38,8 +38,6 @@ autocmd({ "LspAttach" }, {
     end, opts)
     vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "<leader>fs", [[<cmd>FzfLua lsp_document_symbols<cr>]], opts)
-    vim.keymap.set("n", "<leader>fS", [[<cmd>FzfLua lsp_workspace_symbols<cr>]], opts)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
     -- Disable diagnostic signs in the gutter
