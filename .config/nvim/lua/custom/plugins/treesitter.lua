@@ -1,6 +1,5 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  -- event = "BufRead",
   config = function()
     require("nvim-treesitter.configs").setup {
       auto_install = true,
@@ -8,29 +7,9 @@ return {
       modules = {},
       ignore_install = {},
       ensure_installed = {
-        "bash",
-        "css",
-        "git_config",
-        "gitattributes",
-        "gitcommit",
-        "gitignore",
-        "go",
-        "html",
-        "ini",
-        "javascript",
-        "json",
         "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "regex",
-        "rust",
-        "toml",
-        "tsx",
-        "typescript",
         "vim",
         "vimdoc",
-        "yaml",
       },
       highlight = {
         enable = false,
