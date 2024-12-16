@@ -6,5 +6,3 @@ require("mini.basics").setup {
   },
   silent = true,
 }
-
-return {}

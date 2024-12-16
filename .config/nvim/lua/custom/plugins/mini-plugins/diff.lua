@@ -9,5 +9,3 @@ require("mini.diff").setup {
 }
 
 vim.keymap.set("n", "ghp", require("mini.diff").toggle_overlay)
-
-return {}
