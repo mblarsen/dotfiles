@@ -46,6 +46,11 @@ return {
         cwd = vim.fn.stdpath "config",
       }
     end)
+    vim.keymap.set("n", "<leader>ew", function()
+      require("telescope.builtin").find_files {
+        cwd = "~/.config/wezterm"
+      }
+    end)
     vim.keymap.set("n", "<leader>ep", function()
       require("telescope.builtin").find_files {
         ---@diagnostic disable-next-line: param-type-mismatch
