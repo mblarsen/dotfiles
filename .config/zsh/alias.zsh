@@ -4,6 +4,7 @@ unalias gh
 # Misc
 alias ws="cd $WORKSPACE"
 alias vim=nvim
+alias vimr='vim -c "cd ${git root)"'
 alias love="/Applications/love.app/Contents/MacOS/love"
 alias icat="wezterm imgcat"
 alias opr="op run --env-file=.env --no-masking"
