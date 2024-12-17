@@ -22,6 +22,7 @@ return {
         "lua_ls",
         "taplo",
         "typos_lsp",
+        "terraformls",
         "pyright",
         "yamlls",
       },
