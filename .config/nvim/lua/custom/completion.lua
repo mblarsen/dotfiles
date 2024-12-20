@@ -27,6 +27,8 @@ cmp.setup {
   },
   ---@diagnostic disable-next-line: undefined-field
   sources = cmp.config.sources({
+    { name = "calc" },
+    { name = "dotenv"},
     { name = "nvim_lsp" },
     { name = "path" },
     {
@@ -67,5 +69,22 @@ cmp.setup.filetype("gitcommit", {
     { name = "buffer" },
   }),
 })
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+      { name = 'cmdline' }
+    }),
+  matching = { disallow_symbol_nonprefix_matching = false }
+})
+
+ cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
 
 require("cmp_git").setup()

@@ -8,6 +8,8 @@ return {
     "hrsh7th/cmp-path",
     "onsails/lspkind.nvim",
     "petertriho/cmp-git",
+    "hrsh7th/cmp-calc",
+    "SergioRibera/cmp-dotenv",
   },
   config = function()
     require "custom.completion"
