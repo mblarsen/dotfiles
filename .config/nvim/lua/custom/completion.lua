@@ -8,11 +8,11 @@ vim.opt.shortmess:append "c"
 local lspkind = require "lspkind"
 
 cmp.setup {
-  performance = {
-    debounce = 0, -- default is 60ms
-    throttle = 0, -- default is 30ms
-    -- max_view_entries = 75,
-  },
+  -- performance = {
+  --   debounce = 0, -- default is 60ms
+  --   throttle = 0, -- default is 30ms
+  --   -- max_view_entries = 75,
+  -- },
   formatting = {
     expandable_indicator = true,
     fields = { "abbr", "kind", "menu" },
