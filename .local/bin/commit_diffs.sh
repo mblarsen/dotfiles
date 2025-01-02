@@ -7,6 +7,7 @@ configs=(
   "root=~/.config;changes=git"
   "root=~/.config;changes=karabiner"
   "root=~/.config;changes=nvim"
+  "root=~/.config;changes=ghostty"
   "root=~/.config;changes=taskwarrior"
   "root=~/.config;changes=wezterm"
   "root=~/.config;changes=yadm"
