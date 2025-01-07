@@ -1,5 +1,6 @@
 local prettier = "prettier"
-local js_langs = "eslint_d"
+local js_langs = "prettier"
+-- local js_langs = "eslint_d"
 
 require("conform").setup {
   formatters = {
