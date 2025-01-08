@@ -28,8 +28,8 @@ cmp.setup {
   ---@diagnostic disable-next-line: undefined-field
   sources = cmp.config.sources({
     { name = "calc" },
-    { name = "dotenv"},
     { name = "nvim_lsp" },
+    { name = "dotenv"},
     { name = "path" },
     {
       name = "lazydev",
