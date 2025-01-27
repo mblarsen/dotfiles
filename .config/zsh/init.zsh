@@ -60,6 +60,9 @@ zplug "spaceship-prompt/spaceship-prompt", use:spaceship.zsh, from:github, as:th
 # https://github.com/agkozak/zsh-z
 zplug "agkozak/zsh-z"
 
+# goenv
+zplug "RiverGlide/zsh-goenv", from:gitlab
+
 if ! zplug check --verbose; then
   zplug install
 fi
