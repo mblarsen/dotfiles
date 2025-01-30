@@ -27,6 +27,7 @@ return {
   opts = {
     input = { enabled = true },
     notifier = { enabled = true, style = style },
+    picker = { layout = "ivy" },
     statuscolumn = { enabled = true },
     words = { enabled = true },
     zen = { enabled = true },
@@ -42,5 +43,24 @@ return {
     enable_simple_lsp_progress()
 
     vim.keymap.set("n", "<leader>zz", require("snacks").zen.zoom, { desc = "Zen: maximize window" })
+
+    -- picker keymaps
+
+    builtin = Snacks.picker
+    vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Snack picker buffers" })
+    vim.keymap.set("n", "<leader>ff", builtin.files, { desc = "Snack picker find files" })
+    vim.keymap.set("n", "<leader>fg", builtin.grep, { desc = "Snack picker live grep" })
+    vim.keymap.set("n", "<leader>fw", builtin.grep_word, { desc = "Snack picker grep word" })
+    vim.keymap.set("n", "<leader>fh", builtin.help, { desc = "Snack picker help tags" })
+    vim.keymap.set("n", "<leader>fo", builtin.recent, { desc = "Snack picker find old files" })
+    -- vim.keymap.set("n", "<leader>fO", function()
+    --   builtin.oldfiles { cwd_only = false }
+    -- end, { desc = "Snack picker find old files globally" })
+    vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Snack picker resume" })
+    vim.keymap.set("n", "<leader>fs", builtin.lsp_symbols, { desc = "Snack picker document symbols" })
+    vim.keymap.set("n", "<leader>fvb", builtin.git_branches, { desc = "Snack picker git branches" })
+    vim.keymap.set("n", "<leader>fvf", builtin.git_files, { desc = "Snack picker git files" })
+    vim.keymap.set("n", "<leader>fvl", builtin.git_log_file, { desc = "Snack picker git log file" })
+    vim.keymap.set("n", "<leader>fvL", builtin.git_log_line, { desc = "Snack picker git log line" })
   end,
 }
