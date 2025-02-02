@@ -1,0 +1,21 @@
+# .zshenv for all shells and sourced first
+# 
+# @see https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
+# and comment
+#
+# > re: setting $PATH in .zshenv - macOS, as of Big Sur and at least a few
+# > versions prior - overwrites any changes to $PATH when /etc/zprofile is
+# > executed (after .zshenv).
+
+# TODO wip https://github.com/gverilla/dotfiles/blob/master/.config/zsh/zshenv
+export EDITOR=nvim
+
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_BIN_HOME=$HOME/.local/bin
+export XDG_LIB_HOME=$HOME/.local/lib
+export XDG_CACHE_HOME=$HOME/.cache
+
+export PATH="$XDG_BIN_HOME:$PATH"
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
