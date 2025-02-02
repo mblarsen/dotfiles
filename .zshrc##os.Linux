@@ -1,0 +1,4 @@
+# .zshrc for interactive shells after .zprofile but before .zlogin
+
+source "$HOME/.config/zsh/init.zsh"
+
