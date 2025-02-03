@@ -2,9 +2,18 @@
 
 # set -x
 
-sudo apt install -y curl direnv make unzip yadm
+sudo apt install -y \
+  curl \
+  direnv \
+  fzf \
+  make \
+  software-properties-common \
+  unzip \
+  yadm
+
 sudo snap install zig --classic --beta
 
+sudo timedatectl set-timezone Asia/Manila
 
 function setup_ssh() {
 	GITHUB_SSH="$HOME/.ssh/github_ed25519"
@@ -13,6 +22,31 @@ function setup_ssh() {
 	else
 		ssh-keygen -t ed25519 -C "mbl@code.boutique" -f "GITHUB_SSH" -N ""
 	fi
+}
+
+function install_1password() {
+  curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+  sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg && \
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" | \
+  sudo tee /etc/apt/sources.list.d/1password.list && \
+  sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/ && \
+  curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | \
+  sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol && \
+  sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22 && \
+  curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+  sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg && \
+  sudo apt update && sudo apt install 1password 1password-cli
+
+  # op account add my.1password.eu
+  # op account add plantura.1password.eu
+}
+
+function install_nvm() {
+  if [ -d "$XDG_CONFIG_HOME/nvm" ]; then
+    echo "nvm already installed"
+  else
+    PROFILE=/dev/null bash -c 'curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
+  fi
 }
 
 function install_difftastic() {
@@ -45,6 +79,20 @@ function install_difftastic() {
 	fi
 }
 
+function build_neovim() {
+  if type nvim &> /dev/null; then
+    echo "nvim is already installed"
+  else
+    sudo apt-get install -y ninja-build gettext cmake curl build-essential
+    git clone https://github.com/neovim/neovim "$XDG_CACHE_HOME/nvim-src"
+    pushd "$XDG_CACHE_HOME/nvim-src"
+    rm -r build/  # clear the CMake cache
+    make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$XDG_BIN_HOME/neovim-src"
+    make install
+    ln -s "$XDG_BIN_HOME/neovim-src/bin/nvim" "$XDG_BIN_HOME/nvim"
+  fi
+}
+
 function install_yadm() {
 	if [ -d "$XDG_DATA_HOME/yadm/repo.git" ]; then
 		echo "YADM is already installed"
@@ -66,58 +114,18 @@ function install_synchthing() {
 		echo "syncthing already installed"
 	else
 		sudo mkdir -p /etc/apt/keyrings
-		sudo curl -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
+		sudo curl -s -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
 		echo "deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 		sudo apt-get update
 		sudo apt-get install syncthing
 	fi
 }
 
-function install_bob() {
-	if type bob &> /dev/null; then
-		echo "bob already installed"
-	else
-		# Define the platform
-		PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
-
-		# Fetch the latest release tag from the GitHub API
-		LATEST_TAG=$(curl -s https://api.github.com/repos/MordechaiHadad/bob/releases/latest | grep 'tag_name' | cut -d\" -f4)
-		echo "Latest bob version: $LATEST_TAG"
-
-		# Define the filename based on the platform
-		FILENAME="bob-${PLATFORM}-x86_64.zip"
-
-		# Construct the download URL
-		URL="https://github.com/MordechaiHadad/bob/releases/download/${LATEST_TAG}/${FILENAME}"
-
-		# Ensure the XDG_BIN_HOME directory exists
-		mkdir -p "$XDG_BIN_HOME"
-
-		# Download the file to a temporary location
-		TEMP_ZIP="/tmp/$FILENAME"
-		curl -s -L -o "$TEMP_ZIP" "$URL"
-
-		# Extract the binary to a temporary directory
-		TEMP_DIR=$(mktemp -d)
-		unzip "$TEMP_ZIP" "bob-linux-x86_64/bob" -d "$TEMP_DIR"
-
-		# Move the binary from the temporary directory to XDG_BIN_HOME
-		mv "$TEMP_DIR/bob-linux-x86_64/bob" "$XDG_BIN_HOME/"
-
-		# Ensure the binary is executable
-		chmod +x "$XDG_BIN_HOME/bob"
-
-		# Clean up the temporary files and directory
-		rm "$TEMP_ZIP"
-		rm -r "$TEMP_DIR"
-
-		echo "Bob has been installed to $XDG_BIN_HOME and is available in your PATH."
-	fi
-}
-
 setup_ssh
+build_neovim
+install_1password
 install_difftastic
+install_nvm
 install_yadm
-install_bob
 install_synchthing
 install_zplug

@@ -60,6 +60,9 @@ zplug "spaceship-prompt/spaceship-prompt", use:spaceship.zsh, from:github, as:th
 # https://github.com/agkozak/zsh-z
 zplug "agkozak/zsh-z"
 
+# https://github.com/mattberther/zsh-pyenv
+zplug "mattberther/zsh-pyenv"
+
 # goenv
 zplug "RiverGlide/zsh-goenv", from:gitlab
 
