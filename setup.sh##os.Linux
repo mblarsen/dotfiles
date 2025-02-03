@@ -2,7 +2,9 @@
 
 # set -x
 
-sudo apt install -y curl direnv unzip yadm
+sudo apt install -y curl direnv make unzip yadm
+sudo snap install zig --classic --beta
+
 
 function setup_ssh() {
 	GITHUB_SSH="$HOME/.ssh/github_ed25519"
