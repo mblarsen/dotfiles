@@ -17,7 +17,8 @@ export WORKSPACE=~/workspace
 export TASKRC=~/.config/taskwarrior/taskrc
 
 export SPACESHIP_PROMPT_ORDER=(
-  #time          # Time stamps section
+  host          # hostname
+  # time          # Time stamps section
   dir           # Current directory section
   git           # Git section (git_branch + git_status)
 
@@ -39,6 +40,7 @@ export SPACESHIP_PROMPT_ORDER=(
 export SPACESHIP_DIR_TRUNC_REPO=true
 export SPACESHIP_RPROMPT_ADD_NEWLINE=true
 export SPACESHIP_TIME_SHOW=true
+export SPACESHIP_HOST_SHOW="always"
 
 export SPACESHIP_BATTERY_THRESHOLD=50
 export SPACESHIP_CHAR_SUFFIX=" "
