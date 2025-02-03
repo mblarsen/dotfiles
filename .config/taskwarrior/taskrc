@@ -1,5 +1,5 @@
 data.location=/Users/mbl/.task
-data.location=~/.local/share/task
+#data.location=~/.local/share/task
 news.version=3.1.0
 
 rc.weekstart=Monday
