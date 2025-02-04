@@ -66,17 +66,19 @@ return {
     vim.keymap.set("n", "<leader>en", function()
       builtin.files {
         dirs = { vim.fn.stdpath "config" },
+        hidden = true
       }
     end)
     vim.keymap.set("n", "<leader>ew", function()
       builtin.files {
         dirs = { "~/.config/wezterm" },
+        hidden = true
       }
     end)
     vim.keymap.set("n", "<leader>ep", function()
       builtin.files {
-        ---@diagnostic disable-next-line: param-type-mismatch
         dirs = { vim.fs.joinpath(vim.fn.stdpath "data", "lazy") },
+        hidden = true
       }
     end)
   end,
