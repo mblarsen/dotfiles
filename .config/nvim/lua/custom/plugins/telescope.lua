@@ -1,5 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
+  enabled = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -41,21 +42,21 @@ return {
     -- vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "Telescope document symbols" })
     -- vim.keymap.set("n", "<leader>fS", builtin.lsp_workspace_symbols, { desc = "Telescope workspace symbols" })
 
-    vim.keymap.set("n", "<leader>en", function()
-      require("telescope.builtin").find_files {
-        cwd = vim.fn.stdpath "config",
-      }
-    end)
-    vim.keymap.set("n", "<leader>ew", function()
-      require("telescope.builtin").find_files {
-        cwd = "~/.config/wezterm"
-      }
-    end)
-    vim.keymap.set("n", "<leader>ep", function()
-      require("telescope.builtin").find_files {
-        ---@diagnostic disable-next-line: param-type-mismatch
-        cwd = vim.fs.joinpath(vim.fn.stdpath "data", "lazy"),
-      }
-    end)
+    -- vim.keymap.set("n", "<leader>en", function()
+    --   require("telescope.builtin").find_files {
+    --     cwd = vim.fn.stdpath "config",
+    --   }
+    -- end)
+    -- vim.keymap.set("n", "<leader>ew", function()
+    --   require("telescope.builtin").find_files {
+    --     cwd = "~/.config/wezterm"
+    --   }
+    -- end)
+    -- vim.keymap.set("n", "<leader>ep", function()
+    --   require("telescope.builtin").find_files {
+    --     ---@diagnostic disable-next-line: param-type-mismatch
+    --     cwd = vim.fs.joinpath(vim.fn.stdpath "data", "lazy"),
+    --   }
+    -- end)
   end,
 }

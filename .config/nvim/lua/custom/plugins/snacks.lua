@@ -62,5 +62,22 @@ return {
     vim.keymap.set("n", "<leader>fvf", builtin.git_files, { desc = "Snack picker git files" })
     vim.keymap.set("n", "<leader>fvl", builtin.git_log_file, { desc = "Snack picker git log file" })
     vim.keymap.set("n", "<leader>fvL", builtin.git_log_line, { desc = "Snack picker git log line" })
+
+    vim.keymap.set("n", "<leader>en", function()
+      builtin.files {
+        dirs = { vim.fn.stdpath "config" },
+      }
+    end)
+    vim.keymap.set("n", "<leader>ew", function()
+      builtin.files {
+        dirs = { "~/.config/wezterm" },
+      }
+    end)
+    vim.keymap.set("n", "<leader>ep", function()
+      builtin.files {
+        ---@diagnostic disable-next-line: param-type-mismatch
+        dirs = { vim.fs.joinpath(vim.fn.stdpath "data", "lazy") },
+      }
+    end)
   end,
 }
