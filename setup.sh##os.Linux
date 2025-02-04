@@ -10,6 +10,7 @@ sudo apt install -y \
   curl \
   direnv \
   fzf \
+  lsd \
   make \
   ripgrep \
   uuid-dev \
