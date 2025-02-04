@@ -8,12 +8,17 @@ sudo apt install -y \
   fzf \
   make \
   software-properties-common \
+  uuid-dev \
   unzip \
   yadm
 
 sudo snap install zig --classic --beta
 
 sudo timedatectl set-timezone Asia/Manila
+
+function install_rustup() {
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+}
 
 function setup_ssh() {
 	GITHUB_SSH="$HOME/.ssh/github_ed25519"
@@ -24,18 +29,71 @@ function setup_ssh() {
 	fi
 }
 
+function install_gh() {
+  if type gh &> /dev/null; then
+    echo "gh is already installed"
+  else
+    (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
+    && sudo mkdir -p -m 755 /etc/apt/keyrings \
+          && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+          && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+    && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && sudo apt update \
+    && sudo apt install gh -y
+  fi
+}
+
+function install_taskwarrior() {
+  if type task &> /dev/null; then
+    echo "taskwarrior is already installed"
+  else
+		REPO="GothenburgBitFactory/taskwarrior"
+    VERSION="3.1.0"
+		FILENAME="task-${VERSION}.tar.gz"
+		URL="https://github.com/$REPO/releases/download/v${VERSION}/${FILENAME}"
+
+		mkdir -p "$XDG_BIN_HOME"
+
+		# Download the file to a temporary location
+		TEMP_ZIP="/tmp/$FILENAME"
+		curl -s -L -o "$TEMP_ZIP" "$URL"
+
+		# Extract the binary to a temporary directory
+		tar -xzf "$TEMP_ZIP" -C "$XDG_CACHE_HOME/"
+
+    pushd "$XDG_CACHE_HOME/task-${VERSION}"
+
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build
+    sudo cmake --install build
+
+		# Ensure the binary is executable
+		# chmod +x "$XDG_BIN_HOME/task"
+
+		# Clean up the temporary files and directory
+		# rm "$TEMP_ZIP"
+
+		# echo "task has been installed to $XDG_BIN_HOME and is available in your PATH."
+  fi
+}
+
 function install_1password() {
-  curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
-  sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg && \
-  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" | \
-  sudo tee /etc/apt/sources.list.d/1password.list && \
-  sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/ && \
-  curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | \
-  sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol && \
-  sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22 && \
-  curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
-  sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg && \
-  sudo apt update && sudo apt install 1password 1password-cli
+  if type op &> /dev/null; then
+    echo "1password is already installed"
+  else
+    curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+    sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" | \
+    sudo tee /etc/apt/sources.list.d/1password.list && \
+    sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/ && \
+    curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | \
+    sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol && \
+    sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22 && \
+    curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+    sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg && \
+    sudo apt update && sudo apt install 1password 1password-cli
+  fi
 
   # op account add my.1password.eu
   # op account add plantura.1password.eu
@@ -51,7 +109,7 @@ function install_nvm() {
 
 function install_difftastic() {
 	if type difft &> /dev/null; then
-		echo "Difftastic is already installed"
+		echo "difft is already installed"
 	else
 		REPO="Wilfred/difftastic"
 		PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
@@ -121,11 +179,14 @@ function install_synchthing() {
 	fi
 }
 
-setup_ssh
-build_neovim
-install_1password
-install_difftastic
-install_nvm
-install_yadm
-install_synchthing
+# setup_ssh
+# build_neovim
+# install_1password
+# install_gh
+# install_difftastic
+install_rustup
+install_taskwarrior
+# install_nvm
+# install_yadm
+# install_synchthing
 install_zplug

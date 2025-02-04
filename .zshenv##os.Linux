@@ -9,3 +9,4 @@ export XDG_CACHE_HOME=$HOME/.cache
 export ZPLUG_HOME="$XDG_DATA_HOME/zplug"
 
 export PATH="$XDG_BIN_HOME:$PATH"
+. "$HOME/.cargo/env"
