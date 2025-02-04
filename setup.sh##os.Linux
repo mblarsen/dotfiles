@@ -2,22 +2,36 @@
 
 # set -x
 
+sudo timedatectl set-timezone Asia/Manila
+
+sudo apt update
+
 sudo apt install -y \
   curl \
   direnv \
   fzf \
   make \
-  software-properties-common \
+  ripgrep \
   uuid-dev \
   unzip \
   yadm
 
+# pyenv build dependencies
+sudo apt install -y build-essential libssl-dev zlib1g-dev \
+  libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+  libncursesw5-dev xz-utils tk-dev libxml2-dev \
+  libxmlsec1-dev libffi-dev liblzma-dev
+sudo apt install -y libgdbm-dev libnss3-dev libedit-dev
+
 sudo snap install zig --classic --beta
 
-sudo timedatectl set-timezone Asia/Manila
 
 function install_rustup() {
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  if type cargo &> /dev/null; then
+    echo "rustup is already installed"
+  else
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  fi
 }
 
 function setup_ssh() {
@@ -27,6 +41,19 @@ function setup_ssh() {
 	else
 		ssh-keygen -t ed25519 -C "mbl@code.boutique" -f "GITHUB_SSH" -N ""
 	fi
+}
+
+function install_docker() {
+  if type docker &> /dev/null; then
+    echo "docker is already installed"
+  else
+    sudo apt install -y curl apt-transport-https ca-certificates software-properties-common 
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt update
+    sudo apt install -y docker-ce
+    sudo usermod -aG docker $USER
+  fi
 }
 
 function install_gh() {
@@ -40,7 +67,7 @@ function install_gh() {
     && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
     && sudo apt update \
-    && sudo apt install gh -y
+    && sudo apt install -y gh
   fi
 }
 
@@ -179,14 +206,15 @@ function install_synchthing() {
 	fi
 }
 
-# setup_ssh
-# build_neovim
-# install_1password
-# install_gh
-# install_difftastic
+setup_ssh
+build_neovim
+install_1password
+install_gh
+install_difftastic
+install_docker
 install_rustup
 install_taskwarrior
-# install_nvm
-# install_yadm
-# install_synchthing
+install_nvm
+install_yadm
+install_synchthing
 install_zplug
