@@ -14,7 +14,7 @@ export PYTHON=/opt/homebrew/bin/python3
 export STEAMPIPE_INSTALL_DIR=~/.steampipe
 export STEAMPIPE_WORKSPACE_CHDIR=~/.steampipe
 export WORKSPACE=~/workspace
-export TASKRC=~/.config/taskwarrior/taskrc
+export TASKRC=~/.config/task/config
 
 export SPACESHIP_PROMPT_ORDER=(
   host          # hostname
