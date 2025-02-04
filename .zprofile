@@ -1,3 +1,1 @@
-# .zprofile for login shells before .zshrc
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
+.zprofile##os.Linux
