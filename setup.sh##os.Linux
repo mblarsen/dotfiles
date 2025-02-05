@@ -216,6 +216,15 @@ function install_posting() {
   fi
 }
 
+function install_pgcli() {
+  if type pgcli &> /dev/null; then
+    echo "pgcli is already installed"
+  else
+    pip install pipx
+    pipx install pgcli psycopg-binary
+  fi
+}
+
 function install_lazysql() {
   if type lazysql &> /dev/null; then
     echo "lazysql is already installed"
@@ -229,13 +238,16 @@ function install_lazysql() {
 
 setup_ssh
 build_neovim
+install_yadm
+install_zplug
 install_1password
-install_gh
-install_difftastic
 install_docker
 install_rustup
-install_taskwarrior
-install_nvm
-install_yadm
 install_synchthing
-install_zplug
+
+install_difftastic
+install_gh
+install_nvm
+install_pgcli
+install_posting
+install_taskwarrior
