@@ -1,5 +1,6 @@
 return {
   "jakobkhansen/journal.nvim",
+  enabled = false,
   keys = { "<leader>j" },
   config = function()
     require("journal").setup()

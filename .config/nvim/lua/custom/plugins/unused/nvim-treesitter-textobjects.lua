@@ -1,5 +1,8 @@
+-- NOTE: Not using anymore since mini.ai replaces most of what I use from here
+
 return {
   "nvim-treesitter/nvim-treesitter-textobjects",
+  enabled = false,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
