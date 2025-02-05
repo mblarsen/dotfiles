@@ -207,6 +207,26 @@ function install_synchthing() {
 	fi
 }
 
+function install_posting() {
+  if type posting &> /dev/null; then
+    echo "posting is already installed"
+  else
+    pip install pipx
+    pipx install posting
+  fi
+}
+
+function install_lazysql() {
+  if type lazysql &> /dev/null; then
+    echo "lazysql is already installed"
+  else
+    curl -s -L https://github.com/jorgerojas26/lazysql/releases/download/v0.3.4/lazysql_Linux_x86_64.tar.gz -o lazysql.tar.gz
+    tar xzf lazysql.tar.gz
+    rm lazysql.tar.qz
+    mv lazysql "$XDG_BIN_HOME"
+  fi
+}
+
 setup_ssh
 build_neovim
 install_1password
