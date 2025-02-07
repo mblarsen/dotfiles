@@ -46,12 +46,12 @@ function install_rustup() {
 }
 
 function setup_ssh() {
-	GITHUB_SSH="$HOME/.ssh/github_ed25519"
-	if [ -f "$GITHUB_SSH" ]; then
-		echo "GitHub SSH key already exists"
-	else
-		ssh-keygen -t ed25519 -C "mbl@code.boutique" -f "GITHUB_SSH" -N ""
-	fi
+  GITHUB_SSH="$HOME/.ssh/github_ed25519"
+  if [ -f "$GITHUB_SSH" ]; then
+    echo "GitHub SSH key already exists"
+  else
+    ssh-keygen -t ed25519 -C "mbl@code.boutique" -f "GITHUB_SSH" -N ""
+  fi
 }
 
 function install_docker() {
@@ -86,19 +86,19 @@ function install_taskwarrior() {
   if type task &> /dev/null; then
     echo "taskwarrior is already installed"
   else
-		REPO="GothenburgBitFactory/taskwarrior"
+    REPO="GothenburgBitFactory/taskwarrior"
     VERSION="3.1.0"
-		FILENAME="task-${VERSION}.tar.gz"
-		URL="https://github.com/$REPO/releases/download/v${VERSION}/${FILENAME}"
+    FILENAME="task-${VERSION}.tar.gz"
+    URL="https://github.com/$REPO/releases/download/v${VERSION}/${FILENAME}"
 
-		mkdir -p "$XDG_BIN_HOME"
+    mkdir -p "$XDG_BIN_HOME"
 
-		# Download the file to a temporary location
-		TEMP_ZIP="/tmp/$FILENAME"
-		curl -s -L -o "$TEMP_ZIP" "$URL"
+    # Download the file to a temporary location
+    TEMP_ZIP="/tmp/$FILENAME"
+    curl -s -L -o "$TEMP_ZIP" "$URL"
 
-		# Extract the binary to a temporary directory
-		tar -xzf "$TEMP_ZIP" -C "$XDG_CACHE_HOME/"
+    # Extract the binary to a temporary directory
+    tar -xzf "$TEMP_ZIP" -C "$XDG_CACHE_HOME/"
 
     pushd "$XDG_CACHE_HOME/task-${VERSION}"
 
@@ -106,13 +106,13 @@ function install_taskwarrior() {
     cmake --build build
     sudo cmake --install build
 
-		# Ensure the binary is executable
-		# chmod +x "$XDG_BIN_HOME/task"
+    # Ensure the binary is executable
+    # chmod +x "$XDG_BIN_HOME/task"
 
-		# Clean up the temporary files and directory
-		# rm "$TEMP_ZIP"
+    # Clean up the temporary files and directory
+    # rm "$TEMP_ZIP"
 
-		# echo "task has been installed to $XDG_BIN_HOME and is available in your PATH."
+    # echo "task has been installed to $XDG_BIN_HOME and is available in your PATH."
   fi
 }
 
@@ -142,37 +142,38 @@ function install_nvm() {
     echo "nvm already installed"
   else
     PROFILE=/dev/null bash -c 'curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
+    nvm install stable
   fi
 }
 
 function install_difftastic() {
-	if type difft &> /dev/null; then
-		echo "difft is already installed"
-	else
-		REPO="Wilfred/difftastic"
-		PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
-		LATEST_TAG=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" | grep 'tag_name' | cut -d\" -f4)
-		echo "Latest difftastic version: $LATEST_TAG"
-		FILENAME="difft-x86_64-unknown-linux-gnu.tar.gz"
-		URL="https://github.com/$REPO/releases/download/${LATEST_TAG}/${FILENAME}"
+  if type difft &> /dev/null; then
+    echo "difft is already installed"
+  else
+    REPO="Wilfred/difftastic"
+    PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
+    LATEST_TAG=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" | grep 'tag_name' | cut -d\" -f4)
+    echo "Latest difftastic version: $LATEST_TAG"
+    FILENAME="difft-x86_64-unknown-linux-gnu.tar.gz"
+    URL="https://github.com/$REPO/releases/download/${LATEST_TAG}/${FILENAME}"
 
-		mkdir -p "$XDG_BIN_HOME"
+    mkdir -p "$XDG_BIN_HOME"
 
-		# Download the file to a temporary location
-		TEMP_ZIP="/tmp/$FILENAME"
-		curl -s -L -o "$TEMP_ZIP" "$URL"
+    # Download the file to a temporary location
+    TEMP_ZIP="/tmp/$FILENAME"
+    curl -s -L -o "$TEMP_ZIP" "$URL"
 
-		# Extract the binary to a temporary directory
-		tar -xzf "$TEMP_ZIP" -C "$XDG_BIN_HOME/"
+    # Extract the binary to a temporary directory
+    tar -xzf "$TEMP_ZIP" -C "$XDG_BIN_HOME/"
 
-		# Ensure the binary is executable
-		chmod +x "$XDG_BIN_HOME/difft"
+    # Ensure the binary is executable
+    chmod +x "$XDG_BIN_HOME/difft"
 
-		# Clean up the temporary files and directory
-		rm "$TEMP_ZIP"
+    # Clean up the temporary files and directory
+    rm "$TEMP_ZIP"
 
-		echo "difft has been installed to $XDG_BIN_HOME and is available in your PATH."
-	fi
+    echo "difft has been installed to $XDG_BIN_HOME and is available in your PATH."
+  fi
 }
 
 function build_neovim() {
@@ -190,31 +191,33 @@ function build_neovim() {
 }
 
 function install_yadm() {
-	if [ -d "$XDG_DATA_HOME/yadm/repo.git" ]; then
-		echo "YADM is already installed"
-	else
-		yadm clone git@github.com:mblarsen/dotfiles.git
-	fi
+  if [ -d "$XDG_DATA_HOME/yadm/repo.git" ]; then
+    echo "YADM is already installed"
+  else
+    yadm clone git@github.com:mblarsen/dotfiles.git
+  fi
 }
 
 function install_zplug() {
-	if [ -d "$ZPLUG_HOME" ]; then
-		echo "zplug already installed"
-	else
-		curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-	fi
+  if [ -d "$ZPLUG_HOME" ]; then
+    echo "zplug already installed"
+  else
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+  fi
 }
 
 function install_synchthing() {
-	if type syncthing &> /dev/null; then
-		echo "syncthing already installed"
-	else
-		sudo mkdir -p /etc/apt/keyrings
-		sudo curl -s -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
-		echo "deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
-		sudo apt-get update
-		sudo apt-get install -y syncthing
-	fi
+  if type syncthing &> /dev/null; then
+    echo "syncthing already installed"
+  else
+    sudo mkdir -p /etc/apt/keyrings
+    sudo curl -s -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+    sudo apt-get update
+    sudo apt-get install -y syncthing
+    sudo systemctl enable syncthing@mbl.service
+    sudo systemctl start syncthing@mbl.service
+  fi
 }
 
 function install_posting() {
