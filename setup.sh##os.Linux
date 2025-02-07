@@ -234,6 +234,26 @@ function install_lazysql() {
   fi
 }
 
+function install_tmux_pm() {
+  if [ -d $XDG_DATA_HOME/tmux/plugins/tpm ]; then
+    echo "tmux pm is already installed"
+  else
+    mkdir -p $XDG_DATA_HOME/tmux/plugins
+    git clone https://github.com/tmux-plugins/tpm $XDG_DATA_HOME/tmux/plugins/tpm
+  fi
+}
+
+function install_pip_app() {
+  PKG=$1
+  BIN=${2:-$PKG}
+
+  if type "$BIN" &> /dev/null; then
+    echo "$BIN is already installed"
+  else 
+    pip install "$PKG"
+  fi
+}
+
 setup_ssh
 build_neovim
 install_yadm
@@ -249,3 +269,5 @@ install_nvm
 install_pgcli
 install_posting
 install_taskwarrior
+install_tmux_pm
+install_pip_app pre-commit
