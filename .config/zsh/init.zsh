@@ -63,6 +63,14 @@ zplug "agkozak/zsh-z"
 # goenv
 zplug "RiverGlide/zsh-goenv", from:gitlab
 
+# pyenv
+
+if [ -d "$HOME/.pyenv" ]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init - zsh)"
+fi
+
 if ! zplug check --verbose; then
   zplug install
 fi
