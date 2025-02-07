@@ -2,6 +2,16 @@
 
 # set -x
 
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_BIN_HOME=$HOME/.local/bin
+export XDG_LIB_HOME=$HOME/.local/lib
+export XDG_CACHE_HOME=$HOME/.cache
+
+export ZPLUG_HOME="$XDG_DATA_HOME/zplug"
+
+export PATH="$XDG_BIN_HOME:$PATH"
+
 sudo timedatectl set-timezone Asia/Manila
 
 sudo apt update
@@ -220,8 +230,8 @@ function install_pgcli() {
   if type pgcli &> /dev/null; then
     echo "pgcli is already installed"
   else
-    pip install pipx
-    pipx install pgcli psycopg-binary
+    pip install pipx psycopg-binary
+    pipx install pgcli
   fi
 }
 
@@ -254,8 +264,17 @@ function install_pip_app() {
   fi
 }
 
+function install_pyenv() {
+  if type pyenv &> /dev/null; then
+    echo "pyenv is already installed"
+  else
+    curl https://pyenv.run | bash
+  fi
+}
+
 setup_ssh
 build_neovim
+install_pyenv
 install_yadm
 install_zplug
 install_1password
