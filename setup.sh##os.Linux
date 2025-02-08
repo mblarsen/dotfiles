@@ -233,6 +233,7 @@ function install_pgcli() {
   if type pgcli &> /dev/null; then
     echo "pgcli is already installed"
   else
+    sudo apt-get install -y libpq-dev
     pip install pipx psycopg-binary
     pipx install pgcli
   fi
