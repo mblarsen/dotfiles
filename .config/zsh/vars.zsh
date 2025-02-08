@@ -22,8 +22,8 @@ export SPACESHIP_PROMPT_ORDER=(
   dir           # Current directory section
   git           # Git section (git_branch + git_status)
 
-  docker        # Docker section
-  docker_compose
+  # docker        # Docker section
+  # docker_compose
   golang
   lua
   node          # Node.js section
