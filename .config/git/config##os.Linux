@@ -5,7 +5,7 @@
 [core]
 	editor = nvim
 [commit]
-	gpgsign = true
+	gpgsign = false
 [alias]
 	gbd = git delete-branch
 	root = rev-parse --show-toplevel
