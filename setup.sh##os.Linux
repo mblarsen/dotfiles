@@ -229,13 +229,18 @@ function install_posting() {
   fi
 }
 
-function install_pgcli() {
+function install_psql_tooling() {
   if type pgcli &> /dev/null; then
     echo "pgcli is already installed"
   else
-    sudo apt-get install -y libpq-dev
+    sudo apt install -y libpq-dev
     pip install pipx psycopg-binary
     pipx install pgcli
+  fi
+  if type psql &> /dev/null; then
+    echo "psql client is already installed"
+  else
+    sudo apt install -y postgresql-client
   fi
 }
 
@@ -291,7 +296,7 @@ install_synchthing
 install_difftastic
 install_gh
 install_nvm
-install_pgcli
+install_psql_tooling
 install_posting
 install_taskwarrior
 install_tmux_pm
