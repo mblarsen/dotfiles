@@ -45,9 +45,8 @@ opt.laststatus = 2 -- 1 = off, 2 = local, 3 = global
 
 -- diagnostic
 vim.diagnostic.config({
-  virtual_lines = {
-    current_line = true,
+  virtual_lines = false, { current_line = true, severity = vim.diagnostic.severity.ERROR },
+  virtual_text = {
     severity = vim.diagnostic.severity.ERROR
-  },
-  virtual_text = false,
+  }
 })
