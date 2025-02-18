@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+pushd "$XDG_CACHE_HOME/nvim-src"
+rm -r build/ | true
+git checkout master
+git tag -d nightly
+git fetch origin
+git checkout nightly
+make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$XDG_BIN_HOME/neovim-src"
+make install
+rm "$XDG_BIN_HOME/nvim" | true
+ln -s "$XDG_BIN_HOME/neovim-src/bin/nvim" "$XDG_BIN_HOME/nvim"
+popd
+
+# :vim ft=shell
