@@ -46,13 +46,20 @@ return {
 
     -- picker keymaps
 
-    builtin = Snacks.picker
+    local builtin = Snacks.picker
     vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Snack picker buffers" })
     vim.keymap.set("n", "<leader>ff", builtin.files, { desc = "Snack picker find files" })
     vim.keymap.set("n", "<leader>fg", builtin.grep, { desc = "Snack picker live grep" })
     vim.keymap.set("n", "<leader>fw", builtin.grep_word, { desc = "Snack picker grep word" })
     vim.keymap.set("n", "<leader>fh", builtin.help, { desc = "Snack picker help tags" })
-    vim.keymap.set("n", "<leader>fo", builtin.recent, { desc = "Snack picker find old files" })
+    vim.keymap.set("n", "<leader>fn", builtin.notifications, { desc = "Snack picker notifications" })
+    vim.keymap.set("n", "<leader>fo", function()
+      builtin.recent {
+        filter = {
+          paths = { [vim.fn.getcwd()] = true },
+        },
+      }
+    end, { desc = "Snack picker find old files" })
     -- vim.keymap.set("n", "<leader>fO", function()
     --   builtin.oldfiles { cwd_only = false }
     -- end, { desc = "Snack picker find old files globally" })
