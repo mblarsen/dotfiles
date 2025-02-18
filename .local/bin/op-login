@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+op vault list > /dev/null 2>&1
+
+# Check the exit status of the previous command
+if [ $? -ne 0 ]; then
+  echo "1Password session is not valid. Please log in again."
+  eval $(op signin)
+else
+  echo "1Password session is valid."
+fi
+
+SESSION_NAME=$(tmux display-message -p '#S')  # Get the current session name
+
+# Find the environment variable that starts with 'OP_SESSION_'
+ENV_VAR_LINE=$(printenv | grep '^OP_SESSION_')
+
+# Check if the variable was found
+if [ -z "$ENV_VAR_LINE" ]; then
+  echo "No environment variable starting with 'OP_SESSION_' found."
+  exit 1
+fi
+
+# Extract the variable name and value
+ENV_VAR_NAME=$(echo "$ENV_VAR_LINE" | cut -d '=' -f 1)
+ENV_VAR_VALUE=$(echo "$ENV_VAR_LINE" | cut -d '=' -f 2-)
+
+# Iterate over each pane in the session
+tmux list-panes -t $SESSION_NAME -F "#{pane_id} #{pane_active} #{pane_current_command}" | while read -r pane_id active command
+do
+  # Check if the pane is not running a process or is active
+  if [ "$command" == "bash" ] || [ "$command" == "zsh" ]; then
+    # Send the export command to the pane
+    tmux send-keys -t "$pane_id" "export $ENV_VAR_NAME=$ENV_VAR_VALUE" Enter
+  fi
+done
+
+# :vim: ft=shell
