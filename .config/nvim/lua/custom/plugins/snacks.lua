@@ -64,7 +64,8 @@ return {
     --   builtin.oldfiles { cwd_only = false }
     -- end, { desc = "Snack picker find old files globally" })
     vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Snack picker resume" })
-    vim.keymap.set("n", "<leader>fs", builtin.lsp_symbols, { desc = "Snack picker document symbols" })
+    -- vim.keymap.set("n", "<leader>fs", builtin.lsp_symbols, { desc = "Snack picker document symbols" })
+    vim.keymap.set("n", "<leader>fS", builtin.lsp_workspace_symbols, { desc = "Snack picker workspace symbols" })
     vim.keymap.set("n", "<leader>fvb", builtin.git_branches, { desc = "Snack picker git branches" })
     vim.keymap.set("n", "<leader>fvf", builtin.git_files, { desc = "Snack picker git files" })
     vim.keymap.set("n", "<leader>fvl", builtin.git_log_file, { desc = "Snack picker git log file" })
@@ -73,19 +74,19 @@ return {
     vim.keymap.set("n", "<leader>en", function()
       builtin.files {
         dirs = { vim.fn.stdpath "config" },
-        hidden = true
+        hidden = true,
       }
     end)
     vim.keymap.set("n", "<leader>ew", function()
       builtin.files {
         dirs = { "~/.config/wezterm" },
-        hidden = true
+        hidden = true,
       }
     end)
     vim.keymap.set("n", "<leader>ep", function()
       builtin.files {
         dirs = { vim.fs.joinpath(vim.fn.stdpath "data", "lazy") },
-        hidden = true
+        hidden = true,
       }
     end)
   end,

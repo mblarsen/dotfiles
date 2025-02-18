@@ -1,8 +1,8 @@
 local set = vim.keymap.set
 
 set("t", "<Esc>", "<C-\\><C-n><C-w>p", { desc = "Easy exit terminal" })
-set("n", "<leader>x", "<cmd>bd<CR>", { desc = "Close the current buffer" })
-set("n", "<leader>X", "<cmd>bd!<CR>", { desc = "Force close the current buffer" })
+-- set("n", "<leader>x", "<cmd>bd<CR>", { desc = "Close the current buffer" })
+-- set("n", "<leader>X", "<cmd>bd!<CR>", { desc = "Force close the current buffer" })
 set("n", "<leader>W", "<cmd>w | bd<CR>", { desc = "Write buffer and close it" })
 set("n", "[c", "<cmd>cnext<CR>", { desc = "Go to next quixfix entry" })
 set("n", "]c", "<cmd>cprev<CR>", { desc = "Go to previous quixfix entry" })
@@ -27,12 +27,3 @@ set("n", "gti", function()
   inlay_hint.enable(not inlay_hint.is_enabled(filter), filter)
 end, { desc = "Toggle inlay hint" })
 
-set("n", "<leader>fn", function()
-  local file = vim.fn.expand "%:t"
-  local path = vim.fn.expand "%:h"
-  vim.notify(
-    "path: " .. path .. "\nfile: " .. file,
-    vim.log.levels.INFO,
-    { title = "Current file", timeout = 10000, id = "currentfile" }
-  )
-end, { desc = "Notify current file name", noremap = true, silent = true })
