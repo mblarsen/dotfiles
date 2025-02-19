@@ -28,6 +28,11 @@ ENV_VAR_VALUE=$(echo "$ENV_VAR_LINE" | cut -d '=' -f 2-)
 # Iterate over each pane in the session
 tmux list-panes -t $SESSION_NAME -F "#{pane_id} #{pane_active} #{pane_current_command}" | while read -r pane_id active command
 do
+  # Skip the active pane
+  if [ "$active" -eq 1 ]; then
+    continue
+  fi
+
   # Check if the pane is not running a process or is active
   if [ "$command" == "bash" ] || [ "$command" == "zsh" ]; then
     # Send the export command to the pane
