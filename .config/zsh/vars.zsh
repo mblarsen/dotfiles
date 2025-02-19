@@ -29,6 +29,7 @@ export SPACESHIP_PROMPT_ORDER=(
   node          # Node.js section
   python
   venv          # virtualenv section
+  jobs
 
   exec_time     # Execution time
   battery       # Battery level and status
@@ -42,6 +43,7 @@ export SPACESHIP_RPROMPT_ADD_NEWLINE=true
 export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_HOST_SHOW="always"
 
+export SPACESHIP_JOBS_SHOW=true
 export SPACESHIP_BATTERY_THRESHOLD=50
 export SPACESHIP_CHAR_SUFFIX=" "
 export SPACESHIP_CHAR_SYMBOL="§"
