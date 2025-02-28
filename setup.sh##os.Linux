@@ -192,7 +192,7 @@ function build_neovim() {
 
 function install_yadm() {
   if [ -d "$XDG_DATA_HOME/yadm/repo.git" ]; then
-    echo "YADM is already installed"
+    echo "yadm is already installed"
   else
     yadm clone git@github.com:mblarsen/dotfiles.git
   fi
@@ -273,6 +273,17 @@ function install_pip_app() {
   fi
 }
 
+function install_pipx_app() {
+  PKG=$1
+  BIN=${2:-$PKG}
+
+  if type "$BIN" &> /dev/null; then
+    echo "$BIN is already installed"
+  else 
+    pipx install "$PKG"
+  fi
+}
+
 function install_pyenv() {
   if type pyenv &> /dev/null; then
     echo "pyenv is already installed"
@@ -280,6 +291,25 @@ function install_pyenv() {
     curl https://pyenv.run | bash
     pyenv install 3.11.11
     pyenv global 3.11.11
+  fi
+}
+
+function install_fx() {
+  if type fx &> /dev/null; then
+    echo "fx is already installed"
+  else
+    sudo snap install fx
+  fi
+}
+
+function install_sudo_snap_install_app() {
+  PKG=$1
+  BIN=${2:-$PKG}
+
+  if type "$BIN" &> /dev/null; then
+    echo "$BIN is already installed"
+  else 
+    sudo snap install "$PKG" --classic
   fi
 }
 
@@ -301,3 +331,5 @@ install_posting
 install_taskwarrior
 install_tmux_pm
 install_pip_app pre-commit
+install_sudo_snap_install_app aws-cli
+install_fx
