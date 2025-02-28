@@ -50,6 +50,7 @@ return {
     vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Snack picker buffers" })
     vim.keymap.set("n", "<leader>ff", builtin.files, { desc = "Snack picker find files" })
     vim.keymap.set("n", "<leader>fg", builtin.grep, { desc = "Snack picker live grep" })
+    vim.keymap.set("n", "<leader>fG", builtin.git_status, { desc = "Snack picker git status" })
     vim.keymap.set("n", "<leader>fw", builtin.grep_word, { desc = "Snack picker grep word" })
     vim.keymap.set("n", "<leader>fh", builtin.help, { desc = "Snack picker help tags" })
     vim.keymap.set("n", "<leader>fn", builtin.notifications, { desc = "Snack picker notifications" })
@@ -57,6 +58,13 @@ return {
       builtin.recent {
         filter = {
           paths = { [vim.fn.getcwd()] = true },
+        },
+      }
+    end, { desc = "Snack picker find old files" })
+    vim.keymap.set("n", "<leader>fO", function()
+      builtin.recent {
+        filter = {
+          paths = { [vim.fn.getcwd()] = false },
         },
       }
     end, { desc = "Snack picker find old files" })
