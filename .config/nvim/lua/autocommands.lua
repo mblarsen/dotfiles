@@ -22,15 +22,15 @@ autocmd({ "LspAttach" }, {
 
     local opts = { buffer = buf }
     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { noremap = true })
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "gr", function()
+    vim.keymap.set("n", "grr", function()
       require("trouble").open {
         auto_refresh = true,
         mode = "lsp_references",
       }
     end, opts)
-    vim.keymap.set("n", "gi", function()
+    vim.keymap.set("n", "gri", function()
       require("trouble").open {
         auto_refresh = true,
         mode = "lsp_implementations",
