@@ -69,12 +69,6 @@
           "label" : "",
           "type" : "application",
           "value" : "/System/Applications/iPhone Mirroring.app"
-        },
-        {
-          "key" : "z",
-          "label" : "",
-          "type" : "application",
-          "value" : "/Applications/Zen Browser.app"
         }
       ],
       "key" : "o",
