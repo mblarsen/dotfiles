@@ -48,6 +48,7 @@ return {
 
     local builtin = Snacks.picker
     vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Snack picker buffers" })
+    vim.keymap.set("n", "<leader>fe", builtin.explorer, { desc = "Snack picker explorer" })
     vim.keymap.set("n", "<leader>ff", builtin.files, { desc = "Snack picker find files" })
     vim.keymap.set("n", "<leader>fg", builtin.grep, { desc = "Snack picker live grep" })
     vim.keymap.set("n", "<leader>fG", builtin.git_status, { desc = "Snack picker git status" })
@@ -72,6 +73,7 @@ return {
     --   builtin.oldfiles { cwd_only = false }
     -- end, { desc = "Snack picker find old files globally" })
     vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Snack picker resume" })
+    vim.keymap.set("n", "<leader>fp", builtin.pickers, { desc = "Snack picker pickers" })
     vim.keymap.set("n", "<leader>fs", builtin.lsp_symbols, { desc = "Snack picker document symbols" })
     vim.keymap.set("n", "<leader>fS", builtin.lsp_workspace_symbols, { desc = "Snack picker workspace symbols" })
     vim.keymap.set("n", "<leader>fvb", builtin.git_branches, { desc = "Snack picker git branches" })

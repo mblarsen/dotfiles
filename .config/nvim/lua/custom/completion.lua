@@ -2,7 +2,7 @@ require "custom.snippets"
 
 local cmp = require "cmp"
 
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.completeopt = { "menu", "menuone", "noselect", "preinsert" }
 vim.opt.shortmess:append "c"
 
 local lspkind = require "lspkind"
