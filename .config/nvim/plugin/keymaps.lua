@@ -27,3 +27,13 @@ set("n", "gti", function()
   inlay_hint.enable(not inlay_hint.is_enabled(filter), filter)
 end, { desc = "Toggle inlay hint" })
 
+local diagnostics_virtual_lines = false
+local function toggle_virtual_lines()
+  diagnostics_virtual_lines = not diagnostics_virtual_lines
+  vim.diagnostic.config {
+    virtual_lines = diagnostics_virtual_lines and { current_line = true } or false,
+    virtual_text = not diagnostics_virtual_lines and { current_line = true } or false,
+  }
+end
+
+vim.keymap.set("n", "gtl", toggle_virtual_lines, { desc = "Toggle diagnostic virtual lines" })

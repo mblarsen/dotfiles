@@ -44,9 +44,11 @@ opt.timeoutlen = 500 -- default: 1000
 opt.laststatus = 2 -- 1 = off, 2 = local, 3 = global
 
 -- diagnostic
-vim.diagnostic.config({
-  virtual_lines = false, { current_line = true, severity = vim.diagnostic.severity.ERROR },
+vim.diagnostic.config {
+  virtual_lines = false,
+  -- { current_line = true, severity = vim.diagnostic.severity.ERROR },
   virtual_text = {
-    severity = vim.diagnostic.severity.ERROR
-  }
-})
+    -- severity = vim.diagnostic.severity.ERROR,
+    current_line = true,
+  },
+}
