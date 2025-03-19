@@ -1,0 +1,174 @@
+{
+  "actions" : [
+    {
+      "key" : "t",
+      "label" : "",
+      "type" : "application",
+      "value" : "/Applications/WezTerm.app"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "s",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/Safari.app"
+        },
+        {
+          "key" : "m",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/Mail.app"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "c",
+              "label" : "",
+              "type" : "application",
+              "value" : "/Applications/Notion Calendar.app"
+            },
+            {
+              "key" : "m",
+              "label" : "",
+              "type" : "application",
+              "value" : "/System/Applications/Calendar.app"
+            }
+          ],
+          "key" : "c",
+          "label" : "Calendar",
+          "type" : "group"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "n",
+              "label" : "",
+              "type" : "application",
+              "value" : "/Applications/Notion.app"
+            },
+            {
+              "key" : "m",
+              "label" : "",
+              "type" : "application",
+              "value" : "/System/Applications/Notes.app"
+            }
+          ],
+          "key" : "n",
+          "label" : "Notes",
+          "type" : "group"
+        },
+        {
+          "key" : "o",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/1Password.app"
+        },
+        {
+          "key" : "i",
+          "label" : "",
+          "type" : "application",
+          "value" : "/System/Applications/iPhone Mirroring.app"
+        },
+        {
+          "key" : "z",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/Zen Browser.app"
+        }
+      ],
+      "key" : "o",
+      "label" : "Open",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "s",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/Slack.app"
+        },
+        {
+          "key" : "t",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/Telegram.app"
+        },
+        {
+          "key" : "d",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/Discord.app"
+        },
+        {
+          "key" : "g",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/Gather.app"
+        },
+        {
+          "key" : "c",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/Chatbox.app"
+        }
+      ],
+      "key" : "c",
+      "label" : "Chat",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "s",
+          "label" : "Spotlight",
+          "type" : "command",
+          "value" : "osascript -e 'tell application \"System Events\" to keystroke \"s\" using {control down, command down, shift down, option down}'\n"
+        },
+        {
+          "key" : "o",
+          "label" : "1Password Quick Search",
+          "type" : "command",
+          "value" : "osascript -e 'tell application \"System Events\" to keystroke \"p\" using {control down, command down, shift down, option down}'"
+        },
+        {
+          "key" : "m",
+          "label" : "",
+          "type" : "application",
+          "value" : "/Applications/Maccy.app"
+        }
+      ],
+      "key" : "s",
+      "label" : "Search",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "actions" : [
+            {
+              "key" : "o",
+              "label" : "Turn on plumb",
+              "type" : "command",
+              "value" : "gh workflow run --repo mblarsen/dotfiles on.yaml"
+            },
+            {
+              "key" : "f",
+              "label" : "Turn off plumb",
+              "type" : "command",
+              "value" : "gh workflow run --repo mblarsen/dotfiles off.yaml"
+            }
+          ],
+          "key" : "o",
+          "label" : "Toggle plumb",
+          "type" : "group"
+        }
+      ],
+      "key" : "f",
+      "label" : "Workflows",
+      "type" : "group"
+    }
+  ],
+  "type" : "group"
+}
