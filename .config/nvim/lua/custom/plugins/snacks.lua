@@ -72,7 +72,7 @@ return {
     --   builtin.oldfiles { cwd_only = false }
     -- end, { desc = "Snack picker find old files globally" })
     vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Snack picker resume" })
-    -- vim.keymap.set("n", "<leader>fs", builtin.lsp_symbols, { desc = "Snack picker document symbols" })
+    vim.keymap.set("n", "<leader>fs", builtin.lsp_symbols, { desc = "Snack picker document symbols" })
     vim.keymap.set("n", "<leader>fS", builtin.lsp_workspace_symbols, { desc = "Snack picker workspace symbols" })
     vim.keymap.set("n", "<leader>fvb", builtin.git_branches, { desc = "Snack picker git branches" })
     vim.keymap.set("n", "<leader>fvf", builtin.git_files, { desc = "Snack picker git files" })
