@@ -50,7 +50,7 @@ function setup_ssh() {
   if [ -f "$GITHUB_SSH" ]; then
     echo "GitHub SSH key already exists"
   else
-    ssh-keygen -t ed25519 -C "mbl@code.boutique" -f "GITHUB_SSH" -N ""
+    ssh-keygen -t ed25519 -C "mbl@code.boutique" -f "$GITHUB_SSH" -N ""
   fi
 }
 

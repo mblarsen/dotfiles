@@ -2,15 +2,20 @@
 
 dotfiles managed by [yadm].
 
-* vim
-* wezterm
-* etc
+- vim
+- wezterm
+- etc
 
 [yadm]: https://github.com/TheLocehiliosan/yadm
 
 # linux box
 
 Based on Ubuntu 24
+
+```
+# change hostname
+hostnamectl set-hostname plumb
+```
 
 ```
 curl -fsSL https://tailscale.com/install.sh | sh
@@ -39,8 +44,6 @@ sudo service ssh restart
 # test connection works
 ssh <username>@<server host ip>
 
-# change hostname
-hostnamectl set-hostname plumb
 
 sudo adduser mbl
 sudo usermod  -aG sudo mbl
@@ -49,6 +52,7 @@ sudo apt install zsh -y
 sudo chsh -s /usr/bin/zsh mbl
 sudo su - mbl
 cd
+copy .zshenv from repo to get XDG_*
 mkdir .ssh
 chmod 2700 .ssh
 vim .ssh/authorized_keys # insert public key
@@ -84,8 +88,8 @@ yadm clone git@github.com:mblarsen/dotfiles.git
 
 # log in and out a bit for zplug to work
 
-pyenv install 3.11.11
-pyenv global 3.11.11
+pyenv install 3.12.3
+pyenv global 3.12.3
 
 Run ./setup again for the remaining
 ```
