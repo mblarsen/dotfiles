@@ -90,6 +90,8 @@ yadm clone git@github.com:mblarsen/dotfiles.git
 
 pyenv install 3.12.3
 pyenv global 3.12.3
+nvm install stable
+nvm use stable
 
 Run ./setup again for the remaining
 ```
