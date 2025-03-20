@@ -1,6 +1,7 @@
 local M = {}
 
 require "custom.plugins.mini-plugins.basics"
+require "custom.plugins.mini-plugins.completion"
 require "custom.plugins.mini-plugins.diff"
 require "custom.plugins.mini-plugins.files"
 

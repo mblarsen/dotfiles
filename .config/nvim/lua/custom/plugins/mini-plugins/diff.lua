@@ -3,9 +3,11 @@ require("mini.diff").setup {
     style = "sign",
   },
   options = {
-    -- algorithm = "patience",
     algorithm = "minimal", -- see :h vim.diff()
   },
-}
+  config = function (_, opts)
+    require("mini.diff").setup(opts)
 
-vim.keymap.set("n", "ghp", require("mini.diff").toggle_overlay)
+    vim.keymap.set("n", "ghp", require("mini.diff").toggle_overlay)
+  end
+}

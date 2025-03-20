@@ -19,7 +19,7 @@ require("conform").setup {
     },
   },
   formatters_by_ft = {
-    ["*"] = { "trim_newlines", "typos" },
+    ["*"] = { "trim_newlines" },
     gleam = { "trim_whitespace", "gleam" },
     graphql = { "prettier" },
     javascript = { "trim_whitespace", "prettier" },

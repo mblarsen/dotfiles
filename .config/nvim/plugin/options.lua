@@ -43,12 +43,23 @@ opt.timeoutlen = 500 -- default: 1000
 -- show statusline
 opt.laststatus = 2 -- 1 = off, 2 = local, 3 = global
 
+--  completion
+vim.opt.completeopt = { "menu", "menuone", "noselect", "preinsert" }
+vim.opt.shortmess:append "c"
+
 -- diagnostic
 vim.diagnostic.config {
+  update_in_insert = true,
+  float = {
+    focusable = true,
+  },
   virtual_lines = false,
-  -- { current_line = true, severity = vim.diagnostic.severity.ERROR },
   virtual_text = {
-    -- severity = vim.diagnostic.severity.ERROR,
-    current_line = true,
+    current_line = true
   },
 }
+
+vim.fn.sign_define("DiagnosticSignError", { text = "●" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "●" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "●" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "●" })

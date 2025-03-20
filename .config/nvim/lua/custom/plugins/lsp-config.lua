@@ -5,14 +5,9 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "hrsh7th/nvim-cmp",
-    -- "saghen/blink.cmp",
     "b0o/schemastore.nvim",
   },
   config = function()
-    -- local capabilities = require("blink.cmp").get_lsp_capabilities()
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
     local lspconfig = require "lspconfig"
 
     require("mason-lspconfig").setup {
@@ -21,7 +16,7 @@ return {
         "jsonls",
         "lua_ls",
         "taplo",
-        "typos_lsp",
+        "tailwindcss",
         "terraformls",
         "pyright",
         "yamlls",
@@ -29,12 +24,12 @@ return {
       handlers = {
         function(server_name)
           lspconfig[server_name].setup {
-            capabilities = capabilities,
+            -- capabilities = capabilities,
           }
         end,
         ["lua_ls"] = function(server_name)
           lspconfig[server_name].setup {
-            capabilities = capabilities,
+            -- capabilities = capabilities,
             settings = {
               Lua = {
                 -- disable formatting as it is handled by null-ls
@@ -51,7 +46,7 @@ return {
         end,
         ["jsonls"] = function(server_name)
           lspconfig[server_name].setup {
-            capabilities = capabilities,
+            -- capabilities = capabilities,
             settings = {
               json = {
                 schemas = require("schemastore").json.schemas(),
@@ -62,7 +57,7 @@ return {
         end,
         ["yamlls"] = function(server_name)
           lspconfig[server_name].setup {
-            capabilities = capabilities,
+            -- capabilities = capabilities,
             settings = {
               yaml = {
                 schemaStore = {
@@ -79,7 +74,7 @@ return {
         end,
         ["ts_ls"] = function(server_name)
           lspconfig[server_name].setup {
-            capabilities = capabilities,
+            -- capabilities = capabilities,
             settings = {
               javascript = {
                 inlayHints = {
@@ -110,7 +105,7 @@ return {
     }
 
     require("lspconfig").gleam.setup {
-      capabilities = capabilities,
+      -- capabilities = capabilities,
       on_attach = on_attach,
     }
   end,

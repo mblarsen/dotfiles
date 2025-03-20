@@ -3,7 +3,7 @@ return {
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
   },
-  config = function(_, opts)
+  config = function()
     require("mason").setup {
       ensure_installed = {
         "eslint_d",

@@ -17,8 +17,8 @@ autocmd({ "LspAttach" }, {
     local buf = event.buf
     local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    -- -- Enable completion triggered by <c-x><c-o>
+    -- vim.bo[buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
     local opts = { buffer = buf }
     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { noremap = true })
@@ -40,12 +40,6 @@ autocmd({ "LspAttach" }, {
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
-    -- Disable diagnostic signs in the gutter
-    vim.fn.sign_define("DiagnosticSignError", { text = "●" })
-    vim.fn.sign_define("DiagnosticSignWarn", { text = "●" })
-    vim.fn.sign_define("DiagnosticSignInfo", { text = "●" })
-    vim.fn.sign_define("DiagnosticSignHint", { text = "●" })
-
     -- Rename action
     vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
 
@@ -60,14 +54,6 @@ autocmd({ "LspAttach" }, {
       end
     end
 
-    -- vim.diagnostic.config { virtual_text = false }
-    vim.diagnostic.config {
-      update_in_insert = true,
-      float = {
-        focusable = true,
-        -- header = "",
-      },
-    }
   end,
 })
 
