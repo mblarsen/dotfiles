@@ -1,7 +1,7 @@
 -- used in combination with ufo
 return {
   "gh-liu/fold_line.nvim",
-  enabled = true,
+  enabled = false,
   event = "VeryLazy",
   init = function()
     -- change the char of the line, see the `Appearance` section
