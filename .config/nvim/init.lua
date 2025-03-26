@@ -19,3 +19,5 @@ vim.opt.rtp:prepend(lazypath)
 
 require "custom.lazy"
 require "ui"
+require "custom.completion"
+require "custom.diagnostic"
