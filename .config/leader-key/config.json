@@ -69,6 +69,12 @@
           "label" : "",
           "type" : "application",
           "value" : "/System/Applications/iPhone Mirroring.app"
+        },
+        {
+          "key" : "f",
+          "label" : null,
+          "type" : "application",
+          "value" : "/Applications/Firefox.app"
         }
       ],
       "key" : "o",
