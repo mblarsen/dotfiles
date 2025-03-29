@@ -1,6 +1,14 @@
 return {
   "echasnovski/mini.nvim",
   config = function()
+    ---
+    --- mini.ai
+    ---
+    require("mini.ai").setup { }
+
+    ---
+    --- mini.basics
+    ---
     require("mini.basics").setup {
       options = {
         basic = true,
@@ -9,6 +17,10 @@ return {
       },
       silent = true,
     }
+
+    ---
+    --- mini.clue
+    ---
     require("mini.clue").setup {
       triggers = {
         -- Leader triggers
@@ -50,17 +62,50 @@ return {
         require("mini.clue").gen_clues.z(),
       }
     }
+
+    ---
+    --- mini.completion
+    --- 
+    require("mini.completion").setup {}
+    require("mini.snippets").setup {}
+    require("mini.icons").setup {}
+    MiniIcons.tweak_lsp_kind()
+    local group = vim.api.nvim_create_augroup("MyMiniCompletion", {})
+    local cmd = function(event, pattern, callback, desc)
+      vim.api.nvim_create_autocmd(event, {
+        group = group,
+        pattern = pattern,
+        callback = callback,
+        desc = desc,
+      })
+    end
+    cmd("FileType", "snacks_picker_input", function()
+      vim.b.minicompletion_disable = true
+    end, "Disable locally")
+
+    ---
+    --- mini.files
+    --- 
     require("mini.files").setup {
       mappings = {
         go_in_plus = "<cr>",
       },
     }
-    require("mini.git").setup()
-    require("mini.surround").setup {}
-
     vim.keymap.set("n", "-", function(...)
-      if not MiniFiles.close() then MiniFiles.open(...) end
+      if not MiniFiles.close() then
+        require("mini.files").open(vim.api.nvim_buf_get_name(0))
+      end
     end, { desc = "Mini.files : Toggle" })
+
+    ---
+    --- mini.git
+    --- 
+    require("mini.git").setup()
+
+    ---
+    --- mini.surround
+    --- 
+    require("mini.surround").setup {}
   end,
 }
 

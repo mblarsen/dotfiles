@@ -13,10 +13,10 @@ return {
     statuscolumn = { enabled = true },
     words = { enabled = false },
     zen = { enabled = true },
+    rename = { enabled = true },
     --
     bigfile = { enabled = false },
     quickfile = { enabled = false },
-    rename = { enabled = false },
     scroll = { enabled = false },
   },
   config = function(_, opts)
@@ -69,5 +69,12 @@ return {
         hidden = true,
       }
     end, { desc = "Snacks : Lazy files" })
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "MiniFilesActionRename",
+      callback = function(event)
+        Snacks.rename.on_rename_file(event.data.from, event.data.to)
+      end,
+    })
   end,
 }
