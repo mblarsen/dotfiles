@@ -1,7 +1,6 @@
 return {
   "Goose97/timber.nvim",
-  version = "*", -- Use for stability; omit to use `main` branch for the latest features
-  event = "VeryLazy",
+  keys = { "gla", "glb", "glj", "glo", "glO" },
   config = function()
     require("timber").setup {
       -- glo insert plain log below

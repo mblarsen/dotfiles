@@ -10,13 +10,24 @@ return {
     --- mini.basics
     ---
     require("mini.basics").setup {
+      autocommands = {
+        basic = true,
+      },
       options = {
         basic = true,
         extra_ui = true,
-        win_borders = "single",
+        win_borders = "dot",
       },
-      silent = true,
+      mappings = {
+        basic = true,
+        option_toggle_prefix = [[yo]],
+      },
+      silent = false,
     }
+    vim.keymap.del("i", "<C-s>")
+    vim.keymap.set("i", "<C-s>", function()
+      vim.lsp.buf.show_signature_help()
+    end, { desc = "Show signature help" })
 
     ---
     --- mini.clue
@@ -33,6 +44,9 @@ return {
         -- `g` key
         { mode = 'n', keys = 'g' },
         { mode = 'x', keys = 'g' },
+
+        -- yo toggles
+        { mode = 'n', keys = 'yo' },
 
         -- Marks
         { mode = 'n', keys = "'" },
