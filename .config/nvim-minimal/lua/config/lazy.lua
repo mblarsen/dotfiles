@@ -6,7 +6,7 @@ require("lazy").setup({
     notify = false,
   },
   install = {
-      colorscheme = { "tokyonight" }
+    colorscheme = { "tokyonight" },
   },
   ui = {
     border = "rounded",

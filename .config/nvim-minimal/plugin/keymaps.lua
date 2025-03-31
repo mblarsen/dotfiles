@@ -13,7 +13,7 @@ set("n", "gti", function()
   local inlay_hint = vim.lsp.inlay_hint
   local filter = { bufnr = 0 }
   inlay_hint.enable(not inlay_hint.is_enabled(filter), filter)
-end, { desc = "Toggle inlay hint" })
+end, { desc = "LSP: Toggle inlay hint" })
 
 local function toggle_virtual_lines()
   local diagnostics_virtual_lines = not vim.diagnostic.config().virtual_lines
@@ -22,4 +22,4 @@ local function toggle_virtual_lines()
     virtual_text = not diagnostics_virtual_lines and { current_line = true } or false,
   }
 end
-vim.keymap.set("n", "gtl", toggle_virtual_lines, { desc = "Toggle diagnostic virtual lines" })
+vim.keymap.set("n", "gtl", toggle_virtual_lines, { desc = "LSP: Toggle diagnostic virtual lines" })

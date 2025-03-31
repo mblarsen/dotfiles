@@ -1,18 +1,34 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    { "williamboman/mason.nvim", config = function ()
-      require ("mason").setup()
-    end },
+    {
+      "williamboman/mason.nvim",
+      config = function()
+        require("mason").setup()
+      end,
+    },
     "williamboman/mason-lspconfig.nvim",
     "b0o/schemastore.nvim",
   },
   config = function()
     local lspconfig = require "lspconfig"
 
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and client:supports_method "textDocument/foldingRange" then
+          local win = vim.api.nvim_get_current_win()
+          vim.wo[win][0].foldmethod = "expr"
+          vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+        end
+      end,
+    })
+    vim.api.nvim_create_autocmd("LspDetach", { command = "setl foldexpr<" })
+    vim.opt.foldlevel = 99
+
     require("mason-lspconfig").setup {
       automatic_installation = true,
-      ensure_installed = { },
+      ensure_installed = {},
       handlers = {
         function(server_name)
           lspconfig[server_name].setup {
@@ -73,6 +89,6 @@ return {
     require("lspconfig").gleam.setup {
       -- capabilities = capabilities,
       on_attach = on_attach,
-    }  end
+    }
+  end,
 }
-

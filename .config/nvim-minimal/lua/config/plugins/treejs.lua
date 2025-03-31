@@ -6,4 +6,3 @@ return {
     require("treesj").setup {}
   end,
 }
-

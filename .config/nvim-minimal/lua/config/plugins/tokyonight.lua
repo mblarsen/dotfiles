@@ -15,10 +15,10 @@ return {
       mini_surround = true,
       snacks = true,
       treesitter = true,
-    }
+    },
   },
   config = function(_, opts)
     require("tokyonight").setup(opts)
     vim.cmd [[colorscheme tokyonight]]
-  end
+  end,
 }

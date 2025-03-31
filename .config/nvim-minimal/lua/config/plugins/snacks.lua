@@ -6,15 +6,20 @@ return {
   ---@type snacks.Config
   opts = {
     explorer = { enabled = true },
-    input = { enabled = true },
     image = { enabled = true },
-    notifier = { enabled = false, style = style },
-    -- picker = { layout = "ivy" },
-    statuscolumn = { enabled = true },
-    words = { enabled = false },
-    zen = { enabled = true },
+    input = { enabled = true },
+    notifier = {
+      enabled = true,
+      style = style,
+    },
     rename = { enabled = true },
+    statuscolumn = {
+      enabled = true,
+      folds = { open = true },
+    },
+    zen = { enabled = true },
     --
+    words = { enabled = false },
     bigfile = { enabled = false },
     quickfile = { enabled = false },
     scroll = { enabled = false },
@@ -30,6 +35,7 @@ return {
     vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Snacks : Buffers picker" })
     vim.keymap.set("n", "<leader>fe", builtin.explorer, { desc = "Snacks : Explorer picker" })
     vim.keymap.set("n", "<leader>ff", builtin.files, { desc = "Snacks : Find files" })
+    vim.keymap.set("n", "<leader>fl", builtin.lines, { desc = "Snacks : Find files" })
     vim.keymap.set("n", "<leader>fg", builtin.grep, { desc = "Snacks : Live grep" })
     vim.keymap.set("n", "<leader>fG", builtin.git_status, { desc = "Snacks : Git status" })
     vim.keymap.set("n", "<leader>fw", builtin.grep_word, { desc = "Snacks : Grep word" })

@@ -4,7 +4,7 @@ return {
     ---
     --- mini.ai
     ---
-    require("mini.ai").setup { }
+    require("mini.ai").setup {}
 
     ---
     --- mini.basics
@@ -35,37 +35,37 @@ return {
     require("mini.clue").setup {
       triggers = {
         -- Leader triggers
-        { mode = 'n', keys = '<Leader>' },
-        { mode = 'x', keys = '<Leader>' },
+        { mode = "n", keys = "<Leader>" },
+        { mode = "x", keys = "<Leader>" },
 
         -- Built-in completion
-        { mode = 'i', keys = '<C-x>' },
+        { mode = "i", keys = "<C-x>" },
 
         -- `g` key
-        { mode = 'n', keys = 'g' },
-        { mode = 'x', keys = 'g' },
+        { mode = "n", keys = "g" },
+        { mode = "x", keys = "g" },
 
         -- yo toggles
-        { mode = 'n', keys = 'yo' },
+        { mode = "n", keys = "yo" },
 
         -- Marks
-        { mode = 'n', keys = "'" },
-        { mode = 'n', keys = '`' },
-        { mode = 'x', keys = "'" },
-        { mode = 'x', keys = '`' },
+        { mode = "n", keys = "'" },
+        { mode = "n", keys = "`" },
+        { mode = "x", keys = "'" },
+        { mode = "x", keys = "`" },
 
         -- Registers
-        { mode = 'n', keys = '"' },
-        { mode = 'x', keys = '"' },
-        { mode = 'i', keys = '<C-r>' },
-        { mode = 'c', keys = '<C-r>' },
+        { mode = "n", keys = '"' },
+        { mode = "x", keys = '"' },
+        { mode = "i", keys = "<C-r>" },
+        { mode = "c", keys = "<C-r>" },
 
         -- Window commands
-        { mode = 'n', keys = '<C-w>' },
+        { mode = "n", keys = "<C-w>" },
 
         -- `z` key
-        { mode = 'n', keys = 'z' },
-        { mode = 'x', keys = 'z' },
+        { mode = "n", keys = "z" },
+        { mode = "x", keys = "z" },
       },
       clues = {
         require("mini.clue").gen_clues.builtin_completion(),
@@ -74,12 +74,12 @@ return {
         require("mini.clue").gen_clues.registers(),
         require("mini.clue").gen_clues.windows(),
         require("mini.clue").gen_clues.z(),
-      }
+      },
     }
 
     ---
     --- mini.completion
-    --- 
+    ---
     require("mini.completion").setup {}
     require("mini.snippets").setup {}
     require("mini.icons").setup {}
@@ -99,7 +99,7 @@ return {
 
     ---
     --- mini.files
-    --- 
+    ---
     require("mini.files").setup {
       mappings = {
         go_in_plus = "<cr>",
@@ -113,13 +113,12 @@ return {
 
     ---
     --- mini.git
-    --- 
+    ---
     require("mini.git").setup()
 
     ---
     --- mini.surround
-    --- 
+    ---
     require("mini.surround").setup {}
   end,
 }
-
