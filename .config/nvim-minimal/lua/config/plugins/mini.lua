@@ -26,7 +26,7 @@ return {
     }
     vim.keymap.del("i", "<C-s>")
     vim.keymap.set("i", "<C-s>", function()
-      vim.lsp.buf.show_signature_help()
+      vim.lsp.buf.signature_help()
     end, { desc = "Show signature help" })
 
     ---

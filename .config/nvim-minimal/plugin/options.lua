@@ -12,14 +12,19 @@ opt.shortmess:append "c" -- disable completion messages
 --
 vim.diagnostic.config {
   update_in_insert = false,
-  float = { focusable = true, source = true },
+  float = {
+    focusable = true,
+    source = true,
+  },
   virtual_lines = false,
-  virtual_text = false,
+  virtual_text = {
+    current_line = true,
+  },
   jump = {
     severity = { min = vim.diagnostic.severity.INFO },
   },
   signs = {
-    severity = { min = vim.diagnostic.severity.ERROR },
+    severity = { min = vim.diagnostic.severity.WARN },
     text = {
       [vim.diagnostic.severity.ERROR] = "●",
       [vim.diagnostic.severity.WARN] = "●",
