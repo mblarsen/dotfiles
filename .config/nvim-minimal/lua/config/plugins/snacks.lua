@@ -7,15 +7,22 @@ return {
   opts = {
     explorer = { enabled = true },
     image = { enabled = true },
-    input = { enabled = true },
-    notifier = {
+    indent = {
       enabled = true,
-      style = style,
+      chunk = {
+        -- highlight current chunk
+        enabled = false,
+      },
     },
+    input = { enabled = true },
+    notifier = { enabled = true, style = style },
     rename = { enabled = true },
     statuscolumn = {
       enabled = true,
-      folds = { open = true },
+      folds = {
+        -- show open folds
+        open = true,
+      },
     },
     zen = { enabled = true },
     --
