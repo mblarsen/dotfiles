@@ -95,7 +95,7 @@ return {
     end
     cmd("FileType", "snacks_picker_input", function()
       vim.b.minicompletion_disable = true
-    end, "Disable locally")
+    end, "Disable completion locally for Snacks picker")
 
     ---
     --- mini.files
@@ -109,7 +109,7 @@ return {
       if not MiniFiles.close() then
         require("mini.files").open(vim.api.nvim_buf_get_name(0))
       end
-    end, { desc = "Mini.files : Toggle" })
+    end, { desc = "Mini.files: Toggle" })
 
     ---
     --- mini.git
