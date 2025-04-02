@@ -1,6 +1,3 @@
--- Set the statusline
-vim.o.statusline = "%!v:lua.require'statusline'.render()"
-
 vim.cmd [[
   highlight StatuslineEllipsis guifg=#cc66a6
   highlight StatuslineFile guifg=#ffffff
@@ -29,17 +26,37 @@ local M = {}
 local config = {
   ellipsis = "…",
   max_path_elements = 0, -- Default maximum path elements, 0 = dynamic
+  scrollbar = {
+    hidden = { "", "TelescopePrompt", "snacks_picker_list", "help" },
+  },
 }
 
 -- Function to allow user configuration
 function M.setup(user_config)
   config = vim.tbl_extend("force", config, user_config or {})
+
+  vim.opt.statusline = ""
+  vim.api.nvim_create_augroup("StatuslineUpdate", { clear = true })
+  vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter", "FileType" }, {
+    group = "StatuslineUpdate",
+    pattern = "*",
+    callback = function()
+      local current_winid = vim.fn.win_getid()
+      vim.opt_local.statusline = string.format("%%!v:lua.require'statusline'.render(%d)", current_winid)
+    end,
+  })
 end
 
-function M.render()
-  local filepath = M.get_filepath()
-  local scrollbar = M.get_scrollbar()
-  local readonly = M.get_readonly()
+function M.render(winid)
+  winid = winid or 0
+  local bufnr = vim.api.nvim_win_get_buf(winid)
+  if bufnr == -1 then
+    return ""
+  end
+
+  local filepath = M.get_filepath(bufnr, winid)
+  local scrollbar = M.get_scrollbar(bufnr, winid)
+  local readonly = M.get_readonly(bufnr)
   return table.concat({
     readonly ~= "" and " " or "",
     readonly,
@@ -149,8 +166,8 @@ local function truncate_path(components, max_elements)
   return truncated
 end
 
-local function get_dynamic_max_elements()
-  local window_width = vim.api.nvim_win_get_width(0)
+local function get_dynamic_max_elements(winid)
+  local window_width = vim.api.nvim_win_get_width(winid)
   local elm = config.max_path_elements
 
   if window_width < 100 then
@@ -164,9 +181,10 @@ local function get_dynamic_max_elements()
   return elm
 end
 
-function M.get_filepath()
+function M.get_filepath(bufnr, winid)
   local root = find_root()
-  local file_path = vim.fn.expand "%:p"
+  local file_path = vim.api.nvim_buf_get_name(bufnr)
+  -- local file_path = vim.fn.expand "%:p"
   if file_path == "" then
     return ""
   end
@@ -181,7 +199,7 @@ function M.get_filepath()
   end
 
   -- Dynamic adjustment based on window width
-  local dynamic_max = get_dynamic_max_elements()
+  local dynamic_max = get_dynamic_max_elements(winid)
   local current_max = math.max(config.max_path_elements, dynamic_max)
 
   if #components > current_max then
@@ -220,9 +238,14 @@ function M.get_filepath()
   return table.concat(parts)
 end
 
-function M.get_scrollbar()
-  vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+function M.get_scrollbar(bufnr, winid)
+  -- Return an empty string to hide the scrollbar for hidden filetypes
+  local filetype = vim.filetype.match { buf = bufnr } or ""
+  for _, hidden_ft in ipairs(config.scrollbar.hidden) do
+    if filetype == hidden_ft then
+      return ""
+    end
+  end
 
   local sbar_chars = {
     "▔",
@@ -237,14 +260,14 @@ function M.get_scrollbar()
     "▁",
   }
 
-  local lines = vim.api.nvim_buf_line_count(0)
-  local window_height = vim.api.nvim_win_get_height(0)
+  local lines = vim.api.nvim_buf_line_count(bufnr)
+  local window_height = vim.api.nvim_win_get_height(winid)
 
   if lines <= window_height then
     return hl_status .. string.rep(" ", 2) .. hl_terminate
   end
 
-  local cur_line = vim.api.nvim_win_get_cursor(0)[1]
+  local cur_line = vim.api.nvim_win_get_cursor(winid)[1]
   local i = math.floor((cur_line - 1) / lines * #sbar_chars) + 1
   local sbar = string.rep(sbar_chars[i], 2)
 
@@ -256,9 +279,9 @@ function M.get_scrollbar()
   return hl .. sbar .. hl_terminate
 end
 
-function M.get_readonly()
-  local readonly = vim.api.nvim_get_option_value("readonly", { buf = 0 })
-  local icon, _ = require("mini.icons").get("lsp", "key")
+function M.get_readonly(bufnr, winid)
+  local readonly = vim.api.nvim_get_option_value("readonly", { buf = bufnr, win = winid })
+  local icon = ""
   return readonly and table.concat { hl_readonly, icon, hl_terminate } or ""
 end
 

@@ -8,6 +8,13 @@ opt.shortmess:append "S" -- disable search count like [1/3]
 opt.shortmess:append "c" -- disable completion messages
 
 --
+-- statusline
+--
+vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+require("statusline").setup {}
+
+--
 -- diagnostic options
 --
 vim.diagnostic.config {
@@ -43,5 +50,6 @@ opt.completeopt = {
   "popup",
   "fuzzy",
   "noinsert",
+  "noselect",
   "preview",
 }
