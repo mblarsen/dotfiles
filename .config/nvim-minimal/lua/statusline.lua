@@ -1,13 +1,27 @@
 -- Set the statusline
-vim.o.statusline = "%!v:lua.require'statusline'.status()"
+vim.o.statusline = "%!v:lua.require'statusline'.render()"
 
 vim.cmd [[
-  highlight StatuslineEllipsis guifg=#cc6666
+  highlight StatuslineEllipsis guifg=#cc66a6
   highlight StatuslineFile guifg=#ffffff
   highlight StatuslineFileDir guifg=#777777 gui=bold
   highlight StatuslineFileModified guifg=#ff5555 gui=bold
+  highlight StatuslineReadonly guifg=#e6b400 gui=bold
   highlight StatuslineSeparator guifg=#444444
+  highlight StatuslineScrollbar guifg=#e6b400 guibg=#282a3c
+  highlight StatuslineScrollbarEnd guifg=#ff5555 guibg=#282a3c
 ]]
+
+-- Define highlight groups
+local hl_dir = "%#StatuslineFileDir#"
+local hl_sep = "%#StatuslineSeparator#"
+local hl_file = "%#StatuslineFile#"
+local hl_modified = "%#StatuslineFileModified#"
+local hl_ellipsis = "%#StatuslineEllipsis#"
+local hl_readonly = "%#StatuslineReadonly#"
+local hl_status = "%#StatuslineScrollbar#"
+local hl_status_end = "%#StatuslineScrollbarEnd#"
+local hl_terminate = "%*"
 
 local M = {}
 
@@ -20,6 +34,22 @@ local config = {
 -- Function to allow user configuration
 function M.setup(user_config)
   config = vim.tbl_extend("force", config, user_config or {})
+end
+
+function M.render()
+  local filepath = M.get_filepath()
+  local scrollbar = M.get_scrollbar()
+  local readonly = M.get_readonly()
+  return table.concat({
+    readonly ~= "" and " " or "",
+    readonly,
+    " ",
+    filepath,
+    "%=",
+    " ",
+    scrollbar,
+    " ",
+  }, "")
 end
 
 local function find_root()
@@ -134,9 +164,9 @@ local function get_dynamic_max_elements()
   return elm
 end
 
-function M.status()
+function M.get_filepath()
   local root = find_root()
-  local file_path = vim.fn.expand "%:p" -- Absolute path of the current file
+  local file_path = vim.fn.expand "%:p"
   if file_path == "" then
     return ""
   end
@@ -159,13 +189,6 @@ function M.status()
   end
 
   local total = #components
-
-  -- Define highlight groups
-  local hl_dir = "%#StatuslineFileDir#"
-  local hl_sep = "%#StatuslineSeparator#"
-  local hl_file = "%#StatuslineFile#"
-  local hl_modified = "%#StatuslineFileModified#"
-  local hl_ellipsis = "%#StatuslineEllipsis#"
 
   local parts = {}
   for i, comp in ipairs(components) do
@@ -192,9 +215,51 @@ function M.status()
   end
 
   -- Reset highlight at the end
-  table.insert(parts, "%*")
+  table.insert(parts, hl_terminate)
 
   return table.concat(parts)
+end
+
+function M.get_scrollbar()
+  vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+  vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+
+  local sbar_chars = {
+    "▔",
+    "🮂",
+    "🬂",
+    "🮃",
+    "▀",
+    "▄",
+    "▃",
+    "🬭",
+    "▂",
+    "▁",
+  }
+
+  local lines = vim.api.nvim_buf_line_count(0)
+  local window_height = vim.api.nvim_win_get_height(0)
+
+  if lines <= window_height then
+    return hl_status .. string.rep(" ", 2) .. hl_terminate
+  end
+
+  local cur_line = vim.api.nvim_win_get_cursor(0)[1]
+  local i = math.floor((cur_line - 1) / lines * #sbar_chars) + 1
+  local sbar = string.rep(sbar_chars[i], 2)
+
+  local hl = hl_status
+  if i == 1 or i == #sbar_chars then
+    hl = hl_status_end
+  end
+
+  return hl .. sbar .. hl_terminate
+end
+
+function M.get_readonly()
+  local readonly = vim.api.nvim_get_option_value("readonly", { buf = 0 })
+  local icon, _ = require("mini.icons").get("lsp", "key")
+  return readonly and table.concat { hl_readonly, icon, hl_terminate } or ""
 end
 
 return M

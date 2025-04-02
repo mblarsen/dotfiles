@@ -12,7 +12,7 @@
   "pounce.nvim": { "branch": "master", "commit": "2e36399ac09b517770c459f1a123e6b4b4c1c171" },
   "schemastore.nvim": { "branch": "main", "commit": "e659e0c6ca06727ed898aaaeea3850f528898684" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
-  "timber.nvim": { "branch": "main", "commit": "84e291322e94015b19011a3bdf4b2b59001a771a" },
+  "timber.nvim": { "branch": "main", "commit": "7e96bc1a01cea35e872e4ac387edfc1c68ca37f6" },
   "tokyonight.nvim": { "branch": "main", "commit": "057ef5d260c1931f1dffd0f052c685dcd14100a3" },
   "treesj": { "branch": "main", "commit": "6c616638e3aa0087f2c267bb5990115b67105976" },
   "vim-gutentags": { "branch": "master", "commit": "aa47c5e29c37c52176c44e61c780032dfacef3dd" },
