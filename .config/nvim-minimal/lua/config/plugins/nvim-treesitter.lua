@@ -12,7 +12,7 @@ return {
         "vimdoc",
       },
       highlight = {
-        enable = false,
+        enable = true,
       },
       indent = {
         enable = true,

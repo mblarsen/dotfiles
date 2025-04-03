@@ -35,6 +35,12 @@ return {
             -- capabilities = capabilities,
           }
         end,
+        ["cssls"] = function(server_name)
+          lspconfig[server_name].setup {}
+        end,
+        ["ts_ls"] = function(server_name)
+          lspconfig[server_name].setup {}
+        end,
         ["lua_ls"] = function(server_name)
           lspconfig[server_name].setup {
             -- capabilities = capabilities,
@@ -65,9 +71,6 @@ return {
               },
             },
           }
-        end,
-        ["ts_ls"] = function(server_name)
-          lspconfig[server_name].setup {}
         end,
         ["yamlls"] = function(server_name)
           lspconfig[server_name].setup {
