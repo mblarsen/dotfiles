@@ -25,9 +25,13 @@ local M = {}
 -- Configuration with default values
 local config = {
   ellipsis = "…",
-  max_path_elements = 0, -- Default maximum path elements, 0 = dynamic
+  -- Default maximum path elements, 0 = dynamic
+  max_path_elements = 0,
+  filepath = {
+    hidden = { "", "TelescopePrompt", "snacks_picker_list", "help", "terminal" },
+  },
   scrollbar = {
-    hidden = { "", "TelescopePrompt", "snacks_picker_list", "help" },
+    hidden = { "", "TelescopePrompt", "snacks_picker_list", "help", "terminal" },
   },
 }
 
@@ -181,10 +185,24 @@ local function get_dynamic_max_elements(winid)
   return elm
 end
 
+local function can_show(bufnr, hidden_config)
+  -- Return an empty string to hide the scrollbar for hidden filetypes
+  local filetype = vim.filetype.match { buf = bufnr } or ""
+  for _, hidden_ft in ipairs(hidden_config) do
+    if filetype == hidden_ft then
+      return false
+    end
+  end
+  return true
+end
+
 function M.get_filepath(bufnr, winid)
+  if not can_show(bufnr, config.filepath.hidden) then
+    return ""
+  end
+
   local root = find_root()
   local file_path = vim.api.nvim_buf_get_name(bufnr)
-  -- local file_path = vim.fn.expand "%:p"
   if file_path == "" then
     return ""
   end
@@ -239,12 +257,8 @@ function M.get_filepath(bufnr, winid)
 end
 
 function M.get_scrollbar(bufnr, winid)
-  -- Return an empty string to hide the scrollbar for hidden filetypes
-  local filetype = vim.filetype.match { buf = bufnr } or ""
-  for _, hidden_ft in ipairs(config.scrollbar.hidden) do
-    if filetype == hidden_ft then
-      return ""
-    end
+  if not can_show(bufnr, config.scrollbar.hidden) then
+    return ""
   end
 
   local sbar_chars = {

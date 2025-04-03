@@ -66,6 +66,9 @@ return {
             },
           }
         end,
+        ["ts_ls"] = function(server_name)
+          lspconfig[server_name].setup {}
+        end,
         ["yamlls"] = function(server_name)
           lspconfig[server_name].setup {
             -- capabilities = capabilities,
