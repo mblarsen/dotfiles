@@ -16,4 +16,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require "config.lazy"
-require "statusline"
+require("config.statusline").setup()

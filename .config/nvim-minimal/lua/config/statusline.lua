@@ -46,7 +46,7 @@ function M.setup(user_config)
     pattern = "*",
     callback = function()
       local current_winid = vim.fn.win_getid()
-      vim.opt_local.statusline = string.format("%%!v:lua.require'statusline'.render(%d)", current_winid)
+      vim.opt_local.statusline = string.format("%%!v:lua.require'config.statusline'.render(%d)", current_winid)
     end,
   })
 end

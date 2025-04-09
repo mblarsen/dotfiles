@@ -1,12 +1,11 @@
 require("lazy").setup({
-  -- { import = "custom/colors" },
-  { import = "config/plugins" },
+  { import = "config/colors" },
+  { import = "config/core" },
+  { import = "config/optional" },
+  { import = "config/trial" },
 }, {
   change_detection = {
     notify = false,
-  },
-  install = {
-    colorscheme = { "tokyonight" },
   },
   ui = {
     border = "rounded",

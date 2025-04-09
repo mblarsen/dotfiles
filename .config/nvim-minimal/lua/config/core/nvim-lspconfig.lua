@@ -9,9 +9,11 @@ return {
     },
     "williamboman/mason-lspconfig.nvim",
     "b0o/schemastore.nvim",
+    "echasnovski/mini.nvim",
   },
   config = function()
     local lspconfig = require "lspconfig"
+    local capabilities = MiniCompletion.get_lsp_capabilities()
 
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
@@ -32,7 +34,7 @@ return {
       handlers = {
         function(server_name)
           lspconfig[server_name].setup {
-            -- capabilities = capabilities,
+            capabilities = capabilities,
           }
         end,
         ["cssls"] = function(server_name)
@@ -43,7 +45,7 @@ return {
         end,
         ["lua_ls"] = function(server_name)
           lspconfig[server_name].setup {
-            -- capabilities = capabilities,
+            capabilities = capabilities,
             settings = {
               Lua = {
                 format = true,
@@ -61,7 +63,7 @@ return {
         end,
         ["jsonls"] = function(server_name)
           lspconfig[server_name].setup {
-            -- capabilities = capabilities,
+            capabilities = capabilities,
             settings = {
               json = {
                 schemas = require("schemastore").json.schemas(),
@@ -74,7 +76,7 @@ return {
         end,
         ["yamlls"] = function(server_name)
           lspconfig[server_name].setup {
-            -- capabilities = capabilities,
+            capabilities = capabilities,
             settings = {
               yaml = {
                 schemaStore = {
@@ -93,7 +95,7 @@ return {
     }
 
     require("lspconfig").gleam.setup {
-      -- capabilities = capabilities,
+      capabilities = capabilities,
       on_attach = on_attach,
     }
   end,

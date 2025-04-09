@@ -93,9 +93,9 @@ return {
         desc = desc,
       })
     end
-    cmd("FileType", "snacks_picker_input", function()
+    cmd("FileType", "snacks_input,snacks_picker_input", function()
       vim.b.minicompletion_disable = true
-    end, "Disable completion locally for Snacks picker")
+    end)
 
     ---
     --- mini.files

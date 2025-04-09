@@ -18,6 +18,7 @@ return {
         javascriptreact = { "prettierd", "prettier", stop_after_first = true },
         css = { "prettierd", "prettier", stop_after_first = true },
         html = { "prettierd", "prettier", stop_after_first = true },
+        hbs = { "prettierd", "prettier", stop_after_first = true },
         json = { "trim_whitespace", "jq" },
         lua = { "trim_whitespace", "stylua" },
         markdown = { "prettierd", "prettier", stop_after_first = true },
