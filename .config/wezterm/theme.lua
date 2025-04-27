@@ -10,7 +10,7 @@ end
 
 ---@diagnostic disable-next-line: unused-function, unused-local
 local function tokyo_night(config)
-  config.color_scheme = "Tokyo Night Storm"
+  config.color_scheme = "Tokyo Night Moon"
 end
 
 ---@diagnostic disable-next-line: unused-function, unused-local
@@ -20,10 +20,10 @@ local function ice_cave(config)
 end
 
 function M.configure(config)
-  rose_pine(config)
+  -- rose_pine(config)
   -- ice_cave(config)
   -- spaceduck(config)
-  -- tokyo_night(config)
+  tokyo_night(config)
 end
 
 return M
