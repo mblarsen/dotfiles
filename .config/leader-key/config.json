@@ -4,7 +4,7 @@
       "key" : "t",
       "label" : "",
       "type" : "application",
-      "value" : "/Applications/WezTerm.app"
+      "value" : "/Applications/Ghostty.app"
     },
     {
       "actions" : [
@@ -13,12 +13,6 @@
           "label" : "",
           "type" : "application",
           "value" : "/Applications/Safari.app"
-        },
-        {
-          "key" : "m",
-          "label" : "",
-          "type" : "application",
-          "value" : "/Applications/Mail.app"
         },
         {
           "actions" : [
@@ -72,7 +66,7 @@
         },
         {
           "key" : "f",
-          "label" : null,
+          "label" : "",
           "type" : "application",
           "value" : "/Applications/Firefox.app"
         }
