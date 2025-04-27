@@ -1,12 +1,21 @@
 require("lazy").setup({
-  -- { import = "custom/colors" },
-  { import = "config/plugins" },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        "avante",
+      },
+    },
+  },
+  { import = "config/colors" },
+  { import = "config/core" },
+  { import = "config/optional" },
+  { import = "config/trial" },
 }, {
   change_detection = {
     notify = false,
-  },
-  install = {
-    colorscheme = { "tokyonight" },
   },
   ui = {
     border = "rounded",

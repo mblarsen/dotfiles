@@ -12,6 +12,9 @@ function M.setup()
     recent_all_files = function()
       builtin.recent { filter = { paths = { [vim.fn.getcwd()] = false } } }
     end,
+    config_files = function()
+      builtin.files { dirs = { vim.fn.expand "~/.config" }, hidden = true }
+    end,
     neovim_files = function()
       builtin.files { dirs = { vim.fn.stdpath "config" }, hidden = true }
     end,

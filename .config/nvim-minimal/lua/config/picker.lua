@@ -9,6 +9,7 @@ function M.setup(fun_map)
 
   map("n", "<leader>en", fun_map.neovim_files, { desc = "Neovim files" })
   map("n", "<leader>ep", fun_map.lazy_files, { desc = "Lazy files" })
+  map("n", "<leader>ec", fun_map.config_files, { desc = "Config files" })
   map("n", "<leader>fe", fun_map.explorer, { desc = "Explorer picker" })
 
   map("n", "<leader><leader>", fun_map.buffers, { desc = "Buffers picker" })
