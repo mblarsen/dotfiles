@@ -2,7 +2,6 @@
   "actions" : [
     {
       "key" : "t",
-      "label" : "",
       "type" : "application",
       "value" : "/Applications/Ghostty.app"
     },
@@ -10,21 +9,23 @@
       "actions" : [
         {
           "key" : "s",
-          "label" : "",
           "type" : "application",
           "value" : "/Applications/Safari.app"
+        },
+        {
+          "key" : "m",
+          "type" : "application",
+          "value" : "/Applications/Mail.app"
         },
         {
           "actions" : [
             {
               "key" : "c",
-              "label" : "",
               "type" : "application",
               "value" : "/Applications/Notion Calendar.app"
             },
             {
               "key" : "m",
-              "label" : "",
               "type" : "application",
               "value" : "/System/Applications/Calendar.app"
             }
@@ -37,13 +38,11 @@
           "actions" : [
             {
               "key" : "n",
-              "label" : "",
               "type" : "application",
               "value" : "/Applications/Notion.app"
             },
             {
               "key" : "m",
-              "label" : "",
               "type" : "application",
               "value" : "/System/Applications/Notes.app"
             }
@@ -54,19 +53,16 @@
         },
         {
           "key" : "o",
-          "label" : "",
           "type" : "application",
           "value" : "/Applications/1Password.app"
         },
         {
           "key" : "i",
-          "label" : "",
           "type" : "application",
           "value" : "/System/Applications/iPhone Mirroring.app"
         },
         {
           "key" : "f",
-          "label" : "",
           "type" : "application",
           "value" : "/Applications/Firefox.app"
         }
@@ -79,31 +75,26 @@
       "actions" : [
         {
           "key" : "s",
-          "label" : "",
           "type" : "application",
           "value" : "/Applications/Slack.app"
         },
         {
           "key" : "t",
-          "label" : "",
           "type" : "application",
           "value" : "/Applications/Telegram.app"
         },
         {
           "key" : "d",
-          "label" : "",
           "type" : "application",
           "value" : "/Applications/Discord.app"
         },
         {
           "key" : "g",
-          "label" : "",
           "type" : "application",
           "value" : "/Applications/Gather.app"
         },
         {
           "key" : "c",
-          "label" : "",
           "type" : "application",
           "value" : "/Applications/Chatbox.app"
         }
@@ -128,7 +119,6 @@
         },
         {
           "key" : "m",
-          "label" : "",
           "type" : "application",
           "value" : "/Applications/Maccy.app"
         }
