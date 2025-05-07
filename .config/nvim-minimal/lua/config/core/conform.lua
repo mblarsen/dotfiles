@@ -26,6 +26,7 @@ return {
         typescript = { "prettierd", "prettier", stop_after_first = true },
         typescriptreact = { "prettierd", "prettier", stop_after_first = true },
         yaml = { "prettierd", "prettier", stop_after_first = true },
+        go = { "goimports", "gofmt" },
       },
       format_on_save = {
         timeout_ms = 500,

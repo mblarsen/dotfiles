@@ -14,6 +14,7 @@ return {
       mini_hipatterns = true,
       mini_icons = true,
       mini_surround = true,
+      navic = false,
       snacks = true,
       treesitter = true,
     },

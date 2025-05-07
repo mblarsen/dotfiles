@@ -1,6 +1,6 @@
 return {
   "rlane/pounce.nvim",
-  keys = { "f/" },
+  keys = { "f/", "f?" },
   config = function()
     require "pounce"
     local map = vim.keymap.set

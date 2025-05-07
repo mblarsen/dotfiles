@@ -13,7 +13,12 @@ return {
   },
   config = function()
     local lspconfig = require "lspconfig"
-    local capabilities = MiniCompletion.get_lsp_capabilities()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+    -- local capabilities = MiniCompletion.get_lsp_capabilities()
+    capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
+
+    local function on_attach(client, bufnr) end
 
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
@@ -29,23 +34,51 @@ return {
     vim.opt.foldlevel = 99
 
     require("mason-lspconfig").setup {
+      automatic_enable = true,
       automatic_installation = true,
       ensure_installed = {},
       handlers = {
         function(server_name)
           lspconfig[server_name].setup {
             capabilities = capabilities,
+            on_attach = on_attach,
           }
         end,
         ["cssls"] = function(server_name)
-          lspconfig[server_name].setup {}
+          lspconfig[server_name].setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+          }
+        end,
+        ["harper_ls"] = function(server_name)
+          lspconfig[server_name].setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            settings = {
+              ["harper-ls"] = {
+                linters = {
+                  SentenceCapitalization = false,
+                },
+              },
+            },
+          }
+        end,
+        ["gopls"] = function(server_name)
+          lspconfig[server_name].setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+          }
         end,
         ["ts_ls"] = function(server_name)
-          lspconfig[server_name].setup {}
+          lspconfig[server_name].setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+          }
         end,
         ["lua_ls"] = function(server_name)
           lspconfig[server_name].setup {
             capabilities = capabilities,
+            on_attach = on_attach,
             settings = {
               Lua = {
                 format = true,
@@ -64,6 +97,7 @@ return {
         ["jsonls"] = function(server_name)
           lspconfig[server_name].setup {
             capabilities = capabilities,
+            on_attach = on_attach,
             settings = {
               json = {
                 schemas = require("schemastore").json.schemas(),
@@ -77,6 +111,7 @@ return {
         ["yamlls"] = function(server_name)
           lspconfig[server_name].setup {
             capabilities = capabilities,
+            on_attach = on_attach,
             settings = {
               yaml = {
                 schemaStore = {

@@ -11,13 +11,7 @@ return {
       enabled = true,
       chunk = {
         enabled = true,
-        char = {
-          corner_top = "╭",
-          corner_bottom = "╰",
-          horizontal = "─",
-          vertical = "│",
-          arrow = ">",
-        },
+        char = { corner_top = "╭", corner_bottom = "╰", horizontal = "─", vertical = "│", arrow = ">" },
       },
     },
     input = { enabled = true },
@@ -30,12 +24,13 @@ return {
         open = true,
       },
     },
-    zen = { enabled = true },
     --
+    git = { enabled = false },
     words = { enabled = false },
     bigfile = { enabled = false },
     quickfile = { enabled = false },
     scroll = { enabled = false },
+    zen = { enabled = false },
   },
   config = function(_, opts)
     require("snacks").setup(opts)
@@ -49,8 +44,8 @@ return {
       end
     end, { desc = "Toggle indent lines" })
 
-    -- Zoom current window. Not so useful if you use other window manager like tmux or terminal-native
-    vim.keymap.set("n", "<leader>zz", Snacks.zen.zoom, { desc = "Zen maximize window" })
+    -- -- Zoom current window. Not so useful if you use other window manager like tmux or terminal-native
+    -- vim.keymap.set("n", "<leader>zz", Snacks.zen.zoom, { desc = "Zen maximize window" })
 
     -- Setup up picker keymaps
     require("config.picker_snacks").setup()

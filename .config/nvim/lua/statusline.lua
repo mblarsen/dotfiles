@@ -1,1 +1,0 @@
-/Users/mbl/.config/nvim-minimal/lua/statusline.lua

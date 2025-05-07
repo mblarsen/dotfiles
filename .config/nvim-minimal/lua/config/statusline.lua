@@ -4,20 +4,30 @@ vim.cmd [[
   highlight StatuslineFileDir guifg=#777777 gui=bold
   highlight StatuslineFileModified guifg=#ff5555 gui=bold
   highlight StatuslineReadonly guifg=#e6b400 gui=bold
-  highlight StatuslineSeparator guifg=#444444
+  highlight StatuslineFileSeparator guifg=#444444
   highlight StatuslineScrollbar guifg=#e6b400 guibg=#282a3c
   highlight StatuslineScrollbarEnd guifg=#ff5555 guibg=#282a3c
+  "highlight StatuslineLSPIcons guifg=#bbbbbb
+  "highlight StatuslineLSPIcons guifg=#7777dd
+  highlight StatuslineLSPIcons guifg=#dddd77
+  highlight StatuslineLSPText guifg=#777777
+  highlight StatuslineLSPTextActive guifg=#ffffff
+  highlight StatuslineLSPSeparator guifg=#444444
 ]]
 
 -- Define highlight groups
 local hl_dir = "%#StatuslineFileDir#"
-local hl_sep = "%#StatuslineSeparator#"
+local hl_sep = "%#StatuslineFileSeparator#"
 local hl_file = "%#StatuslineFile#"
 local hl_modified = "%#StatuslineFileModified#"
 local hl_ellipsis = "%#StatuslineEllipsis#"
 local hl_readonly = "%#StatuslineReadonly#"
 local hl_status = "%#StatuslineScrollbar#"
 local hl_status_end = "%#StatuslineScrollbarEnd#"
+local hl_lsp_icons = "%#StatuslineLSPIcons#"
+local hl_lsp_text = "%#StatuslineLSPText#"
+local hl_lsp_text_active = "%#StatuslineLSPTextActive#"
+local hl_lsp_separator = "%#StatuslineLSPSeparator#"
 local hl_terminate = "%*"
 
 local M = {}
@@ -25,13 +35,36 @@ local M = {}
 -- Configuration with default values
 local config = {
   ellipsis = "…",
-  -- Default maximum path elements, 0 = dynamic
-  max_path_elements = 0,
   filepath = {
-    hidden = { "", "TelescopePrompt", "snacks_picker_list", "help", "terminal" },
+    max_elements = 0,
+    hidden = {
+      "",
+      "Avante",
+      "AvanteInput",
+      "AvanteSelectedFiles",
+      "TelescopePrompt",
+      "snacks_picker_list",
+      "help",
+      "terminal",
+    },
   },
   scrollbar = {
-    hidden = { "", "TelescopePrompt", "snacks_picker_list", "help", "terminal" },
+    hidden = {
+      "",
+      "Avante",
+      "AvanteInput",
+      "AvanteSelectedFiles",
+      "TelescopePrompt",
+      "snacks_picker_list",
+      "help",
+      "terminal",
+    },
+  },
+  lsp_context = {
+    max_elements = 4,
+    reverse = true,
+    separators = { " ", " " },
+    -- separators = {" ← " , " → "}
   },
 }
 
@@ -40,15 +73,51 @@ function M.setup(user_config)
   config = vim.tbl_extend("force", config, user_config or {})
 
   vim.opt.statusline = ""
-  vim.api.nvim_create_augroup("StatuslineUpdate", { clear = true })
+
+  local group = vim.api.nvim_create_augroup("StatuslineUpdate", { clear = true })
+
+  -- Records which window is the active one
+  vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+    group = group,
+    pattern = "*",
+    callback = function()
+      vim.g.statusline_winid = vim.api.nvim_get_current_win()
+    end,
+  })
+
+  -- Renders the statusline
   vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter", "FileType" }, {
-    group = "StatuslineUpdate",
+    group = group,
     pattern = "*",
     callback = function()
       local current_winid = vim.fn.win_getid()
       vim.opt_local.statusline = string.format("%%!v:lua.require'config.statusline'.render(%d)", current_winid)
     end,
   })
+
+  -- Set globals
+  vim.g.statusline_filepath = true
+  vim.g.statusline_lsp_context = true
+
+  -- Set up keymaps
+  vim.keymap.set("n", "gtsf", function()
+    vim.g.statusline_filepath = not vim.g.statusline_filepath
+    M.render()
+  end, { desc = "Toggle filepath in statusline" })
+  vim.keymap.set("n", "gtsF", function()
+    vim.g.statusline_filepath = true
+    vim.g.statusline_lsp_context = false
+    M.render()
+  end, { desc = "Set only filepath in statusline" })
+  vim.keymap.set("n", "gtsl", function()
+    vim.g.statusline_lsp_context = not vim.g.statusline_lsp_context
+    M.render()
+  end, { desc = "Toggle lsp context in statusline" })
+  vim.keymap.set("n", "gtsL", function()
+    vim.g.statusline_filepath = false
+    vim.g.statusline_lsp_context = true
+    M.render()
+  end, { desc = "Set only lsp context in statusline" })
 end
 
 function M.render(winid)
@@ -58,18 +127,38 @@ function M.render(winid)
     return ""
   end
 
-  local filepath = M.get_filepath(bufnr, winid)
-  local scrollbar = M.get_scrollbar(bufnr, winid)
-  local readonly = M.get_readonly(bufnr)
-  return table.concat({
+  local function active_only(value)
+    local active = vim.api.nvim_get_current_win() == vim.g.statusline_winid
+    return active and value or ""
+  end
+
+  local filepath = active_only(M.get_filepath(bufnr, winid))
+  local scrollbar = active_only(M.get_scrollbar(bufnr, winid))
+  local readonly = active_only(M.get_readonly(bufnr))
+  local lsp_context = active_only(M.get_lsp_context(bufnr))
+
+  local left = table.concat {
     readonly ~= "" and " " or "",
     readonly,
     " ",
     filepath,
-    "%=",
+  }
+  local center = table.concat {
+    " ",
+  }
+  local right = table.concat {
+    lsp_context,
     " ",
     scrollbar,
     " ",
+  }
+
+  return table.concat({
+    left,
+    "%=",
+    center,
+    "%=",
+    right,
   }, "")
 end
 
@@ -117,7 +206,9 @@ local function split_path(path)
   return components
 end
 
-local function truncate_path(components, max_elements)
+local function truncate_elements(components, max_elements, ellipsis_element, truncate_near)
+  truncate_near = truncate_near or "middle"
+
   local total = #components
 
   -- Handle trivial cases: Cannot truncate if 3 or fewer components
@@ -125,7 +216,7 @@ local function truncate_path(components, max_elements)
     return components
   end
 
-  -- If truncation might happen, we need at least 4 slots:
+  -- If truncation might happen, we need at least 3 slots:
   local effective_max = math.max(max_elements, 3)
 
   -- Check if truncation is actually needed based on the effective max
@@ -133,46 +224,55 @@ local function truncate_path(components, max_elements)
     return components
   end
 
-  -- Truncation IS needed (total > effective_max, and effective_max >= 4)
-
-  -- Always include these 3 components
-  local first_dir = components[1]
-  local second_last_dir = components[total - 1]
-  local file = components[total]
-
-  -- Calculate how many *extra* components we can show besides the mandatory 3
-  -- We have effective_max slots. 3 are for mandatory components.
-  local num_extra_to_show = effective_max - 3
+  -- Always include first element
+  local first_element = components[1]
 
   local truncated = {}
-  table.insert(truncated, first_dir)
+  table.insert(truncated, first_element)
 
-  -- Add extra components from the beginning of the middle section
-  -- The middle section starts at index 2 in the original 'components'
-  for i = 1, num_extra_to_show do
-    local component_index = 1 + i -- Index in original components (starts after first_dir)
-    -- Ensure we don't grab the second_last_dir itself as an "extra"
-    if component_index < (total - 1) then
-      table.insert(truncated, components[component_index])
-    else
-      -- We've run out of unique middle components before filling all extra slots
-      break
+  if truncate_near == "middle" then
+    -- Calculate how many *extra* components we can show besides the mandatory 3
+    -- We have effective_max slots. 3 are for mandatory components.
+    local num_extra_to_show = effective_max - 3
+    -- Add extra components from the beginning of the middle section
+    -- The middle section starts at index 2 in the original 'components'
+    for i = 1, num_extra_to_show do
+      local component_index = 1 + i -- Index in original components (starts after first_dir)
+      -- Ensure we don't grab the second_last_dir itself as an "extra"
+      if component_index < (total - 1) then
+        table.insert(truncated, components[component_index])
+      else
+        -- We've run out of unique middle components before filling all extra slots
+        break
+      end
+    end
+
+    -- Add the ellipsis
+    table.insert(truncated, ellipsis_element)
+
+    -- Add second to last and last element
+    table.insert(truncated, components[total - 1])
+    table.insert(truncated, components[total])
+  elseif truncate_near == "start" then
+    local num_extra_to_show = effective_max - 2
+
+    if total > effective_max then
+      table.insert(truncated, ellipsis_element)
+    end
+
+    for i = total - num_extra_to_show, total do
+      if i > 1 then
+        table.insert(truncated, components[i])
+      end
     end
   end
-
-  -- Add the ellipsis
-  table.insert(truncated, config.ellipsis)
-
-  -- Add the mandatory second-last and last components
-  table.insert(truncated, second_last_dir)
-  table.insert(truncated, file)
 
   return truncated
 end
 
 local function get_dynamic_max_elements(winid)
   local window_width = vim.api.nvim_win_get_width(winid)
-  local elm = config.max_path_elements
+  local elm = config.filepath.max_elements
 
   if window_width < 100 then
     elm = 3
@@ -187,7 +287,8 @@ end
 
 local function can_show(bufnr, hidden_config)
   -- Return an empty string to hide the scrollbar for hidden filetypes
-  local filetype = vim.filetype.match { buf = bufnr } or ""
+  -- local filetype = vim.filetype.match { buf = bufnr } or ""
+  local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype") or ""
   for _, hidden_ft in ipairs(hidden_config) do
     if filetype == hidden_ft then
       return false
@@ -197,7 +298,7 @@ local function can_show(bufnr, hidden_config)
 end
 
 function M.get_filepath(bufnr, winid)
-  if not can_show(bufnr, config.filepath.hidden) then
+  if not can_show(bufnr, config.filepath.hidden) or vim.g.statusline_filepath == false then
     return ""
   end
 
@@ -218,10 +319,10 @@ function M.get_filepath(bufnr, winid)
 
   -- Dynamic adjustment based on window width
   local dynamic_max = get_dynamic_max_elements(winid)
-  local current_max = math.max(config.max_path_elements, dynamic_max)
+  local current_max = math.max(config.filepath.max_elements, dynamic_max)
 
   if #components > current_max then
-    components = truncate_path(components, current_max)
+    components = truncate_elements(components, current_max, config.ellipsis, "middle")
   end
 
   local total = #components
@@ -297,6 +398,50 @@ function M.get_readonly(bufnr, winid)
   local readonly = vim.api.nvim_get_option_value("readonly", { buf = bufnr, win = winid })
   local icon = ""
   return readonly and table.concat { hl_readonly, icon, hl_terminate } or ""
+end
+
+function M.get_lsp_context(bufnr)
+  local navic = require "nvim-navic"
+  local data = navic.get_data(bufnr)
+  if not data or #data == 0 or vim.g.statusline_lsp_context == false then
+    return ""
+  end
+
+  local ignore = { "Variable", "Package" }
+  local filtered_data = {}
+  for _, item in ipairs(data) do
+    if not vim.tbl_contains(ignore, item.type) then
+      table.insert(filtered_data, item)
+    end
+  end
+
+  filtered_data = truncate_elements(
+    filtered_data,
+    config.lsp_context.max_elements,
+    { name = config.ellipsis, type = "$truncated", icon = "" },
+    "start"
+  )
+
+  if config.lsp_context.reverse then
+    filtered_data = vim.fn.reverse(filtered_data)
+  end
+
+  local parts = {}
+  for i, item in ipairs(filtered_data) do
+    local icon = hl_lsp_icons .. item.icon .. hl_terminate
+    local hl = (i == (config.lsp_context.reverse and 1 or #filtered_data)) and hl_lsp_text_active or hl_lsp_text
+    if item.type == "$truncated" then
+      hl = hl_ellipsis
+    end
+    table.insert(parts, icon .. hl .. item.name .. hl_terminate)
+    if i < #filtered_data then
+      local separator = config.lsp_context.reverse and config.lsp_context.separators[1]
+        or config.lsp_context.separators[2]
+      table.insert(parts, hl_lsp_separator .. separator .. hl_terminate)
+    end
+  end
+
+  return table.concat(parts)
 end
 
 return M

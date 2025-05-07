@@ -1,5 +1,6 @@
 return {
   "echasnovski/mini.nvim",
+  enabled = true,
   config = function()
     ---
     --- mini.ai
@@ -24,10 +25,10 @@ return {
       },
       silent = false,
     }
-    vim.keymap.del("i", "<C-s>")
-    vim.keymap.set("i", "<C-s>", function()
-      vim.lsp.buf.signature_help()
-    end, { desc = "Show signature help" })
+    -- vim.keymap.del("i", "<C-s>")
+    -- vim.keymap.set("i", "<C-s>", function()
+    --   vim.lsp.buf.signature_help()
+    -- end, { desc = "Show signature help" })
 
     ---
     --- mini.clue
@@ -77,25 +78,38 @@ return {
       },
     }
 
+    -- ---
+    -- --- mini.completion
+    -- ---
+    -- require("mini.completion").setup {}
+    -- require("mini.snippets").setup {}
+    -- require("mini.icons").setup {}
+    -- MiniIcons.tweak_lsp_kind()
+    -- local group = vim.api.nvim_create_augroup("MyMiniCompletion", {})
+    -- local cmd = function(event, pattern, callback, desc)
+    --   vim.api.nvim_create_autocmd(event, {
+    --     group = group,
+    --     pattern = pattern,
+    --     callback = callback,
+    --     desc = desc,
+    --   })
+    -- end
+    -- cmd("FileType", "snacks_input,snacks_picker_input", function()
+    --   vim.b.minicompletion_disable = true
+    -- end)
+
     ---
-    --- mini.completion
+    --- mini.diff
     ---
-    require("mini.completion").setup {}
-    require("mini.snippets").setup {}
-    require("mini.icons").setup {}
-    MiniIcons.tweak_lsp_kind()
-    local group = vim.api.nvim_create_augroup("MyMiniCompletion", {})
-    local cmd = function(event, pattern, callback, desc)
-      vim.api.nvim_create_autocmd(event, {
-        group = group,
-        pattern = pattern,
-        callback = callback,
-        desc = desc,
-      })
-    end
-    cmd("FileType", "snacks_input,snacks_picker_input", function()
-      vim.b.minicompletion_disable = true
-    end)
+    require("mini.diff").setup {
+      view = {
+        style = "sign",
+      },
+      options = {
+        algorithm = "minimal", -- see :h vim.diff()
+      },
+    }
+    vim.keymap.set("n", "td", require("mini.diff").toggle_overlay, { desc = "Toggle diff overlay" })
 
     ---
     --- mini.files
