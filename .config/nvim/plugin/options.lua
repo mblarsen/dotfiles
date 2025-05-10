@@ -1,44 +1,60 @@
 local opt = vim.opt
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-vim.g.have_nerd_font = true
-
--- folding
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldlevelstart = 99
-
-opt.clipboard = ""
-
--- numbers are nice, relatively
 opt.number = true
 opt.relativenumber = true
 
-opt.termguicolors = true
-opt.breakindent = true
-opt.breakindentopt = "shift:2"
-
---  S	do not show search count message when searching [1/3]
-opt.shortmess:append "S"
-
--- don't show mode under status line
-opt.showmode = false
-
--- list chars
-opt.list = true
-opt.listchars = {
-  nbsp = "▬",
-  tab = "  ",
-  trail = "·",
+opt.shortmess:append {
+  S = true, -- disable search count like [1/3]
+  W = true, -- disable written message
+  I = true, -- disable intro message
+  C = true, -- disable completion messages like pattern not found
+  c = true, -- disable completion messages like match 1 of 2
 }
 
--- blinking cursor
-opt.guicursor =
-  "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-cursor/lcursor,sm:block-blinkwait175-blinkoff150-blinkon175"
+--
+-- statusline
+--
+opt.laststatus = 2
+opt.showmode = false
+vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
 
-opt.timeoutlen = 500 -- default: 1000
+--
+-- diagnostic options
+--
+vim.diagnostic.config {
+  update_in_insert = true,
+  float = {
+    focusable = true,
+    source = true,
+  },
+  virtual_lines = false,
+  virtual_text = {
+    current_line = true,
+  },
+  jump = {
+    severity = { min = vim.diagnostic.severity.INFO },
+  },
+  signs = {
+    severity = { min = vim.diagnostic.severity.WARN },
+    text = {
+      [vim.diagnostic.severity.ERROR] = "●",
+      [vim.diagnostic.severity.WARN] = "●",
+      [vim.diagnostic.severity.INFO] = "●",
+      [vim.diagnostic.severity.HINT] = "－",
+    },
+  },
+  underline = true,
+}
 
--- show statusline
-opt.laststatus = 2 -- 1 = off, 2 = local, 3 = global
+--
+-- completion options
+--
+opt.completeopt = {
+  "menuone",
+  "popup",
+  "fuzzy",
+  "noinsert",
+  "noselect",
+  "preview",
+}
