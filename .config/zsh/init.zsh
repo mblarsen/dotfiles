@@ -42,6 +42,8 @@ from_oh_my_zsh=(
   # also automatically sources nvm, so you don't need to do it manually in your
   # .zshrc.
   nvm
+  # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/zoxide/README.md
+  zoxide
 )
 
 for plugin in "${from_oh_my_zsh[@]}"; do
@@ -56,9 +58,6 @@ zplug "MichaelAquilina/zsh-you-should-use"
 
 # https://github.com/spaceship-prompt/spaceship-prompt
 zplug "spaceship-prompt/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-
-# https://github.com/agkozak/zsh-z
-zplug "agkozak/zsh-z"
 
 # goenv
 zplug "RiverGlide/zsh-goenv", from:gitlab
