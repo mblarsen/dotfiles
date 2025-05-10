@@ -11,7 +11,7 @@ return {
         },
       },
       formatters_by_ft = {
-        ["*"] = { "trim_newlines" },
+        ["*"] = { "injected", "trim_newlines" },
         gleam = { "trim_whitespace", "gleam" },
         graphql = { "prettierd", "prettier", stop_after_first = true },
         javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -26,7 +26,7 @@ return {
         typescript = { "prettierd", "prettier", stop_after_first = true },
         typescriptreact = { "prettierd", "prettier", stop_after_first = true },
         yaml = { "prettierd", "prettier", stop_after_first = true },
-        go = { "goimports", "gofmt" },
+        go = { "gofmt", "goimports" },
       },
       format_on_save = {
         timeout_ms = 500,

@@ -1,7 +1,10 @@
 local M = {}
 
 function M.setup(user_override)
-  local builtin = require "telescope.builtin"
+  local ok, builtin = pcall(require, "telescope.builtin")
+  if not ok then
+    return
+  end
 
   require("config.picker").setup(vim.tbl_extend("force", builtin, {
     files = builtin.find_files,

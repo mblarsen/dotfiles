@@ -61,3 +61,10 @@ local function toggle_virtual_lines()
   }
 end
 vim.keymap.set("n", "gtl", toggle_virtual_lines, { desc = "Toggle diagnostic virtual lines" })
+
+-- Hmm, why are these not already working
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+
+-- Lazy
+vim.keymap.set("n", "<c-l>", "<cmd>Lazy<cr>", { desc = "Open Lazy" })

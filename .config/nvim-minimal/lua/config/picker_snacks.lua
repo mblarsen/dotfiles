@@ -1,7 +1,12 @@
 local M = {}
 
 function M.setup()
-  local builtin = Snacks.picker
+  local ok, snacks = pcall(require, "snacks")
+  if not ok then
+    return
+  end
+
+  local builtin = snacks.picker
 
   local pickers = vim.tbl_extend("force", {}, builtin, {
     -- FIXME: builtin pickers are first loaded when one of them are accessed

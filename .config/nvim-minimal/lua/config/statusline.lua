@@ -22,8 +22,8 @@ local hl_file = "%#StatuslineFile#"
 local hl_modified = "%#StatuslineFileModified#"
 local hl_ellipsis = "%#StatuslineEllipsis#"
 local hl_readonly = "%#StatuslineReadonly#"
-local hl_status = "%#StatuslineScrollbar#"
-local hl_status_end = "%#StatuslineScrollbarEnd#"
+local hl_scrollbar = "%#StatuslineScrollbar#"
+local hl_scrollbar_ends = "%#StatuslineScrollbarEnd#"
 local hl_lsp_icons = "%#StatuslineLSPIcons#"
 local hl_lsp_text = "%#StatuslineLSPText#"
 local hl_lsp_text_active = "%#StatuslineLSPTextActive#"
@@ -63,8 +63,8 @@ local config = {
   lsp_context = {
     max_elements = 4,
     reverse = true,
-    separators = { " ", " " },
-    -- separators = {" ← " , " → "}
+    -- separators = { " ", " " },
+    separators = { " ← ", " → " },
   },
 }
 
@@ -379,16 +379,16 @@ function M.get_scrollbar(bufnr, winid)
   local window_height = vim.api.nvim_win_get_height(winid)
 
   if lines <= window_height then
-    return hl_status .. string.rep(" ", 2) .. hl_terminate
+    return hl_scrollbar .. string.rep("─", 2) .. hl_terminate
   end
 
   local cur_line = vim.api.nvim_win_get_cursor(winid)[1]
   local i = math.floor((cur_line - 1) / lines * #sbar_chars) + 1
   local sbar = string.rep(sbar_chars[i], 2)
 
-  local hl = hl_status
+  local hl = hl_scrollbar
   if i == 1 or i == #sbar_chars then
-    hl = hl_status_end
+    hl = hl_scrollbar_ends
   end
 
   return hl .. sbar .. hl_terminate

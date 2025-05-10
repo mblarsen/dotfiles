@@ -1,13 +1,7 @@
 return {
   "yetone/avante.nvim",
   enabled = true,
-  keys = {
-    "<leader>aa",
-    "<leader>ae",
-    "<leader>af",
-    "<leader>ap",
-    "<leader>at",
-  },
+  event = "VeryLazy",
   version = false,
   build = "make",
   dependencies = {
