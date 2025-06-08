@@ -401,7 +401,10 @@ function M.get_readonly(bufnr, winid)
 end
 
 function M.get_lsp_context(bufnr)
-  local navic = require "nvim-navic"
+  local ok, navic = pcall("require", "nvim-navic")
+  if not ok then
+    return ""
+  end
   local data = navic.get_data(bufnr)
   if not data or #data == 0 or vim.g.statusline_lsp_context == false then
     return ""

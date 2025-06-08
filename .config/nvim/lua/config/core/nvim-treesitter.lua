@@ -13,6 +13,7 @@ end
 
 return {
   "nvim-treesitter/nvim-treesitter",
+  enabled = true,
   config = function()
     require("nvim-treesitter.configs").setup {
       auto_install = true,
@@ -26,19 +27,20 @@ return {
       },
       highlight = {
         enable = true,
-        disable = disable_by_ft,
+        -- disable = disable_by_ft,
       },
       indent = {
         enable = true,
+        disable = disable_by_ft,
       },
       incremental_selection = {
         enable = true,
-        disable = disable_by_ft,
+        -- disable = disable_by_ft,
         keymaps = {
-          init_selection = "<TAB>",
+          init_selection = "<CR>",
+          scope_incremental = "<CR>",
           node_incremental = "<TAB>",
-          scope_incremental = "<S-TAB>",
-          node_decremental = "<BS>",
+          node_decremental = "<S-TAB>",
         },
       },
     }

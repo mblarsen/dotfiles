@@ -32,7 +32,7 @@ return {
         parameterNames = true,
         rangeVariableTypes = true,
       },
-      usePlaceholders = true,
+      usePlaceholders = false,
       completeUnimported = true,
       staticcheck = true,
       matcher = "Fuzzy",

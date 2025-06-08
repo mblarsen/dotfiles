@@ -1,5 +1,6 @@
 return {
   "Goose97/timber.nvim",
+  enabled = false,
   keys = { "gla", "glb", "glj", "glo", "glO" },
   config = function()
     require("timber").setup {

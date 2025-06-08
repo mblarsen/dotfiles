@@ -1,5 +1,6 @@
 return {
   "azabiong/vim-highlighter",
+  enabled = false,
   keys = { "f<cr>" },
   config = function()
     vim.keymap.set(

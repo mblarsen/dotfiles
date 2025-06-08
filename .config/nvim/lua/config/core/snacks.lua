@@ -2,6 +2,7 @@ local style = "compact"
 
 return {
   "folke/snacks.nvim",
+  enabled = true,
   priority = 1000,
   ---@type snacks.Config
   opts = {

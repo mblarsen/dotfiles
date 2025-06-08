@@ -120,7 +120,27 @@
                         "is_keyboard": true,
                         "is_pointing_device": true
                     },
-                    "ignore": false
+                    "ignore": false,
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "delete_forward" },
+                            "to": [{ "apple_vendor_keyboard_key_code": "language" }]
+                        }
+                    ]
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": true,
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 12885,
+                        "vendor_id": 6645
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "delete_forward" },
+                            "to": [{ "apple_vendor_keyboard_key_code": "language" }]
+                        }
+                    ]
                 }
             ],
             "name": "Default profile",
