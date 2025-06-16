@@ -1,6 +1,7 @@
 -- Cycle through values
 return {
   "monaqa/dial.nvim",
+  enabled = true,
   keys = { "<c-a>", "<c-x>" },
   config = function()
     local augend = require "dial.augend"
@@ -15,6 +16,8 @@ return {
         augend.date.alias["%H:%M:%S"],
         augend.date.alias["%H:%M"],
 
+        create { elements = { "development", "production" } },
+        create { elements = { "DEBUG", "INFO", "WARN", "WARNING", "ERROR" } },
         create { elements = { "let", "const" } },
         create { elements = { "True", "False" } },
         create { elements = { "||", "&&" }, word = false },

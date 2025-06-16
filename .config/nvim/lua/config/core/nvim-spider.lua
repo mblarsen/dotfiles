@@ -1,5 +1,6 @@
 return {
   "chrisgrieser/nvim-spider",
+  enabled = true,
   event = { "BufReadPre" },
   config = function()
     require("spider").setup {

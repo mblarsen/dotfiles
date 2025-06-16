@@ -1,5 +1,6 @@
 return {
   "rlane/pounce.nvim",
+  enabled = true,
   keys = { "f/", "f?" },
   config = function()
     require "pounce"

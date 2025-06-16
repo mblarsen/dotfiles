@@ -10,6 +10,11 @@ return {
     image = { enabled = true },
     indent = {
       enabled = true,
+      only_scope = true, -- only show indent guides of the scope
+      only_current = true, -- only show indent guides in the current window
+      scope = {
+        enabled = false,
+      },
       chunk = {
         enabled = true,
         char = { corner_top = "╭", corner_bottom = "╰", horizontal = "─", vertical = "│", arrow = ">" },
@@ -35,6 +40,9 @@ return {
   },
   config = function(_, opts)
     require("snacks").setup(opts)
+
+    -- for Eldritch theme
+    vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#414868" })
 
     -- Extend Mini.basics 'yo' with an indent toggle
     vim.keymap.set("n", "yoi", function()

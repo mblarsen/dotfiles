@@ -27,6 +27,9 @@ set("n", "0", "^", { desc = "Jumps to first non-space character on the line" })
 set("n", "^", "0", { desc = "Jumps to beginning of line" })
 set("n", "<bs>", "0", { desc = "Jumps to beginning of line" })
 
+-- more granular undo
+set("i", "<cr>", "<c-]><c-g>u<cr>", { noremap = true })
+
 -- duplicate line(s) and comment
 vim.keymap.set(
   "n",

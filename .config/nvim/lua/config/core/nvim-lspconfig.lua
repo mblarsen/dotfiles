@@ -13,7 +13,30 @@ return {
       capabilities = vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
-        require("blink.cmp").get_lsp_capabilities({}, false)
+        require("blink.cmp").get_lsp_capabilities({
+          -- textDocument = {
+          --   completion = {
+          --     completionItem = {
+          --       commitCharactersSupport = true,
+          --       deprecatedSupport = true,
+          --       documentationFormat = { "markdown", "plaintext" },
+          --       preselectSupport = true,
+          --       -- insertReplaceSupport = true,
+          --       labelDetailsSupport = true,
+          --       snippetSupport = true,
+          --       resolveSupport = {
+          --         properties = {
+          --           "documentation",
+          --           "details",
+          --           "additionalTextEdits",
+          --         },
+          --       },
+          --     },
+          --     contextSupport = true,
+          --     dynamicRegistration = true,
+          --   },
+          -- },
+        }, false)
       ),
     })
 
@@ -37,6 +60,8 @@ return {
       automatic_enable = true,
       automatic_installation = true,
       ensure_installed = {
+        "cssls",
+        "css_variables",
         "lua_ls",
         "jsonls",
         "yamlls",

@@ -119,7 +119,7 @@ return {
         go_in_plus = "<cr>",
       },
     }
-    vim.keymap.set("n", "-", function(...)
+    vim.keymap.set("n", "<c-e>", function(...)
       if not MiniFiles.close() then
         require("mini.files").open(vim.api.nvim_buf_get_name(0))
       end

@@ -132,7 +132,8 @@ function M.render(winid)
     return active and value or ""
   end
 
-  local filepath = active_only(M.get_filepath(bufnr, winid))
+  local filepath = M.get_filepath(bufnr, winid)
+  -- local filepath = active_only(M.get_filepath(bufnr, winid))
   local scrollbar = active_only(M.get_scrollbar(bufnr, winid))
   local readonly = active_only(M.get_readonly(bufnr))
   local lsp_context = active_only(M.get_lsp_context(bufnr))
@@ -401,7 +402,7 @@ function M.get_readonly(bufnr, winid)
 end
 
 function M.get_lsp_context(bufnr)
-  local ok, navic = pcall("require", "nvim-navic")
+  local ok, navic = pcall(require, "nvim-navic")
   if not ok then
     return ""
   end

@@ -1,8 +1,12 @@
 local function disable_by_ft(lang, buf)
-  local disable_for = { "Avante", "AvanteInput" }
-  local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+  local disable_for = {
+    "vim", -- the command line edit mode
+    "Avante",
+    "AvanteInput",
+  }
+  -- local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+  local filetype = vim.bo.filetype
 
-  -- filetype is in disable_for table disable module
   for _, ft in ipairs(disable_for) do
     if ft == filetype then
       return true
@@ -27,7 +31,7 @@ return {
       },
       highlight = {
         enable = true,
-        -- disable = disable_by_ft,
+        disable = disable_by_ft,
       },
       indent = {
         enable = true,
@@ -35,12 +39,12 @@ return {
       },
       incremental_selection = {
         enable = true,
-        -- disable = disable_by_ft,
+        disable = disable_by_ft,
         keymaps = {
-          init_selection = "<CR>",
-          scope_incremental = "<CR>",
-          node_incremental = "<TAB>",
-          node_decremental = "<S-TAB>",
+          init_selection = "<cr>",
+          scope_incremental = nil,
+          node_incremental = "<cr>",
+          node_decremental = "<bs>",
         },
       },
     }

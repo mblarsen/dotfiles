@@ -1,5 +1,6 @@
 return {
   "saghen/blink.cmp",
+  enabled = true,
   event = "VimEnter",
   version = "1.*",
   dependencies = {
@@ -66,7 +67,7 @@ return {
     },
 
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer", "copilot" },
       per_filetype = {
         lua = { "lsp", "path", "snippets", "lazydev", "buffer" },
         markdown = { "lsp", "path", "buffer" },
@@ -74,11 +75,18 @@ return {
           "avante_commands",
           "avante_files",
           "avante_mentions",
+          "buffer",
           "path",
         },
       },
       providers = {
         lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+        copilot = {
+          name = "copilot",
+          module = "blink-cmp-copilot",
+          score_offset = 100,
+          async = true,
+        },
         avante_commands = {
           name = "avante_commands",
           module = "blink.compat.source",

@@ -1,42 +1,110 @@
 return {
   "yetone/avante.nvim",
   enabled = true,
+  cond = true,
   event = "VeryLazy",
   version = false,
   build = "make",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
-    "stevearc/dressing.nvim",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
+    "MeanderingProgrammer/render-markdown.nvim", -- config in ../optional/render-markdown.lua
     -- "ravitemer/mcphub.nvim",
-    {
-      "MeanderingProgrammer/render-markdown.nvim",
-      opts = {
-        file_types = { "markdown", "Avante" },
-      },
-      ft = { "markdown", "Avante" },
-    },
+    "folke/snacks.nvim", -- for input provider snacks
+    "echasnovski/mini.nvim", -- or echasnovski/mini.icons
   },
   ---@type avante.Config
   opts = {
-    ---@type avante.ProviderName
-    provider = "openai",
-    ---@type AvanteSupportedProvider
-    openai = {
-      model = "gpt-4o",
+    debug = false,
+    mode = "agentic",
+    provider = "gemini", -- openai, gemini
+    providers = {
+      openai = {
+        model = "gpt-4o",
+      },
+      gemini = {
+        model = "gemini-2.5-pro-preview-06-05",
+      },
     },
-    ---@type AvanteSupportedProvider
-    gemini = {
-      model = "gemini-2.5-pro-exp-03-25",
+    -- Features Section
+    features = {
+      web_search = true,
+      project_context = true,
+      file_search = true,
     },
-    -- behaviour = {
-    --   auto_suggestions = true, -- Experimental stage
-    -- },
+    --- Behaviour Tuning
+    behaviour = {
+      auto_suggestions = false, -- only on demand
+      auto_focus_sidebar = true, -- jump into pane for review
+      auto_apply_diff_after_generation = false, -- manual diff approval
+      enable_token_counting = false, -- see real-time usage
+      cursor_planning_mode = true, -- plan-apply workflow
+      minimize_diff = true, -- disable full context diffs
+    },
+    -- Tools Configuration
+    tools = {
+      disabled_tools = { "git_commit" },
+      web_search = {
+        provider = "tavily",
+        max_results = 5,
+        include_answer = true,
+        timeout = 15000,
+      },
+      -- rag_service = {
+      --   enabled = true,
+      --   provider = "claude",
+      --   llm_model = "claude-3-7-sonnet",
+      --   embed_model = "nomic-embed-text",
+      --   host_mount = vim.env.HOME,
+      -- },
+      -- Alternative Gemini RAG configuration (disabled by default)
+      -- To use, change the provider in rag_service to "gemini"
+      -- gemini_rag = {
+      --   provider = "gemini",
+      --   llm_model = "gemini-2.5-pro-preview-05-06",
+      --   embed_model = "vertex-embed-text-2", -- Latest Google embedding model as of 2025
+      --   chunk_size = 4096, -- Enhanced chunk size for better context retention
+      --   chunk_overlap = 512, -- Increased overlap for improved context coherence
+      --   hybrid_search = true, -- Enables both semantic and keyword search
+      --   reranking = true, -- Post-processing to improve result relevance
+      --   max_sources = 15, -- Increased source limit for more comprehensive context
+      -- },
+      -- mcp = { enabled = true },
+    },
+    web_search_engine = {
+      provider = "tavily",
+      api_key = os.getenv "TAVILY_API_KEY",
+
+      -- Additional settings:
+      max_results = 5, -- Number of search results to retrieve (default: 5)
+      include_answer = true, -- Include Tavily's summarized answer (default: true)
+      include_images = false, -- Include images in search results (default: false)
+      search_depth = "advanced", -- "basic" or "advanced" search depth (default: "basic")
+      include_domains = {}, -- Array of domains to prioritize in search results
+      exclude_domains = {}, -- Array of domains to exclude from search results
+      timeout = 15000, -- Timeout in milliseconds (default: 15000)
+      -- For specialized searches:
+      search_type = "search", -- Can be "search" or "passage" (default: "search")
+      search_bm25 = false, -- Enable BM25 vector search (default: false)
+    },
+    -- Persistent History
+    history = {
+      storage_path = vim.fn.stdpath "state" .. "/avante",
+      max_tokens = 8192,
+      carried_entry_count = 10,
+    },
+    windows = {
+      width = 50,
+      sidebar_header = {
+        align = "left",
+        rounded = "true",
+      },
+    },
     mappings = {
       sidebar = {
         close_from_input = {
-          normal = "<Esc>",
+          normal = "<C-e>",
           insert = "<C-e>",
         },
       },

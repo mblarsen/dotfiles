@@ -3,6 +3,8 @@ local opt = vim.opt
 opt.number = true
 opt.relativenumber = true
 
+opt.winborder = "rounded"
+
 opt.shortmess:append {
   S = true, -- disable search count like [1/3]
   W = true, -- disable written message
@@ -23,6 +25,7 @@ vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
 -- diagnostic options
 --
 vim.diagnostic.config {
+  severity_sort = true,
   update_in_insert = true,
   float = {
     focusable = true,

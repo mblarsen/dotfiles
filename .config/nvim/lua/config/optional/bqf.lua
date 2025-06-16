@@ -1,6 +1,6 @@
 return {
   "kevinhwang91/nvim-bqf",
-  enable = false,
+  enabled = true,
   opts = {
     preview = {
       border = "none",
