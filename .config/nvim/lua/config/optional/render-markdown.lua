@@ -1,11 +1,17 @@
 return {
   "MeanderingProgrammer/render-markdown.nvim",
+  enabled = true,
+  optional = true,
   ft = { "markdown", "Avante" },
   dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" },
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
+  ---@type render.md.UserConfig
   opts = {
-    file_types = { "markdown", "Avante" },
+    file_types = {
+      "markdown",
+      "Avante",
+    },
     sign = {
       enabled = false,
     },

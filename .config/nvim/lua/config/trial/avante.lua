@@ -13,38 +13,61 @@ return {
     -- "ravitemer/mcphub.nvim",
     "folke/snacks.nvim", -- for input provider snacks
     "echasnovski/mini.nvim", -- or echasnovski/mini.icons
+    {
+      -- support for image pasting
+      "HakonHarnes/img-clip.nvim",
+      event = "VeryLazy",
+      opts = {
+        -- recommended settings
+        default = {
+          embed_image_as_base64 = false,
+          prompt_for_file_name = false,
+          drag_and_drop = {
+            insert_mode = true,
+          },
+          -- required for Windows users
+          use_absolute_path = true,
+        },
+      },
+    },
   },
-  ---@type avante.Config
   opts = {
     debug = false,
-    mode = "agentic",
+    mode = "legacy",
+    -- mode = "agentic",
     provider = "gemini", -- openai, gemini
     providers = {
       openai = {
         model = "gpt-4o",
       },
       gemini = {
+        -- model = "gemini-2.5-pro-preview-05-06",
         model = "gemini-2.5-pro-preview-06-05",
       },
     },
     -- Features Section
     features = {
       web_search = true,
-      project_context = true,
+      project_context = false,
       file_search = true,
     },
     --- Behaviour Tuning
     behaviour = {
-      auto_suggestions = false, -- only on demand
-      auto_focus_sidebar = true, -- jump into pane for review
       auto_apply_diff_after_generation = false, -- manual diff approval
-      enable_token_counting = false, -- see real-time usage
-      cursor_planning_mode = true, -- plan-apply workflow
+      auto_approve_tool_permissions = { "glob", "grep", "ls", "view_file" },
+      auto_focus_sidebar = true,
+      auto_set_highlight_group = true,
+      auto_set_keymaps = true,
+      auto_suggestions = false,
+      cursor_planning_mode = false, -- plan-apply workflow
+      enable_token_counting = true, -- see real-time usage
       minimize_diff = true, -- disable full context diffs
+      support_paste_from_clipboard = false,
     },
     -- Tools Configuration
     tools = {
       disabled_tools = { "git_commit" },
+      -- disabled_tools = { 'python', 'replace_in_file' },
       web_search = {
         provider = "tavily",
         max_results = 5,
@@ -97,30 +120,20 @@ return {
     windows = {
       width = 50,
       sidebar_header = {
+        enabled = false,
         align = "left",
         rounded = "true",
       },
-    },
-    mappings = {
-      sidebar = {
-        close_from_input = {
-          normal = "<C-e>",
-          insert = "<C-e>",
-        },
+      input = {
+        prefix = "» ",
       },
-      suggestion = {
-        accept = "<C-s>",
-        next = "<C-n>",
-        prev = "<C-p>",
-        dismiss = "<C-e>",
+      edit = {
+        border = "rounded",
+        start_insert = true, -- Start insert mode when opening the edit window
       },
-      submit = {
-        normal = "<CR>",
-        insert = "<C-s>",
-      },
-      cancel = {
-        normal = { "<C-e>", "q" },
-        insert = { "<C-e>" },
+      ask = {
+        border = "rounded",
+        floating = false,
       },
     },
     selector = {
@@ -137,11 +150,6 @@ return {
     --     require("mcphub.extensions.avante").mcp_tool(),
     --   }
     -- end,
-    -- dual_boost = {
-    --   enabled = false,
-    --   first_provider = "gemini",
-    --   second_provider = "openai",
-    -- },
     -- disabled_tools = {
     --   "list_files",
     --   "search_files",
@@ -157,8 +165,6 @@ return {
   },
   config = function(_, opts)
     require("avante").setup(opts)
-    vim.keymap.set("n", "<leader>ap", function()
-      require("avante").current.sidebar.file_selector:open()
-    end, { desc = "Open Avante file picker" })
+    ---@type avante.Config
   end,
 }

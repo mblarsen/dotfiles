@@ -16,6 +16,7 @@ return {
         augend.date.alias["%H:%M:%S"],
         augend.date.alias["%H:%M"],
 
+        create { elements = { "legacy", "agentic" } },
         create { elements = { "development", "production" } },
         create { elements = { "DEBUG", "INFO", "WARN", "WARNING", "ERROR" } },
         create { elements = { "let", "const" } },

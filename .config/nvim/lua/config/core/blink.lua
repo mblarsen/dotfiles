@@ -25,6 +25,7 @@ return {
       end,
     },
     "folke/lazydev.nvim",
+    "fang2hou/blink-copilot",
   },
   --- @module 'blink.cmp'
   --- @type blink.cmp.Config
@@ -67,15 +68,16 @@ return {
     },
 
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "copilot" },
+      default = { "lsp", "path", "snippets", "buffer", "omni", "copilot" },
       per_filetype = {
-        lua = { "lsp", "path", "snippets", "lazydev", "buffer" },
-        markdown = { "lsp", "path", "buffer" },
+        lua = { "lsp", "path", "snippets", "lazydev", "omni", "buffer" },
+        markdown = { "lsp", "path", "buffer", "omni" },
         AvanteInput = {
           "avante_commands",
           "avante_files",
           "avante_mentions",
           "buffer",
+          "omni",
           "path",
         },
       },
@@ -83,7 +85,7 @@ return {
         lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
         copilot = {
           name = "copilot",
-          module = "blink-cmp-copilot",
+          module = "blink-copilot",
           score_offset = 100,
           async = true,
         },
@@ -119,6 +121,9 @@ return {
     -- Shows a signature help window while you type arguments for a function
     signature = {
       enabled = true,
+      window = {
+        show_documentation = false,
+      },
     },
   },
 }
