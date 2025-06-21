@@ -152,6 +152,11 @@
       "key" : "f",
       "label" : "Workflows",
       "type" : "group"
+    },
+    {
+      "key" : "k",
+      "type" : "application",
+      "value" : "/Applications/Karabiner-Elements.app"
     }
   ],
   "type" : "group"
