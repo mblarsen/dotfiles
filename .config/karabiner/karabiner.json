@@ -141,6 +141,21 @@
                             "to": [{ "apple_vendor_keyboard_key_code": "language" }]
                         }
                     ]
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": true,
+                    "identifiers": {
+                        "device_address": "fe-dc-f9-84-bf-15",
+                        "is_keyboard": true,
+                        "is_pointing_device": true
+                    },
+                    "ignore": false,
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "delete_forward" },
+                            "to": [{ "apple_vendor_keyboard_key_code": "language" }]
+                        }
+                    ]
                 }
             ],
             "name": "Default profile",
