@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# install brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/mbl/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# brew install zsh
+brew install zsh
+
+# install zplug
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+
+# brew install yadm
+brew install yadm
+
+# clone dotfiles
+yadm clone https://github.com/mblarsen/dotfiles.git
+
+echo "RESTART SHELL"
