@@ -1,7 +1,6 @@
 return {
   "ravitemer/mcphub.nvim",
-  enabled = true,
-  cond = false,
+  cond = true,
   -- cmds = { "MCPHub" },
   dependencies = {
     "nvim-lua/plenary.nvim",

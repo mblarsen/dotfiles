@@ -18,6 +18,7 @@ return {
 
         create { elements = { "legacy", "agentic" } },
         create { elements = { "development", "production" } },
+        create { elements = { "Debug", "Info", "Warn", "Warning", "Error", "Fatal" } },
         create { elements = { "DEBUG", "INFO", "WARN", "WARNING", "ERROR" } },
         create { elements = { "let", "const" } },
         create { elements = { "True", "False" } },

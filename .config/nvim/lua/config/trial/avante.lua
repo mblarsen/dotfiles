@@ -9,32 +9,44 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
-    "MeanderingProgrammer/render-markdown.nvim", -- config in ../optional/render-markdown.lua
-    -- "ravitemer/mcphub.nvim",
-    "folke/snacks.nvim", -- for input provider snacks
-    "echasnovski/mini.nvim", -- or echasnovski/mini.icons
+    "folke/snacks.nvim",
+    "echasnovski/mini.nvim",
     {
-      -- support for image pasting
-      "HakonHarnes/img-clip.nvim",
-      event = "VeryLazy",
+      "MeanderingProgrammer/render-markdown.nvim",
+      ft = { "markdown", "Avante" },
       opts = {
-        -- recommended settings
-        default = {
-          embed_image_as_base64 = false,
-          prompt_for_file_name = false,
-          drag_and_drop = {
-            insert_mode = true,
-          },
-          -- required for Windows users
-          use_absolute_path = true,
+        file_types = {
+          "markdown",
+          "Avante",
+        },
+        sign = {
+          enabled = false,
+        },
+        heading = {
+          width = "block",
+          position = "inline",
+          min_width = 70,
+        },
+        -- code = {
+        --   style = "full", -- "none", "normal", "language", "full"
+        --   border = "thick",
+        --   width = "block", -- "block", "full",
+        --   language_pad = 0,
+        --   left_pad = 2,
+        --   right_pad = 4,
+        -- },
+        dash = {
+          width = 70,
+        },
+        indent = {
+          enabled = false,
         },
       },
     },
   },
   opts = {
     debug = false,
-    mode = "legacy",
-    -- mode = "agentic",
+    mode = "agentic",
     provider = "gemini", -- openai, gemini
     providers = {
       openai = {
@@ -43,6 +55,10 @@ return {
       gemini = {
         -- model = "gemini-2.5-pro-preview-05-06",
         model = "gemini-2.5-pro-preview-06-05",
+      },
+      ollama = {
+        endpoint = "http://localhost:11434",
+        model = "qwen3:0.6b",
       },
     },
     -- Features Section
@@ -59,8 +75,10 @@ return {
       auto_set_highlight_group = true,
       auto_set_keymaps = true,
       auto_suggestions = false,
-      cursor_planning_mode = false, -- plan-apply workflow
+     	enable_cursor_planning_mode = true,
+      -- cursor_planning_mode = false, -- plan-apply workflow
       enable_token_counting = true, -- see real-time usage
+      enable_claude_text_editor_tool_mode = false,
       minimize_diff = true, -- disable full context diffs
       support_paste_from_clipboard = false,
     },
@@ -121,24 +139,33 @@ return {
       width = 50,
       sidebar_header = {
         enabled = false,
-        align = "left",
-        rounded = "true",
       },
       input = {
         prefix = "» ",
       },
       edit = {
-        border = "rounded",
+        border = "none",
         start_insert = true, -- Start insert mode when opening the edit window
       },
       ask = {
-        border = "rounded",
+        border = "none",
         floating = false,
       },
     },
     selector = {
       provider = "snacks",
     },
+    -- prompt_logger = {
+    --   enabled = true,
+    --   log_dir = vim.fn.stdpath("cache") .. "/avante_logs",
+    --   fortune_cookie_on_success = false,
+    --   next_prompt = {
+    --     normal = "<C-n>", insert = "<C-n>",
+    --   },
+    --   prev_prompt = {
+    --     normal = "<C-p>", insert = "<C-p>",
+    --   },
+    -- },
     -- system_prompt = function()
     --   local hub = require("mcphub").get_hub_instance()
     --   ---@diagnostic disable-next-line: need-check-nil
@@ -166,5 +193,21 @@ return {
   config = function(_, opts)
     require("avante").setup(opts)
     ---@type avante.Config
+    ---
+    -- The recommended way: using a callback function
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'AvanteInput' },
+      group = vim.api.nvim_create_augroup('AvanteAbbrevs', {clear = true }),
+      callback = function()
+        vim.cmd('iabbrev <buffer> ntry stuck? not working? try again what you were doing')
+        vim.cmd('iabbrev <buffer> nok ok, please continue with that')
+        vim.cmd('iabbrev <buffer> nread the proprosed changes does not apply cleanly to the source, read the file again using the view_file tool')
+        vim.cmd('iabbrev <buffer> nbreak that\'s a big chunk and I\'m having issues applying the suggested changes to my code, blease break it down into smaller changes that I can apply. Small change -> apply, generate next small change -> apply, and so on.')
+        vim.cmd('iabbrev <buffer> nstep great, lets continue with next small step')
+        vim.cmd('iabbrev <buffer> ncont great, lets continue')
+        vim.cmd('iabbrev <buffer> nsum great, where are we at now, can you give me a short summary')
+        vim.cmd('iabbrev <buffer> nadd okay, I\'ve added the files to the context, have a look')
+      end,
+    })
   end,
 }

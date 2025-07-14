@@ -1,6 +1,7 @@
 return {
   "sphamba/smear-cursor.nvim",
   enabled = true,
+  cond = false,
   opts = {
     -- Fast config
     -- stiffness = 0.8,

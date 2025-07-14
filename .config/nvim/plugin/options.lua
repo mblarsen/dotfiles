@@ -1,9 +1,20 @@
 local opt = vim.opt
 
+
+vim.cmd [[abbr embl mbl@code.boutique]]
+
 opt.number = true
 opt.relativenumber = true
+opt.scrolloff = 4
+opt.sidescrolloff = 8
+opt.swapfile = false
+opt.updatetime = 300
+opt.timeoutlen = 500
+opt.ttimeoutlen = 0
+opt.redrawtime = 10000
 
-opt.winborder = "rounded"
+opt.winborder = nil
+-- opt.winborder = "rounded"
 
 opt.shortmess:append {
   S = true, -- disable search count like [1/3]
@@ -54,10 +65,10 @@ vim.diagnostic.config {
 -- completion options
 --
 opt.completeopt = {
-  "menuone",
-  "popup",
-  "fuzzy",
-  "noinsert",
-  "noselect",
-  "preview",
+  "menuone",  -- show the menu even if there's only one match
+  "popup",    -- use a popup menu for completion
+  "fuzzy",    -- use fuzzy matching
+  "noinsert", -- do not insert text until the user selects an item
+  "noselect", -- do not select the first item automatically
+  "preview",  -- show a preview of the selected item
 }

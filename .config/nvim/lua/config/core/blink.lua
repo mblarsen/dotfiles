@@ -25,7 +25,8 @@ return {
       end,
     },
     "folke/lazydev.nvim",
-    "fang2hou/blink-copilot",
+    { "fang2hou/blink-copilot", dependencies={ "zbirenbaum/copilot.lua" } },
+    "tzachar/cmp-ai"
   },
   --- @module 'blink.cmp'
   --- @type blink.cmp.Config
@@ -68,21 +69,55 @@ return {
     },
 
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "omni", "copilot" },
+      default = {
+        "lsp",
+        "path",
+        "snippets",
+        "buffer",
+        "omni",
+        "copilot",
+        -- "cmp_ai",
+        "abbr",
+      },
       per_filetype = {
-        lua = { "lsp", "path", "snippets", "lazydev", "omni", "buffer" },
-        markdown = { "lsp", "path", "buffer", "omni" },
+        lua = {
+          "lsp",
+          "path",
+          "snippets",
+          "lazydev",
+          "omni",
+          "buffer",
+          "copilot",
+          -- "cmp_ai",
+          "abbr",
+        },
+        markdown = {
+          "lsp",
+          "path",
+          "buffer",
+          "omni",
+          "copilot",
+          -- "cmp_ai",
+        },
         AvanteInput = {
+          "abbr",
           "avante_commands",
           "avante_files",
           "avante_mentions",
-          "buffer",
-          "omni",
-          "path",
         },
       },
       providers = {
         lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+        abbr = {
+          name = "Nvim abbreviations",
+          module = "blink-cmp-abbr",
+          opts = {}
+        },
+        -- cmp_ai = {
+        --   name = "cmp_ai",
+        --   module = 'blink.compat.source',
+        --   -- opts = {}
+        -- },
         copilot = {
           name = "copilot",
           module = "blink-copilot",
