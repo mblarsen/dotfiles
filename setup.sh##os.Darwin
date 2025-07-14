@@ -1,20 +1,79 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
+
+# set -x
+
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_BIN_HOME=$HOME/.local/bin
+export XDG_LIB_HOME=$HOME/.local/lib
+export XDG_CACHE_HOME=$HOME/.cache
+
+export ZPLUG_HOME="$XDG_DATA_HOME/zplug"
 
 # install brew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/mbl/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if type brew &> /dev/null; then
+else
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
-# brew install zsh
-brew install zsh
+# brew install newer zsh
+if [[ "$(which zsh)" == "/opt/homebrew/bin/zsh" ]]; then
+else
+  brew install -q zsh
+fi
 
 # install zplug
-curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+if [ -d "$XDG_DATA_HOME/zplug" ]; then
+else
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
 
 # brew install yadm
-brew install yadm
+if type yadm &> /dev/null; then
+else
+  brew install -q yadm
+  yadm clone https://github.com/mblarsen/dotfiles.git
+  echo "RESTART SHELL"
+fi
 
-# clone dotfiles
-yadm clone https://github.com/mblarsen/dotfiles.git
+# Install nvm
+if type nvm &> /dev/null; then
+else
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+fi
 
-echo "RESTART SHELL"
+if [[ "$(which nvim)" == "/Users/mbl/.local/share/bob/nvim-bin/nvim" ]]; then
+else
+  brew install -q neovim
+fi
+
+brew install -q karabiner-elements leader-key direnv zoxide jq fx fzf lsd ripgrep tailspin maccy bob 1password 1password-cli pyenv goenv tailscale
+brew install -q charmbracelet/tap/mods
+brew install -q --cask ghostty
+brew install -q --cask nikitabobko/tap/aerospace
+brew install -q --cask discord
+brew install -q --cask notion notion-calendar
+
+if type bob &> /dev/null; then
+  bob install nightly
+  bob use nightly
+  if brew leaves | grep neovim &> /dev/null; then
+    brew uninstall -q neovim
+  fi
+fi
+
+# Mac App Store
+mas install 803453959 # slack
+mas install 6743495172 # focuscursor
+mas install 1475387142 # tailscale
+mas install 1661733229 # localsend
+mas install 6446206067 # klack
+mas install 6469420677 # funkey
+mas install 937984704 # amphetamine
+mas install 1410709951 # smart countdown timer
+mas install 1446377255 # menu world time
+mas install 409907375 # apple remote desktop
+mas install 1569813296 # 1password for safari
+mas install 1519867270 # refined github
+mas install 1289583905 # pixelmator pro
