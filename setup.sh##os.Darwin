@@ -48,7 +48,8 @@ else
   brew install -q neovim
 fi
 
-brew install -q karabiner-elements leader-key direnv zoxide jq fx fzf lsd ripgrep tailspin maccy bob 1password 1password-cli pyenv goenv tailscale
+brew install -q karabiner-elements leader-key direnv zoxide jq fx fzf lsd ripgrep tailspin maccy bob 1password 1password-cli pyenv goenv tailscale tree
+brew install -q terraform terragrunt mprocs
 brew install -q charmbracelet/tap/mods
 brew install -q --cask ghostty
 brew install -q --cask nikitabobko/tap/aerospace
@@ -62,6 +63,16 @@ if type bob &> /dev/null; then
     brew uninstall -q neovim
   fi
 fi
+
+# pyenv
+export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init - zsh)"
+pyenv install 3.13.5
+pyenv global 3.13.5
+pip install pipx
+pipx install pre-commit
 
 # Mac App Store
 mas install 803453959 # slack
@@ -77,3 +88,17 @@ mas install 409907375 # apple remote desktop
 mas install 1569813296 # 1password for safari
 mas install 1519867270 # refined github
 mas install 1289583905 # pixelmator pro
+mas install 497799835 # xcode
+
+# Custom donwload apps
+function download_syncthing() {
+  VERSION=$1
+
+  curl --silent --location \
+    -o "$HOME/Downloads/Syncthing-$VERSION.dmg" \
+    "https://github.com/syncthing/syncthing-macos/releases/download/v$VERSION/Syncthing-$VERSION.dmg"
+
+  open "$HOME/Downloads/Syncthing-$VERSION.dmg"
+}
+
+download_syncthing "1.29.7-1"

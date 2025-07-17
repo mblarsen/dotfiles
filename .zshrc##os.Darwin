@@ -21,3 +21,6 @@ if [ -f '/Users/mbl/dev/sdk/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/mbl
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/mbl/dev/sdk/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/mbl/dev/sdk/google-cloud-sdk/completion.zsh.inc'; fi
+
+# opencode
+export PATH=/Users/mbl/.opencode/bin:$PATH
