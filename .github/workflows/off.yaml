@@ -1,6 +1,6 @@
 on:
-  schedule:
-    - cron: "0 17 * * *" # UTC
+  # schedule:
+  #   - cron: "0 17 * * *" # UTC
   workflow_dispatch:
 
 jobs:
