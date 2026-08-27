@@ -1,0 +1,960 @@
+[
+  {
+    "plugin_id": "chmarax.herdr-nvim",
+    "name": "herdr-nvim",
+    "version": "0.2.1",
+    "min_herdr_version": "0.7.4",
+    "description": "Full-height nvim sidebar with agent annotations: toggle with one key, comment code, send to any agent.",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/chmarax.herdr-nvim-178624809c23/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/chmarax.herdr-nvim-178624809c23",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "build": [
+      {
+        "command": [
+          "bash",
+          "herdr/install.sh"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "open-link",
+        "title": "nvim sidebar: open clicked file",
+        "command": [
+          "sh",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/herdr/run.sh\" open-link"
+        ]
+      },
+      {
+        "id": "pick-file",
+        "title": "nvim sidebar: open file from agent output",
+        "contexts": [
+          "pane"
+        ],
+        "command": [
+          "sh",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/herdr/run.sh\" pick-file"
+        ]
+      },
+      {
+        "id": "toggle",
+        "title": "nvim sidebar: toggle",
+        "contexts": [
+          "pane",
+          "workspace"
+        ],
+        "command": [
+          "sh",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/herdr/run.sh\" toggle"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "picker",
+        "title": "open file",
+        "placement": "popup",
+        "command": [
+          "sh",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/herdr/run.sh\" picker"
+        ]
+      }
+    ],
+    "link_handlers": [
+      {
+        "id": "file-path",
+        "title": "Open in nvim sidebar",
+        "pattern": "^~?[\\w.@/()\\[\\]+-]+/[\\w.@()\\[\\]+-]+\\.[A-Za-z]\\w*(?::\\d+){0,2}$",
+        "action": "open-link"
+      },
+      {
+        "id": "file-url",
+        "title": "Open in nvim sidebar",
+        "pattern": "^file://",
+        "action": "open-link"
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "ChmaraX",
+      "repo": "herdr-nvim",
+      "resolved_commit": "d1cc8ed5d53e7771471a6978454f3b1d566ef854",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/chmarax.herdr-nvim-178624809c23",
+      "installed_unix_ms": 1787286088199
+    }
+  },
+  {
+    "plugin_id": "dave.token-dashboard",
+    "name": "Token Dashboard",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Live token spend dashboard + cost notifications for Herdr agent panes",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/dave.token-dashboard-c1bf535be307/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/dave.token-dashboard-c1bf535be307",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "build": [
+      {
+        "platforms": [
+          "macos",
+          "linux"
+        ],
+        "command": [
+          "./scripts/build.sh"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "open-dashboard",
+        "title": "Open Token Dashboard",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "./bin/token-dashboard",
+          "--open"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "pane.agent_status_changed",
+        "command": [
+          "./bin/token-dashboard",
+          "--notify"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "dashboard",
+        "title": "Token Dashboard",
+        "placement": "tab",
+        "command": [
+          "./bin/token-dashboard"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "Davidcreador",
+      "repo": "herdr-token-dashboard",
+      "resolved_commit": "845061589bfef53df4312f67a1e7336e5e47cd8c",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/dave.token-dashboard-c1bf535be307",
+      "installed_unix_ms": 1787193670075
+    }
+  },
+  {
+    "plugin_id": "herdr-board",
+    "name": "Herdr Board",
+    "version": "0.15.0",
+    "min_herdr_version": "0.8.0",
+    "description": "Kanban board for AI coding agents: cards are prompts, columns are pipeline stages; moving a card dispatches an agent into a herdr pane.",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/herdr-board-948ba5448416/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/herdr-board-948ba5448416",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "build": [
+      {
+        "command": [
+          "./scripts/build.sh"
+        ]
+      },
+      {
+        "command": [
+          "./scripts/install-cli.sh"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "open-board",
+        "title": "Open board",
+        "description": "Open the herdr-board kanban as an overlay pane (focus/toggle if already open).",
+        "command": [
+          "bash",
+          "scripts/open-board.sh"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "board",
+        "title": "Board",
+        "placement": "overlay",
+        "command": [
+          "./target/release/board",
+          "tui"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "nelsonPires5",
+      "repo": "herdr-board",
+      "requested_ref": "v0.15.0",
+      "resolved_commit": "97081a5a5074d74bcc577f91c8a41c80f46a4fe6",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/herdr-board-948ba5448416",
+      "installed_unix_ms": 1787287013070
+    }
+  },
+  {
+    "plugin_id": "herdr.sesh",
+    "name": "Herdr Sesh",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Smart Herdr workspace manager powered by zoxide, inspired by joshmedeski/sesh.",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/herdr.sesh-69d0e013d6b9/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/herdr.sesh-69d0e013d6b9",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "build": [
+      {
+        "command": [
+          "sh",
+          "scripts/build.sh"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "last",
+        "title": "Sesh: last workspace",
+        "description": "Switch to the previously focused workspace.",
+        "command": [
+          "./bin/herdr-sesh",
+          "last"
+        ]
+      },
+      {
+        "id": "picker",
+        "title": "Sesh: workspace picker",
+        "description": "Fuzzy-find active, configured, and recently visited workspaces.",
+        "command": [
+          "./bin/herdr-sesh",
+          "picker"
+        ]
+      },
+      {
+        "id": "root",
+        "title": "Sesh: repository root",
+        "description": "Create or focus a workspace at the current repository root.",
+        "contexts": [
+          "pane"
+        ],
+        "command": [
+          "./bin/herdr-sesh",
+          "root",
+          "--connect"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "workspace.closed",
+        "command": [
+          "./bin/herdr-sesh",
+          "track-focus"
+        ]
+      },
+      {
+        "on": "workspace.focused",
+        "command": [
+          "./bin/herdr-sesh",
+          "track-focus"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "picker",
+        "title": "Sesh",
+        "description": "Interactive fuzzy workspace picker.",
+        "placement": "popup",
+        "width": "85%",
+        "height": "75%",
+        "command": [
+          "./bin/herdr-sesh",
+          "ui"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "xheisenbugx",
+      "repo": "herdr-sesh",
+      "resolved_commit": "b2eed4f0138217b72e146372998517ea80c02308",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/herdr.sesh-69d0e013d6b9",
+      "installed_unix_ms": 1787287432313
+    }
+  },
+  {
+    "plugin_id": "jhochenbaum.hunkdiff",
+    "name": "hunk",
+    "version": "0.1.0",
+    "min_herdr_version": "0.8.0",
+    "description": "Review agent-authored diffs in hunk, and send your inline comments back to the agent that wrote them.",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/jhochenbaum.hunkdiff-a2dc99e853fa/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/jhochenbaum.hunkdiff-a2dc99e853fa",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "build": [
+      {
+        "command": [
+          "npm",
+          "ci"
+        ]
+      },
+      {
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "close-review",
+        "title": "hunk: close the review pane",
+        "contexts": [
+          "pane",
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "close-review"
+        ]
+      },
+      {
+        "id": "install-pager",
+        "title": "hunk: set up hunk as your VCS pager (git automatically, jj and sl by hand)",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "install-pager"
+        ]
+      },
+      {
+        "id": "next-comment",
+        "title": "hunk: go to the next review comment",
+        "contexts": [
+          "pane",
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "next-comment"
+        ]
+      },
+      {
+        "id": "prev-comment",
+        "title": "hunk: go to the previous review comment",
+        "contexts": [
+          "pane",
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "prev-comment"
+        ]
+      },
+      {
+        "id": "reload",
+        "title": "hunk: reload the open review",
+        "contexts": [
+          "workspace",
+          "pane"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "reload"
+        ]
+      },
+      {
+        "id": "remove-keys",
+        "title": "hunk: remove default keybindings",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "remove-keys"
+        ]
+      },
+      {
+        "id": "review",
+        "title": "hunk: review changes",
+        "contexts": [
+          "workspace",
+          "pane"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "review"
+        ]
+      },
+      {
+        "id": "review:branch",
+        "title": "hunk: review this branch against its base",
+        "contexts": [
+          "workspace",
+          "pane"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "review:branch"
+        ]
+      },
+      {
+        "id": "review:commit",
+        "title": "hunk: review the last commit (or a clicked GitHub commit link)",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "review:commit"
+        ]
+      },
+      {
+        "id": "review:staged",
+        "title": "hunk: review staged changes",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "review:staged"
+        ]
+      },
+      {
+        "id": "review:stash",
+        "title": "hunk: review the most recent stash entry",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "review:stash"
+        ]
+      },
+      {
+        "id": "send-review",
+        "title": "hunk: send review to agent",
+        "contexts": [
+          "pane"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "send-review"
+        ]
+      },
+      {
+        "id": "setup-keys",
+        "title": "hunk: install default keybindings",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "setup-keys"
+        ]
+      },
+      {
+        "id": "uninstall-pager",
+        "title": "hunk: stop using hunk as your VCS pager",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "node",
+          "dist/bin/action.js",
+          "uninstall-pager"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "pane.agent_status_changed",
+        "command": [
+          "node",
+          "dist/bin/event.js"
+        ]
+      },
+      {
+        "on": "pane.closed",
+        "command": [
+          "node",
+          "dist/bin/event.js"
+        ]
+      },
+      {
+        "on": "pane.exited",
+        "command": [
+          "node",
+          "dist/bin/event.js"
+        ]
+      },
+      {
+        "on": "worktree.removed",
+        "command": [
+          "node",
+          "dist/bin/event.js"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "review",
+        "title": "hunk review",
+        "placement": "split",
+        "command": [
+          "sh",
+          "-c",
+          "exec node \"$HERDR_PLUGIN_ROOT/dist/bin/pane.js\" review"
+        ]
+      },
+      {
+        "id": "review-branch",
+        "title": "hunk review (branch)",
+        "placement": "split",
+        "command": [
+          "sh",
+          "-c",
+          "exec node \"$HERDR_PLUGIN_ROOT/dist/bin/pane.js\" review:branch"
+        ]
+      },
+      {
+        "id": "review-commit",
+        "title": "hunk review (commit)",
+        "placement": "split",
+        "command": [
+          "sh",
+          "-c",
+          "exec node \"$HERDR_PLUGIN_ROOT/dist/bin/pane.js\" review:commit"
+        ]
+      },
+      {
+        "id": "review-staged",
+        "title": "hunk review (staged)",
+        "placement": "split",
+        "command": [
+          "sh",
+          "-c",
+          "exec node \"$HERDR_PLUGIN_ROOT/dist/bin/pane.js\" review:staged"
+        ]
+      },
+      {
+        "id": "review-stash",
+        "title": "hunk review (stash)",
+        "placement": "split",
+        "command": [
+          "sh",
+          "-c",
+          "exec node \"$HERDR_PLUGIN_ROOT/dist/bin/pane.js\" review:stash"
+        ]
+      }
+    ],
+    "link_handlers": [
+      {
+        "id": "github-commit",
+        "title": "hunk: review this GitHub commit",
+        "pattern": "^https://github\\.com/[^/]+/[^/]+/commit/[0-9a-fA-F]{7,40}/?$",
+        "action": "review:commit"
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "jhochenbaum",
+      "repo": "herdr-hunk-diff",
+      "resolved_commit": "81b85cea5484099acea93f2e9a08c2677eef461b",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/jhochenbaum.hunkdiff-a2dc99e853fa",
+      "installed_unix_ms": 1787286842926
+    }
+  },
+  {
+    "plugin_id": "jt.command-palette",
+    "name": "Command Palette (fzf)",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.0",
+    "description": "An fzf command palette for herdr: pops up a fuzzy-searchable list of every action exposed by every installed plugin (via `herdr plugin action list`) and invokes the one you pick. The picker runs in an overlay pane so fzf gets a real TTY; the origin workspace's cwd is forwarded so context-aware actions resolve the right repo.",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/jt.command-palette-24905dca5f16/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/jt.command-palette-24905dca5f16",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "actions": [
+      {
+        "id": "open",
+        "title": "Command palette (all plugin actions)",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "open.sh"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "palette",
+        "title": "Command palette",
+        "placement": "overlay",
+        "command": [
+          "bash",
+          "-c",
+          "exec \"$HERDR_PLUGIN_ROOT/palette.sh\""
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "JanTvrdik",
+      "repo": "herdr-command-palette",
+      "resolved_commit": "eab940018c2135ac23718efa11e23e9dddcd2a75",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/jt.command-palette-24905dca5f16",
+      "installed_unix_ms": 1787287155284
+    }
+  },
+  {
+    "plugin_id": "official.browser",
+    "name": "Browser",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.4",
+    "description": "Open and inspect real browser pages from Herdr.",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/official.browser-ff2a44eccae9/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/official.browser-ff2a44eccae9",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "actions": [
+      {
+        "id": "open-localhost",
+        "title": "Open localhost in browser",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bun",
+          "run",
+          "src/actions/open-localhost.ts"
+        ]
+      },
+      {
+        "id": "status",
+        "title": "Browser status",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bun",
+          "run",
+          "src/actions/status.ts"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "browser",
+        "title": "Browser",
+        "placement": "split",
+        "command": [
+          "bun",
+          "run",
+          "src/viewer.ts"
+        ]
+      }
+    ],
+    "link_handlers": [
+      {
+        "id": "localhost",
+        "title": "Open in Herdr Browser",
+        "pattern": "^https?://(localhost|127\\.0\\.0\\.1|\\[::1\\])(:[0-9]+)?([/?#].*)?$",
+        "action": "open-localhost"
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "ogulcancelik",
+      "repo": "herdr-browser",
+      "resolved_commit": "be6888b71cf4eb5939ee79a746bd1a1c22ade046",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/official.browser-ff2a44eccae9",
+      "installed_unix_ms": 1787153207069
+    }
+  },
+  {
+    "plugin_id": "official.plannotator",
+    "name": "Plannotator",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.5",
+    "description": "Review Plannotator plans and changes inside Herdr.",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/official.plannotator-9838f572e64c/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/official.plannotator-9838f572e64c",
+    "enabled": true,
+    "platforms": [
+      "linux",
+      "macos"
+    ],
+    "build": [
+      {
+        "command": [
+          "bun",
+          "install",
+          "--frozen-lockfile"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "configure",
+        "title": "Configure Plannotator for Herdr",
+        "contexts": [
+          "global"
+        ],
+        "command": [
+          "bun",
+          "run",
+          "src/actions/configure.ts"
+        ]
+      },
+      {
+        "id": "doctor",
+        "title": "Check Plannotator Herdr integration",
+        "contexts": [
+          "global"
+        ],
+        "command": [
+          "bun",
+          "run",
+          "src/actions/doctor.ts"
+        ]
+      },
+      {
+        "id": "unconfigure",
+        "title": "Remove Plannotator Herdr integration",
+        "contexts": [
+          "global"
+        ],
+        "command": [
+          "bun",
+          "run",
+          "src/actions/unconfigure.ts"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "plannotator",
+      "repo": "herdr-plannotator",
+      "resolved_commit": "e10b969ea1655dbfce25d1464eef6f27c790bb79",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/official.plannotator-9838f572e64c",
+      "installed_unix_ms": 1787153246332
+    }
+  },
+  {
+    "plugin_id": "ray.plugin-manager",
+    "name": "Plugin Manager",
+    "version": "0.2.0",
+    "min_herdr_version": "0.7.4",
+    "description": "Manage herdr plugins from a popup: list, install, update, enable/disable, uninstall, browse the marketplace, open repo in browser, edit plugins.json",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/ray.plugin-manager-75f462e8e1d0/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/ray.plugin-manager-75f462e8e1d0",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "actions": [
+      {
+        "id": "open",
+        "title": "Open plugin manager",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "-c",
+          "exec \"${HERDR_BIN_PATH:-herdr}\" plugin pane open --plugin ray.plugin-manager --entrypoint manager --placement popup --focus"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "manager",
+        "title": "Plugin Manager",
+        "placement": "popup",
+        "width": 82,
+        "height": 28,
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/bin/manager.sh\""
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "speardragon",
+      "repo": "herdr-plugin-manager",
+      "resolved_commit": "3b1f6e1be4ad811e39e4fecb24cd3a976b692241",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/ray.plugin-manager-75f462e8e1d0",
+      "installed_unix_ms": 1787286001954
+    }
+  },
+  {
+    "plugin_id": "worktrunk",
+    "name": "Worktrunk",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Switch, create, or remove git worktrees via worktrunk",
+    "manifest_path": "/Users/mbl/.config/herdr/plugins/github/worktrunk-7fb519583f31/herdr-plugin.toml",
+    "plugin_root": "/Users/mbl/.config/herdr/plugins/github/worktrunk-7fb519583f31",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "actions": [
+      {
+        "id": "open",
+        "title": "Worktree: switch / create from default branch",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/open.sh\" picker-default"
+        ]
+      },
+      {
+        "id": "open-current",
+        "title": "Worktree: switch / create from current branch",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/open.sh\" picker-current"
+        ]
+      },
+      {
+        "id": "open-with-remotes",
+        "title": "Worktree: switch / create from local or remote branches",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/open.sh\" picker-with-remotes"
+        ]
+      },
+      {
+        "id": "remove",
+        "title": "Worktree: remove",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/open.sh\" remover"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "picker-current",
+        "title": "Worktrunk — current branch",
+        "placement": "split",
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/picker.sh\" --create-base=current"
+        ]
+      },
+      {
+        "id": "picker-default",
+        "title": "Worktrunk — default branch",
+        "placement": "split",
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/picker.sh\" --create-base=default"
+        ]
+      },
+      {
+        "id": "picker-with-remotes",
+        "title": "Worktrunk — local and remote branches",
+        "placement": "split",
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/picker.sh\" --show-with-remotes"
+        ]
+      },
+      {
+        "id": "remover",
+        "title": "Worktrunk — remove",
+        "placement": "split",
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/remove.sh\""
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "devashish2203",
+      "repo": "herdr-worktrunk",
+      "resolved_commit": "6fc465434a9cd1271ca02b618490a5ea97bcacf9",
+      "managed_path": "/Users/mbl/.config/herdr/plugins/github/worktrunk-7fb519583f31",
+      "installed_unix_ms": 1787286152746
+    }
+  }
+]

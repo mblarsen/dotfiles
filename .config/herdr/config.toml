@@ -1,0 +1,86 @@
+onboarding = false
+
+[worktrees]
+directory = ".worktrees"
+
+[experimental]
+kitty_graphics = true
+
+[ui]
+show_agent_labels_on_pane_borders = false
+
+agent_panel_sort = "spaces"
+status_indicators = "symbols"
+
+[ui.sound]
+enabled = false
+
+[ui.toast]
+delivery = "herdr"
+
+[keys]
+previous_agent = "prefix+m"
+next_agent = "prefix+,"
+
+[[keys.command]]
+key = "prefix+e"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.toggle"
+description = "nvim sidebar"
+
+[[keys.command]]
+key = "prefix+shift+o"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.pick-file"
+description = "open file from agent output"
+
+# Override herdr's built-in "new worktree" key (prefix+shift+g) with worktrunk's
+# default-branch switch/create picker:
+[[keys.command]]
+key = "prefix+shift+g"
+type = "plugin_action"
+command = "worktrunk.open"
+description = "Worktree: switch / create from default branch"
+
+# Optional: bind current-branch creation separately.
+[[keys.command]]
+key = "prefix+shift+c"
+type = "plugin_action"
+command = "worktrunk.open-current"
+description = "Worktree: switch / create from current branch"
+
+[[keys.command]]
+key = "prefix+shift+d"
+type = "plugin_action"
+command = "worktrunk.remove"
+description = "Worktree: remove"
+
+[[keys.command]]
+key = "prefix+shift+k"
+type = "shell"
+command = "herdr plugin action invoke open-board --plugin herdr-board"
+description = "open herdr-board kanban (overlay)"
+
+[[keys.command]]
+key = "prefix+t"
+type = "shell"
+command = "herdr plugin action invoke dave.token-dashboard.open-dashboard"
+description = "open token dashboard"
+
+[[keys.command]]
+key = "prefix+shift+p"
+type = "plugin_action"
+command = "ray.plugin-manager.open"
+description = "open plugin manager"
+
+[[keys.command]]
+key = "prefix+p"
+type = "plugin_action"
+command = "jt.command-palette.open"
+description = "Command palette"
+
+[[keys.command]]
+key = "prefix+space"
+type = "plugin_action"
+command = "herdr.sesh.picker"
+description = "fuzzy workspace picker"
