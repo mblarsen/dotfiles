@@ -1,0 +1,218 @@
+[catalogs]
+searchPriorities = []
+sortOrders = []
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'reminders'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.applications'
+
+        [catalogs.globalScopes.scope]
+        itemIDs = [
+            '/Applications/1Password for Safari.app',
+            '/Applications/Accelerate.app',
+            '/Applications/BeatDrop Mac.app',
+            '/Applications/Notion Web Clipper.app',
+            '/Applications/Refined GitHub.app',
+            '/System/Applications/Automator.app',
+            '/System/Applications/Books.app',
+            '/System/Applications/Chess.app',
+            '/System/Applications/Podcasts.app',
+            '/System/Applications/Stickies.app',
+            '/System/Applications/Stocks.app',
+            '/System/Applications/TextEdit.app',
+            '/System/Applications/Time Machine.app',
+            '/System/Applications/Utilities/Audio MIDI Setup.app',
+            '/System/Applications/Utilities/Bluetooth File Exchange.app',
+            '/System/Applications/Utilities/Boot Camp Assistant.app',
+            '/System/Applications/Utilities/Console.app',
+            '/System/Applications/Utilities/Script Editor.app',
+            '/System/Applications/Utilities/Terminal.app',
+            '/System/Applications/Utilities/VoiceOver Utility.app',
+            '/System/Library/CoreServices/Applications/Archive Utility.app',
+            '/System/Library/CoreServices/Applications/Directory Utility.app',
+            '/System/Library/CoreServices/Applications/Ticket Viewer.app',
+            '/System/Library/CoreServices/RemoteManagement/ARDAgent.app',
+            '/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app',
+            '/System/Library/CoreServices/ScreenSaverEngine.app',
+            '/System/Library/CoreServices/Script Menu.app',
+            '/System/Library/CoreServices/TimeMachine/TMHelperAgent.app'
+        ]
+        kind = 'excluding'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.effects'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.emoji'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+[[comboMode.bindings]]
+iconPath = 'speaker.wave.2.bubble'
+key = 'c'
+label = 'Chat'
+
+    [comboMode.bindings.destination]
+    bindings = []
+    type = 'group'
+
+[[comboMode.bindings]]
+iconPath = 'rectangle.portrait.and.arrow.right'
+key = 'o'
+label = 'Open'
+
+    [comboMode.bindings.destination]
+    type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        iconPath = 'calendar'
+        key = 'c'
+        label = 'Calendar'
+
+            [comboMode.bindings.destination.bindings.destination]
+            bindings = []
+            type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        iconPath = 'pencil.tip'
+        key = 'n'
+        label = 'Notes'
+
+            [comboMode.bindings.destination.bindings.destination]
+            bindings = []
+            type = 'group'
+
+[[comboMode.bindings]]
+iconPath = 'uiwindow.split.2x1'
+key = 'w'
+label = 'Window Manager'
+
+    [comboMode.bindings.destination]
+    bindings = []
+    type = 'group'
+
+[[comboMode.bindings]]
+iconPath = '/Applications/Amphetamine.app'
+key = 'a'
+label = 'Amphetamine'
+
+    [comboMode.bindings.destination]
+    bindings = []
+    type = 'group'
+
+[[comboMode.bindings]]
+iconPath = '/Applications/EqualEase.app'
+key = 'e'
+label = 'EqualEase'
+
+    [comboMode.bindings.destination]
+    type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'l'
+        label = 'Lock Preset'
+
+            [comboMode.bindings.destination.bindings.destination]
+            bindings = []
+            type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'p'
+        label = 'Preset'
+
+            [comboMode.bindings.destination.bindings.destination]
+            bindings = []
+            type = 'group'
+
+[hotkeys.app.activate]
+carbonKeyCode = 49
+carbonModifiers = 256
+
+[hotkeys.app.dictation]
+carbonKeyCode = 49
+carbonModifiers = 2048
+
+[[hotkeys.custom]]
+id = 'DD8615AC-DDE8-4B42-B280-EA71DC770746'
+
+    [hotkeys.custom.command]
+    actionIdentifier = 'tuna.common-actions/open'
+    behavior = 'run'
+    presentation = 'automatic'
+    subjectIdentifiers = [ 'tuna.applications.all/Strflow' ]
+    type = 'savedCommand'
+
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 2
+    carbonModifiers = 6912
+
+[settings]
+appPresentationMode = 'never'
+clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password', 'com.1password.safari' ]
+comboModeModifierTrigger = 'hyper'
+comboModeTriggerType = 'modifier'
+dictationActivationMode = 'toggle'
+physicalHyperKeySource = 'rightCommand'
+resultListNavigationBindings = 'vimStyle'
+screenPreference = 'activeWindow'
+showResultsImmediatelyOnActivation = true
+typingTimeoutDuration = 1.0
+
+[[smartLinks.entries]]
+enabled = false
+name = 'Bing'
+requiresInput = true
+template = 'https://www.bing.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = false
+name = 'DuckDuckGo'
+requiresInput = true
+template = 'https://duckduckgo.com/?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'GitHub'
+requiresInput = true
+template = 'https://github.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'Google'
+requiresInput = true
+template = 'https://www.google.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = false
+name = 'Stack Overflow'
+requiresInput = true
+template = 'https://stackoverflow.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'Wikipedia'
+requiresInput = true
+template = 'https://en.wikipedia.org/wiki/Special:Search?search={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'YouTube'
+requiresInput = true
+template = 'https://www.youtube.com/results?search_query={{input}}'
+
+[[catalogSettings]]
+catalogIdentifier = 'tuna.prompts'
+
+    [catalogSettings.values]
+    Provider = 'openai'
+    'Provider.openai.BaseURL' = 'https://api.openai.com/v1'
+    'Provider.openai.Model' = 'gpt-5.4-mini'
