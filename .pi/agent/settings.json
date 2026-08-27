@@ -1,0 +1,139 @@
+{
+  "lastChangelogVersion": "0.84.3",
+  "editorPaddingX": 0,
+  "steeringMode": "all",
+  "quietStartup": true,
+  "treeFilterMode": "all",
+  "theme": "dark",
+  "defaultThinkingLevel": "high",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.6-sol",
+  "hideThinkingBlock": false,
+  "packages": [
+    "npm:pi-terminal-theme",
+    "npm:pi-link",
+    "npm:pi-web-access",
+    "npm:@marcfargas/pi-heartbeat",
+    "npm:pi-ask-user",
+    "npm:@foxfirecodes/pi-agents-local-md",
+    "npm:@ctogg/pi-stash",
+    "npm:@ogulcancelik/pi-sketch",
+    "npm:@ogulcancelik/pi-session-recall",
+    "npm:pi-lean-ctx",
+    "git:github.com/elpapi42/pi-observational-memory",
+    "npm:@ygncode/pi-insights",
+    "npm:pi-mcp-adapter",
+    "npm:pi-agent-board",
+    "npm:@zigai/pi-tree",
+    "npm:pi-context-view",
+    "npm:@mblarsen/pi-burn-more-tokens",
+    "npm:@mblarsen/pi-continue-from",
+    "npm:@mblarsen/pi-ferd",
+    "npm:@mblarsen/pi-follow-ups",
+    "npm:@mblarsen/pi-footer-manager",
+    "npm:@mblarsen/pi-observational-memory-leanctx-bridge",
+    "npm:@mblarsen/pi-session-handoff",
+    "npm:@mblarsen/pi-slack-emojis",
+    "npm:@mblarsen/pi-task-ui",
+    "npm:@mblarsen/pi-update-changelog",
+    "npm:pi-skill-toggle",
+    "npm:pi-extmgr",
+    "npm:@narumitw/pi-retry",
+    "npm:@ygncode/pi-web@beta",
+    {
+      "source": "npm:pi-token-burden",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
+    {
+      "source": "git:github.com/w-winter/dot314",
+      "extensions": [
+        "+extensions/anycopy/index.ts",
+        "+extensions/assistant-provenance/index.ts",
+        "+extensions/files-touched.ts",
+        "-extensions/brave-search/index.ts",
+        "-extensions/cmux/index.ts",
+        "-extensions/editor-enhancements/index.ts",
+        "-extensions/fork-from-first.ts",
+        "-extensions/grounded-compaction/index.ts",
+        "-extensions/handover/index.ts",
+        "-extensions/iterm-tab-color.ts",
+        "-extensions/model-aware-compaction/index.ts",
+        "-extensions/model-sysprompt-appendix/index.ts",
+        "-extensions/oracle.ts",
+        "-extensions/plan-mode.ts",
+        "-extensions/poly-notify/index.ts",
+        "-extensions/protect-paths/index.ts",
+        "-extensions/repoprompt-mcp/src/index.ts",
+        "-extensions/roam/index.ts",
+        "-extensions/rp-native-tools-lock/index.ts",
+        "-extensions/session-switch/index.ts",
+        "-extensions/skill-templates/index.ts",
+        "-extensions/usage-bar.ts",
+        "-extensions/sandbox/index.ts"
+      ]
+    },
+    "git:github.com/mblarsen/pi-multi-pass@main",
+    "npm:@plannotator/pi-extension",
+    "git:github.com/rstacruz/skimmable",
+    "npm:@xl0/pi-lovely-rename"
+  ],
+  "autocompleteMaxVisible": 10,
+  "collapseChangelog": true,
+  "doubleEscapeAction": "none",
+  "enabledModels": [],
+  "showHardwareCursor": false,
+  "terminal": {
+    "clearOnShrink": false,
+    "showTerminalProgress": true
+  },
+  "skills": [],
+  "transport": "auto",
+  "footerManager": {
+    "enabled": true,
+    "hidden": [
+      "mcp",
+      "extmgr"
+    ],
+    "order": [
+      "builtin.cwd",
+      null,
+      "builtin.model",
+      null,
+      "builtin.session",
+      null,
+      "builtin.stats",
+      null,
+      "sandbox",
+      null,
+      "multi-pass",
+      "rp-tools-lock",
+      "link",
+      "notify"
+    ],
+    "orderMode": "slot-groups",
+    "layout": [
+      {
+        "left": true,
+        "right": true
+      },
+      {
+        "left": true,
+        "right": true
+      },
+      {
+        "left": true,
+        "right": true
+      }
+    ],
+    "unplaced": [],
+    "renderStatusLine": true,
+    "zenEnabled": false
+  },
+  "markdown": {
+    "mermaid": "streaming"
+  },
+  "showCacheMissNotices": true,
+  "fullscreenScrollbar": "auto"
+}
