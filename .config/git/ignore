@@ -3,3 +3,4 @@
 .venv
 .stfolder/
 tags
+.lean-ctx/

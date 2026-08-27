@@ -20,14 +20,14 @@ export SPACESHIP_PROMPT_ORDER=(
   host          # hostname
   # time          # Time stamps section
   dir           # Current directory section
-  git           # Git section (git_branch + git_status)
+  # git           # Git section (git_branch + git_status)
 
   # docker        # Docker section
   # docker_compose
-  golang
-  lua
-  node          # Node.js section
-  python
+  # golang
+  # lua
+  # node          # Node.js section
+  # python
   venv          # virtualenv section
   jobs
 
@@ -49,7 +49,9 @@ export SPACESHIP_CHAR_SUFFIX=" "
 export SPACESHIP_CHAR_SYMBOL="§"
 export SPACESHIP_EXEC_TIME_PREFIX=""
 export SPACESHIP_GIT_PREFIX=""
+export SPACESHIP_GIT_SHOW=true
 export SPACESHIP_GIT_STATUS_SHOW=false
 
 zstyle ':zim:git' aliases-prefix 'g'
 zstyle ':zim' input_mode='vi'
+export MODE_INDICATOR=""

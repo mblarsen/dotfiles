@@ -18,22 +18,12 @@ sudo apt update
 
 sudo apt install -y \
   curl \
-  direnv \
-  fzf \
   lsd \
   make \
-  ripgrep \
   uuid-dev \
   unzip \
   yadm \
   exuberant-ctags
-
-# pyenv build dependencies
-sudo apt install -y build-essential libssl-dev zlib1g-dev \
-  libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-  libncursesw5-dev xz-utils tk-dev libxml2-dev \
-  libxmlsec1-dev libffi-dev liblzma-dev
-sudo apt install -y libgdbm-dev libnss3-dev libedit-dev
 
 sudo snap install zig --classic --beta
 
@@ -136,15 +126,6 @@ function install_1password() {
 
   # op account add my.1password.eu
   # op account add plantura.1password.eu
-}
-
-function install_nvm() {
-  if [ -d "$XDG_CONFIG_HOME/nvm" ]; then
-    echo "nvm already installed"
-  else
-    PROFILE=/dev/null bash -c 'curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
-    nvm install stable
-  fi
 }
 
 function install_difftastic() {
@@ -285,16 +266,6 @@ function install_pipx_app() {
   fi
 }
 
-function install_pyenv() {
-  if type pyenv &> /dev/null; then
-    echo "pyenv is already installed"
-  else
-    curl https://pyenv.run | bash
-    pyenv install 3.11.11
-    pyenv global 3.11.11
-  fi
-}
-
 function install_fx() {
   if type fx &> /dev/null; then
     echo "fx is already installed"
@@ -316,7 +287,6 @@ function install_sudo_snap_install_app() {
 
 setup_ssh
 build_neovim
-install_pyenv
 install_yadm
 install_zplug
 install_1password
@@ -326,7 +296,6 @@ install_synchthing
 
 install_difftastic
 install_gh
-install_nvm
 install_psql_tooling
 install_posting
 install_taskwarrior

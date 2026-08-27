@@ -1,26 +1,113 @@
+# # OPENSPEC:START
+# # OpenSpec shell completions configuration
+# fpath=("/Users/mbl/.zsh/completions" $fpath)
+# autoload -Uz compinit
+# compinit
+# # OPENSPEC:END
+
 # .zshrc for interactive shells after .zprofile but before .zlogin
+
+if [[ -n "$ZSH_PROFILE" ]]; then
+  zmodload zsh/zprof
+fi
 
 export ZPLUG_HOME=/opt/homebrew/opt/zplug
 
+# mise (activate early so plugins/hooks can find mise-managed tools)
+eval "$(~/.local/bin/mise activate zsh)"
+
 source "$HOME/.config/zsh/init.zsh"
+
+# Namey completions
+if command -v namey >/dev/null 2>&1; then
+  source <(namey completion zsh)
+fi
+
+# suv integration (defer to first prompt so later plugins don't overwrite it)
+if command -v suv >/dev/null; then
+  autoload -Uz add-zsh-hook
+  _suv_init_once() {
+    eval "$(suv init zsh)"
+    bindkey -M viins '^R' suvadu-search
+    add-zsh-hook -d precmd _suv_init_once
+    unfunction _suv_init_once 2>/dev/null
+  }
+  add-zsh-hook precmd _suv_init_once
+fi
 
 # nvim (bob)
 export PATH="/Users/mbl/.local/share/bob/nvim-bin:$PATH"
 
-# sk
-source <(sk --shell zsh)
+# Google Cloud SDK (lazy)
+GCLOUD_SDK_DIR="/Users/mbl/dev/sdk/google-cloud-sdk"
+if [[ -f "$GCLOUD_SDK_DIR/path.zsh.inc" || -f "$GCLOUD_SDK_DIR/completion.zsh.inc" ]]; then
+  _gcloud_lazy_init() {
+    if [[ -f "$GCLOUD_SDK_DIR/path.zsh.inc" ]]; then
+      source "$GCLOUD_SDK_DIR/path.zsh.inc"
+    fi
+    if [[ -f "$GCLOUD_SDK_DIR/completion.zsh.inc" ]]; then
+      source "$GCLOUD_SDK_DIR/completion.zsh.inc"
+    fi
+    unfunction gcloud 2>/dev/null
+    command gcloud "$@"
+  }
+  gcloud() { _gcloud_lazy_init "$@"; }
+fi
 
-alias chat=gemini
+# IntelliShell
+export INTELLI_BOOKMARK_HOTKEY='^b'
+if command -v intelli-shell >/dev/null; then
+  eval "$(intelli-shell init zsh)"
+fi
 
-# Task Master aliases added on 7/9/2025
-alias tm='task-master'
-alias taskmaster='task-master'
+if [[ -f "$HOME/.config/broot/launcher/bash/br" ]]; then
+  source "$HOME/.config/broot/launcher/bash/br"
+fi
+if command -v gw >/dev/null; then
+  if command -v git >/dev/null && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    eval "$(gw shell-init zsh)"
+    eval "$(gw completion zsh)"
+  fi
+fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/mbl/dev/sdk/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/mbl/dev/sdk/google-cloud-sdk/path.zsh.inc'; fi
+# Added by Antigravity
+export PATH="/Users/mbl/.antigravity/antigravity/bin:$PATH"
 
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/mbl/dev/sdk/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/mbl/dev/sdk/google-cloud-sdk/completion.zsh.inc'; fi
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun completions
+[ -s "/Users/mbl/.bun/_bun" ] && source "/Users/mbl/.bun/_bun"
 
 # opencode
 export PATH=/Users/mbl/.opencode/bin:$PATH
+
+if [[ -n "$ZSH_PROFILE" ]]; then
+  zprof
+fi
+
+# eval "$(tv init zsh)"
+
+# export DRIFT_TIMEOUT=360
+# eval "$(drift shell-init zsh)"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# export AZURE_OPENAI_BASE_URL=https://plants-heart-codex-resource.cognitiveservices.azure.com
+# export AZURE_OPENAI_RESOURCE_NAME=plants-heart-codex-resource
+# export AZURE_COGNITIVE_SERVICES_RESOURCE_NAME=$AZURE_OPENAI_RESOURCE_NAME
+#
+# lean-ctx shell hook — begin
+# if [ -f "/Users/mbl/.config/lean-ctx/shell-hook.zsh" ]; then
+# . "/Users/mbl/.config/lean-ctx/shell-hook.zsh"
+# fi
+# lean-ctx shell hook — end
+
+# >>> lean-ctx agent aliases >>>
+# alias claude='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" claude'
+# alias codex='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" codex'
+# alias gemini='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" gemini'
+# <<< lean-ctx agent aliases <<<
+
+export PATH="$PATH:/Users/mbl/dev/mblarsen/pi-multi-pass/roc_nightly-macos_apple_silicon-2026-08-05-24f0b47"

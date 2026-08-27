@@ -1,86 +1,100 @@
 source "$HOME/.config/zsh/vars.zsh"
 
-zstyle ':zim' input_mode='vi' # hmm, probably not used sinze
+[[ -n "$XDG_CACHE_HOME" ]] || XDG_CACHE_HOME="$HOME/.cache"
+ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh"
+[[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR"
 
-# disable automatic init
-zstyle ':zim:*' use-compinit false
+# Initialize zi
+source "${ZDOTDIR:-$HOME}/.zi/zi.zsh"
 
-source "$ZPLUG_HOME/init.zsh"
+export FZF_COMPLETION_TRIGGER='**'
 
-# https://github.com/zimfw/environment
-# Sets sane Zsh built-in environment options.
-zplug "zimfw/environment", use:"init.zsh"
+# Environment
+zi light zimfw/environment
 
-# https://github.com/zimfw/git
-# Provides handy Git aliases and functions.
-zstyle ':zim:git' aliases-prefix 'g'
-zplug "zimfw/git", use:"init.zsh"  aliases-prefix 'g'
+# Git aliases
+zi light zimfw/git
 
-# https://github.com/zimfw/utility
-# Utility aliases and functions.
-zplug "zimfw/utility", use:"init.zsh"
+# Utility aliases
+zi light zimfw/utility
 
-from_oh_my_zsh=(
-  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/direnv
-  # This plugin creates the Direnv hook.
-  direnv
-  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/fzf
-  # This plugin tries to find junegunn's fzf based on where it's been
-  # installed, and enables its fuzzy auto-completion and key bindings.
-  fzf
-  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vi-mode
-  # This plugin increase vi-like zsh functionality.
-  vi-mode
-  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gh
-  # This plugin adds completion for the GitHub CLI.
-  gh
-  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/brew
-  # The plugin adds several aliases for common brew commands.
-  brew
-  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/nvm
-  # This plugin adds autocompletions for nvm — a Node.js version manager. It
-  # also automatically sources nvm, so you don't need to do it manually in your
-  # .zshrc.
-  nvm
-  # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/zoxide/README.md
-  zoxide
-)
+# Oh My Zsh plugins (Consolidated)
+# Load all desired OMZ plugins under a single call for efficiency.
+zi ice pick"lib/history.zsh" \
+       pick"plugins/fzf/fzf.plugin.zsh" \
+       pick"plugins/gh/gh.plugin.zsh"
+zi light ohmyzsh/ohmyzsh
 
-for plugin in "${from_oh_my_zsh[@]}"; do
-  zplug "plugins/${plugin}", from:"oh-my-zsh"
-done
+# vi mode (jeffreytse)
+# zi light jeffreytse/zsh-vi-mode
+# built-in vi mode
+autoload -Uz edit-command-line
+zle -N edit-command-line
 
-# https://github.com/zsh-users/zsh-autosuggestions
-zplug "zsh-users/zsh-autosuggestions", use:"zsh-autosuggestions.zsh"
+bindkey -v
+bindkey -M vicmd "^V" edit-command-line
+export KEYTIMEOUT=1 # 0.01s
 
-# https://github.com/MichaelAquilina/zsh-you-should-use
-zplug "MichaelAquilina/zsh-you-should-use"
 
-# https://github.com/spaceship-prompt/spaceship-prompt
-zplug "spaceship-prompt/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-
-# goenv
-zplug "RiverGlide/zsh-goenv", from:gitlab
-
-# pyenv
-
-if [ -d "$HOME/.pyenv" ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init - zsh)"
+# Zoxide
+if command -v zoxide >/dev/null; then
+  _zoxide_init() {
+    setopt local_options nonomatch
+    eval "$(zoxide init zsh --no-cmd)"
+  }
+  _zoxide_init
+  unset -f _zoxide_init
+  if (( ${+functions[__zoxide_z]} )); then
+    z() { __zoxide_z "$@"; }
+  fi
+  if (( ${+functions[__zoxide_zi]} )); then
+    zz() { __zoxide_zi "$@"; }
+  fi
 fi
 
-if ! zplug check --verbose; then
-  zplug install
+# Other plugins
+zi light zsh-users/zsh-autosuggestions
+zi light MichaelAquilina/zsh-you-should-use
+
+# oc_sessions as ocs
+zi ice as"program" id-as"ocs" pick"ocs" cp"oc_sessions -> ocs"
+zi snippet https://github.com/bashtools/oc_session/blob/main/oc_sessions
+
+# Theme
+# Load the theme LAST, after all prompt-modifying plugins (like vi-mode)
+# are sourced and their functions are available.
+zi light spaceship-prompt/spaceship-prompt
+
+# direnv hook (ensure active even if OMZ plugin isn't)
+if command -v direnv >/dev/null; then
+  unfunction _direnv_hook 2>/dev/null || true
+  eval "$(command direnv hook zsh)"
+  eval "$(command direnv export zsh)"
 fi
 
-zplug load
+# fzf completions + keybindings (Homebrew)
+if [[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]]; then
+  source /opt/homebrew/opt/fzf/shell/completion.zsh
+fi
+if [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]]; then
+  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+fi
 
 # Wezterm completion
 if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
   eval "$(wezterm shell-completion --shell zsh)"; compdef _wezterm wezterm
 fi
 
-autoload -Uz compinit && compinit
+# Local completions
+if [[ -d "$HOME/.config/zsh/completions" ]]; then
+  fpath=("$HOME/.config/zsh/completions" $fpath)
+fi
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
+autoload -Uz compinit && compinit -d "$ZSH_CACHE_DIR/zcompdump"
+
+# Keybindings
+bindkey -M viins '^E' end-of-line
 
 source "$HOME/.config/zsh/alias.zsh"
